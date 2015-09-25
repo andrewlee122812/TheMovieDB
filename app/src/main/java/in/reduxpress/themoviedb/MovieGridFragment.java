@@ -142,7 +142,7 @@ public  class MovieGridFragment extends Fragment implements AdapterView.OnItemCl
                     movie.setReleaseDate(movieObject.getString("release_date"));
                     movie.setVoteAverage(movieObject.getString("vote_average"));
                     movie.setPoster_path("http://image.tmdb.org/t/p/w500//" + movieObject.getString("poster_path"));
-                    movie.setBackdrop_path("http://image.tmdb.org/t/p/w500//" + movieObject.getString("backdrop_path"));
+                    movie.setBackdrop_path("http://image.tmdb.org/t/p/w780//" + movieObject.getString("backdrop_path"));
                     movieList.add(movie);
                 }
             }

@@ -8,15 +8,14 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:weightSum="1.0"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
+                android:layout_height="200dp"
                 android:layout_weight="0.3">
 
                 <ImageView
@@ -29,16 +28,59 @@
 
 
             <RelativeLayout
+                android:layout_width="100dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="110dp"
+                android:id="@+id/details_poster_imageview_parent"
+                android:layout_marginLeft="30dp">
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="1dp"
+                    android:background="@color/material_blue_grey_800"
+                    android:id="@+id/details_poster_imageview"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.2">
+                android:layout_height="120dp"
+                android:id="@+id/details_title_parent"
+                android:layout_marginTop="160dp"
+                android:layout_toRightOf="@+id/details_poster_imageview_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:typeface="serif"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    android:text="Movie"
+                    android:id="@+id/details_movie_title"
+                    android:layout_marginLeft="25dp"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"/>
 
 
             </RelativeLayout>
-        </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="320dp">
+
+
+                <TextView
+                    android:layout_width="200sp"
+                    android:layout_height="fill_parent"
+                    android:textSize="15sp"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/details_description"
+                    android:text="sdbvibsidfvisdfnvsdfnvinsdfnvsdfnvn"/>
+                </RelativeLayout>
+
+            </RelativeLayout>
+
     </ScrollView>
-
-
-
-
 </LinearLayout>
