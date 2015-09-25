@@ -45,11 +45,14 @@ public  class MovieGridFragment extends Fragment implements AdapterView.OnItemCl
     private List<Movie> movieList;
     TwoWayView mHorizontalListView;
     TwoWayView mHorizontalListView1;
+    TwoWayView mHorizontalListView2;
+
     final String SORT_BY_POPULARITY = "popularity.desc";
     final String SORT_BY_TOP_RATED = "vote_average.desc";
     final String SORT_BY_LATEST = "release_date.desc";
     final String SORT_BY_OLDEST = "release_date.asc";
     int flag = 0;
+    FetchMovies fetchMoviesTask;
 
 
     public MovieGridFragment() {
@@ -64,13 +67,19 @@ public  class MovieGridFragment extends Fragment implements AdapterView.OnItemCl
         //mGridView = (ListView)rootView.findViewById(R.id.mainGrid);
         mHorizontalListView = (TwoWayView)  rootView.findViewById(R.id.list1);
         mHorizontalListView1 = (TwoWayView)  rootView.findViewById(R.id.list2);
+        mHorizontalListView2 = (TwoWayView)  rootView.findViewById(R.id.list3);
 
 
 
-        FetchMovies fetchMoviesTask = new FetchMovies();
-        fetchMoviesTask.execute(SORT_BY_POPULARITY);
+        fetchMoviesTask = new FetchMovies();
+        fetchMoviesTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,SORT_BY_POPULARITY);
+       // fetchMoviesTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,SORT_BY_TOP_RATED);
+
 
         mHorizontalListView.setOnItemClickListener(MovieGridFragment.this);
+        mHorizontalListView1.setOnItemClickListener(MovieGridFragment.this);
+        mHorizontalListView2.setOnItemClickListener(MovieGridFragment.this);
+
 
         return rootView;
     }
@@ -150,15 +159,20 @@ public  class MovieGridFragment extends Fragment implements AdapterView.OnItemCl
             screenDPI = getScreenDPI();
             DatabaseHandler db = new DatabaseHandler(getActivity());
             mImageAdapter = new ImageAdapter(getActivity(),result,screenWidth,screenDPI);
-            if(flag == 0 ) {
+            if(flag == 0) {
                 mHorizontalListView.setAdapter(mImageAdapter);
                 mHorizontalListView.setItemMargin(2);
-                
-            }
+                mHorizontalListView1.setAdapter(mImageAdapter);
+                mHorizontalListView1.setItemMargin(2);
+                mHorizontalListView2.setAdapter(mImageAdapter);
+                mHorizontalListView2.setItemMargin(2);
+                flag = 1;
+            } /*else if(flag == 1) {
 
-            mHorizontalListView1.setAdapter(mImageAdapter);
-            mHorizontalListView1.setItemMargin(10);
-
+                flag = 2;
+            } else {
+                Log.d("Flag value:" , flag + "out of context");
+            }*/
         }
 
         private List<Movie> MoviesParser(String result) {

@@ -9,7 +9,7 @@
         android:layout_height="fill_parent">
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -31,9 +31,11 @@
             <RelativeLayout
                 android:layout_width="100dp"
                 android:layout_height="150dp"
-                android:layout_marginTop="110dp"
+                android:layout_marginTop="135dp"
                 android:id="@+id/details_poster_imageview_parent"
                 android:layout_marginLeft="30dp">
+
+
 
                 <ImageView
                     android:layout_width="fill_parent"
@@ -45,7 +47,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/details_title_parent"
                 android:layout_marginLeft="25dp"
@@ -53,30 +55,50 @@
                 android:layout_toRightOf="@+id/details_poster_imageview_parent">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="30sp"
+                    android:textSize="20sp"
                     android:typeface="serif"
+                    android:textStyle="bold"
                     android:textAppearance="?android:textAppearanceMedium"
-                    android:text="Movie"
+                    android:text="Movie In the name of god"
                     android:id="@+id/details_movie_title"
                     android:layout_centerHorizontal="true"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/white"/>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    />
 
 
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="320dp">
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/details_description_parent_rl"
+                android:layout_below="@+id/details_title_parent"
+                android:padding="@dimen/padding_min"
+                android:layout_marginTop="220dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:text="Overview"
+                    android:textColor="@color/monsoon"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="20sp"
+                    android:id="@+id/details_overview"
+                    />
 
 
                 <TextView
-                    android:layout_width="200sp"
+                    android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:textSize="15sp"
                     android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/details_overview"
                     android:id="@+id/details_description"
                     android:text="sdbvibsidfvisdfnvsdfnvinsdfnvsdfnvn"/>
                 </RelativeLayout>

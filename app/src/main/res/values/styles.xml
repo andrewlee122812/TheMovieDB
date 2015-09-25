@@ -3,17 +3,21 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="android:actionBarStyle">@style/CustomActionBarTheme</item>
     </style>
 
     <style name="CustomActionBarTheme"
         parent="@android:style/Theme.Holo">
         <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:logo">@android:color/transparent</item>
+
+
     </style>
 
     <style name="CustomActionBarTheme1"
         parent="@android:style/Theme.Holo">
         <item name="android:windowActionBarOverlay">false</item>
+
     </style>
 
 </resources>

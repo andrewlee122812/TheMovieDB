@@ -36,6 +36,11 @@ public class DetailsActivityFragment extends Fragment {
         mTitle = (TextView)rootView.findViewById(R.id.details_movie_title);
         mDescription = (TextView)rootView.findViewById(R.id.details_description);
 
+        android.app.ActionBar actionBar = getActivity().getActionBar();
+        if(actionBar != null) {
+            actionBar.setTitle("");
+        }
+
         Bundle b =  getArguments();
         if(b != null) {
             Log.d("",b.size() + "");
@@ -64,5 +69,7 @@ public class DetailsActivityFragment extends Fragment {
 
         return rootView;
     }
+
+
 
 }

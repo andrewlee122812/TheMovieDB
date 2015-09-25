@@ -81,7 +81,7 @@ public class ImageAdapter extends BaseAdapter {
 
         Picasso picasso = Picasso.with(activity);
         picasso.load(movieList.get(position).getPoster_path())
-                .resize((92*3), (138*3))
+                .resize((154*3), (231*3))
                 .noFade()
                 .into(holder.imageView);
         picasso.setIndicatorsEnabled(true);
