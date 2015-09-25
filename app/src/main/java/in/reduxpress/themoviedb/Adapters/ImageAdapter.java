@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
@@ -17,6 +16,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import in.reduxpress.themoviedb.DataModels.Movie;
+import in.reduxpress.themoviedb.R;
 
 public class ImageAdapter extends BaseAdapter {
 
@@ -61,26 +61,19 @@ public class ImageAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View view, ViewGroup parent) {
-        ImageView imageView;
-        String src = movieList.get(position).getPoster_path();
+    public View getView(final int position, View convertView, ViewGroup parent) {
+
+        View view = convertView;
+        ViewHolder holder = new ViewHolder();
         if (view == null) {
-            imageView = new ImageView(activity);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.WRAP_CONTENT, GridView.LayoutParams.WRAP_CONTENT));
+            view = inflater.inflate(R.layout.horizontal_listview_item, parent,false);
+            holder.imageView = (ImageView)view.findViewById(R.id.main_activity_image_poster);
 
         } else {
-            imageView = (ImageView) view;
 
             // When you get a recycled item, check if it's not already the one you want to display.
-            String newSrc = (String) imageView.getTag();
-
-            if(newSrc.equals(src)){
-                // If so, return it directly.
-                return imageView;
-            }
+            holder = (ViewHolder)view.getTag();
         }
-
 
         int width = screenWidth/2;
 
@@ -88,14 +81,15 @@ public class ImageAdapter extends BaseAdapter {
 
         Picasso picasso = Picasso.with(activity);
         picasso.load(movieList.get(position).getPoster_path())
-                .resize(width, height)
+                .resize((92*3), (138*3))
                 .noFade()
-                .into(imageView);
+                .into(holder.imageView);
         picasso.setIndicatorsEnabled(true);
 
-        imageView.setTag(src);
 
-        return imageView;
+        view.setTag(holder);
+
+        return view;
     }
 
     public int computeImageHeight(int screenWidth) {

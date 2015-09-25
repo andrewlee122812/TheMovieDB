@@ -52,7 +52,7 @@ public class DetailsActivityFragment extends Fragment {
 
         Picasso.with(getActivity())
                 .load(movie.getBackdrop_path())
-                .resize(1080,540)
+                .resize(1115,626)
                 .into(mBackDrop);
 
         Picasso.with(getActivity())
@@ -60,7 +60,7 @@ public class DetailsActivityFragment extends Fragment {
                 .resize(300,450)
                 .into(mPoster);
 
-        Log.d("",url);
+        Log.d("",movie.getBackdrop_path());
 
         return rootView;
     }

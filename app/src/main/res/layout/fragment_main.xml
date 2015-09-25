@@ -1,14 +1,63 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".MainActivity$PlaceholderFragment">
 
-
-    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/mainGrid"
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:numColumns="auto_fit"
-        />
+        android:layout_height="150dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/main_activity_rl1">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/most_popular_textview"
+            android:text="Most Popular"/>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/most_popular_textview">
+
+            <org.lucasr.twowayview.TwoWayView
+                android:id="@+id/list1"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:drawSelectorOnTop="false"
+                />
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/main_activity_rl1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Top Rated"/>
+
+        <org.lucasr.twowayview.TwoWayView
+            android:id="@+id/list2"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:drawSelectorOnTop="false"
+            tools:context=".MainActivity" />
+
+    </RelativeLayout>
+
+
+
+
+
 </RelativeLayout>
