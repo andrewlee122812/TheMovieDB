@@ -5,29 +5,18 @@ package in.reduxpress.themoviedb.Adapters;
  */
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import java.io.InputStream;
 import java.util.List;
 
 import in.reduxpress.themoviedb.DataModels.Movie;
-import in.reduxpress.themoviedb.R;
 
 public class ImageAdapter extends BaseAdapter {
 
@@ -73,36 +62,44 @@ public class ImageAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View view, ViewGroup parent) {
-        View v = view;
-        ViewHolder holder;
+        ImageView imageView;
+        String src = movieList.get(position).getPoster_path();
+        if (view == null) {
+            imageView = new ImageView(activity);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageView.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.WRAP_CONTENT, GridView.LayoutParams.WRAP_CONTENT));
 
-
-        if (v == null) {
-            holder = new ViewHolder();
-            v = inflater.inflate(R.layout.movie_poster_image,null);
-            holder.imageView = (ImageView)v.findViewById(R.id.movie_poster_imageview);
-            v.setTag(holder);
         } else {
+            imageView = (ImageView) view;
 
-            holder = (ViewHolder) v.getTag();
+            // When you get a recycled item, check if it's not already the one you want to display.
+            String newSrc = (String) imageView.getTag();
+
+            if(newSrc.equals(src)){
+                // If so, return it directly.
+                return imageView;
+            }
         }
+
 
         int width = screenWidth/2;
 
         int height = computeImageHeight(width);
 
-        Picasso.with(activity)
-                .load(movieList.get(position).getPoster_path())
+        Picasso picasso = Picasso.with(activity);
+        picasso.load(movieList.get(position).getPoster_path())
                 .resize(width, height)
                 .noFade()
-                .into(holder.imageView);
+                .into(imageView);
+        picasso.setIndicatorsEnabled(true);
 
+        imageView.setTag(src);
 
-        return v;
+        return imageView;
     }
 
     public int computeImageHeight(int screenWidth) {
-        return ((int) (screenWidth * 1.66));
+        return ((int) (screenWidth * 1.5));
     }
 
 
