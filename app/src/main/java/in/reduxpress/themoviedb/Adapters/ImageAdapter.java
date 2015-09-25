@@ -5,17 +5,25 @@ package in.reduxpress.themoviedb.Adapters;
  */
 
 import android.content.Context;
-import android.graphics.Color;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.squareup.picasso.Picasso;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.InputStream;
 import java.util.List;
 
 import in.reduxpress.themoviedb.DataModels.Movie;
@@ -61,8 +69,6 @@ public class ImageAdapter extends BaseAdapter {
 
     public  class ViewHolder {
         ImageView imageView;
-        RelativeLayout relativeLayout;
-
     }
 
     @Override
@@ -75,43 +81,22 @@ public class ImageAdapter extends BaseAdapter {
             holder = new ViewHolder();
             v = inflater.inflate(R.layout.movie_poster_image,null);
             holder.imageView = (ImageView)v.findViewById(R.id.movie_poster_imageview);
-            holder.relativeLayout = (RelativeLayout)v.findViewById(R.id.movie_poster_imageview_parent_rl);
             v.setTag(holder);
         } else {
 
             holder = (ViewHolder) v.getTag();
         }
 
-        if(position % 2 == 0 ) {
-            holder.relativeLayout.setBackgroundColor(Color.TRANSPARENT);
-        } else {
-            holder.relativeLayout.setBackgroundColor(Color.YELLOW);
-        }
+        int width = screenWidth/2;
 
-        holder.imageView.getLayoutParams().width = screenWidth/2;
-        width  = holder.imageView.getLayoutParams().width;
-        width =  width * (screenDPI / 160);
-        Log.d("width of imageview: ", width + "");
-        holder.imageView.getLayoutParams().height = computeImageHeight(screenWidth / 2);
-        Log.d("Height in dp: ", computeImageHeight( screenWidth/ 2) + "");
-        height = holder.imageView.getLayoutParams().height;
-        height =  height * (screenDPI / 160);
-        Log.d("height of imageview: ", height + "");
+        int height = computeImageHeight(width);
 
-
-        /*holder.imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
-        holder.imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);*/
-
-
-
-        /*Picasso.with(activity)
+        Picasso.with(activity)
                 .load(movieList.get(position).getPoster_path())
-                .resize(155, 258)
-                .into(holder.imageView);*/
+                .resize(width, height)
+                .noFade()
+                .into(holder.imageView);
 
-        Picasso mPicasso = Picasso.with(activity);
-        mPicasso.setIndicatorsEnabled(true);
-        mPicasso.load(movieList.get(position).getPoster_path()).resize(width,height).into(holder.imageView);
 
         return v;
     }
@@ -119,4 +104,6 @@ public class ImageAdapter extends BaseAdapter {
     public int computeImageHeight(int screenWidth) {
         return ((int) (screenWidth * 1.66));
     }
+
+
 }

@@ -1,16 +1,42 @@
 package in.reduxpress.themoviedb;
 
+import android.app.Activity;
+import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class DetailsActivity extends FragmentActivity {
+import in.reduxpress.themoviedb.DataModels.Movie;
+
+public class DetailsActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+
+        Intent intent = getIntent();
+        Movie movie = intent.getParcelableExtra("MovieDetails");
+
+        Bundle b = new Bundle();
+        if(movie != null) {
+            Log.d("Details", "Received Arraylist");
+            Log.d("Details", movie.getOriginal_title());
+
+            b.putParcelable("MovieDetails", movie);
+        }
+
+        if (savedInstanceState == null) {
+
+            DetailsActivityFragment newFragment = new DetailsActivityFragment();
+            newFragment.setArguments(b);
+            FragmentTransaction ft = getFragmentManager().beginTransaction()
+                    .add(R.id.container_details, newFragment);
+            ft.commit();
+        }
+
     }
 
 

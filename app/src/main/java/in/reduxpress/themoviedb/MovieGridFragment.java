@@ -1,14 +1,17 @@
 package in.reduxpress.themoviedb;
 
-import android.content.res.Configuration;
+import android.app.Fragment;
+import android.content.Intent;
+import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import org.json.JSONArray;
@@ -31,12 +34,13 @@ import in.reduxpress.themoviedb.HelperClasses.DatabaseHandler;
 /**
  * Created by kumardivyarajat on 10/06/15.
  */
-public  class MovieGridFragment extends Fragment {
+public  class MovieGridFragment extends Fragment implements AdapterView.OnItemClickListener{
 
     private GridView mGridView;
     private ImageAdapter mImageAdapter;
     private int screenWidth;
     private int screenDPI;
+    private List<Movie> movieList;
 
     public MovieGridFragment() {
 
@@ -52,10 +56,21 @@ public  class MovieGridFragment extends Fragment {
         FetchMovies fetchMoviesTask = new FetchMovies();
         fetchMoviesTask.execute();
 
+        mGridView.setOnItemClickListener(MovieGridFragment.this);
 
         return rootView;
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+       Movie movie = new Movie();
+        movie = movieList.get(position);
+
+        Intent intent = new Intent(getActivity().getApplicationContext(),DetailsActivity.class);
+        intent.putExtra("MovieDetails",movie);
+        startActivity(intent);
+
+    }
 
 
     public class FetchMovies extends AsyncTask<Void,Void,List<Movie>> {
@@ -112,7 +127,7 @@ public  class MovieGridFragment extends Fragment {
 
         private List<Movie> MoviesParser(String result) {
             JSONObject myjson;
-            List<Movie> movieList = new ArrayList<>();
+             movieList = new ArrayList<>();
             try
             {
                 myjson = new JSONObject(result);
@@ -141,14 +156,19 @@ public  class MovieGridFragment extends Fragment {
 
     public int getScreenDimen() {
 
-        Configuration configuration = getActivity().getResources().getConfiguration();
-        int screenWidthDp = configuration.screenWidthDp; //The current width of the available screen space, in dp units, corresponding to screen width resource qualifier.
-        return screenWidthDp;
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        Log.d("Screen px value:", width + "");
+        return width;
     }
+
     public int getScreenDPI() {
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         return metrics.densityDpi;
     }
+
 
 
 }
