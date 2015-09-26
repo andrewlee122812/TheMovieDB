@@ -1,6 +1,7 @@
 package in.reduxpress.themoviedb;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +27,7 @@ public class DetailsActivityFragment extends Fragment {
     ImageView mPoster;
     TextView mTitle;
     TextView mDescription;
+    Button mButton;
 
     public DetailsActivityFragment() {
     }
@@ -37,6 +40,7 @@ public class DetailsActivityFragment extends Fragment {
         mPoster = (ImageView)rootView.findViewById(R.id.details_poster_imageview);
         mTitle = (TextView)rootView.findViewById(R.id.details_movie_title);
         mDescription = (TextView)rootView.findViewById(R.id.details_description);
+        mButton = (Button)rootView.findViewById(R.id.test_button);
 
         android.app.ActionBar actionBar = getActivity().getActionBar();
         if(actionBar != null) {
@@ -70,7 +74,14 @@ public class DetailsActivityFragment extends Fragment {
                 .resize(300,450)
                 .into(mPoster);
 
-        Log.d("",movie.getBackdrop_path());
+        Log.d("", movie.getBackdrop_path());
+
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),TestActivity.class));
+            }
+        });
 
         return rootView;
     }

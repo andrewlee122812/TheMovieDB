@@ -101,9 +101,21 @@
                     android:layout_below="@+id/details_overview"
                     android:id="@+id/details_description"
                     android:text="sdbvibsidfvisdfnvsdfnvinsdfnvsdfnvn"/>
-                </RelativeLayout>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/test_button"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:text="Check parallax"/>
 
             </RelativeLayout>
+
+
+
+        </RelativeLayout>
+
 
     </ScrollView>
 </LinearLayout>
