@@ -1,8 +1,10 @@
 package in.reduxpress.themoviedb;
 
 import android.app.Fragment;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,9 +57,12 @@ public class DetailsActivityFragment extends Fragment {
         String url = movie.getPoster_path();
         url = url.replace("w500","w185");
 
+        int width = getScreenDimen();
+
+
         Picasso.with(getActivity())
                 .load(movie.getBackdrop_path())
-                .resize(1115,626)
+                .resize(width,(int)(width*0.56111111111111))
                 .into(mBackDrop);
 
         Picasso.with(getActivity())
@@ -69,6 +74,17 @@ public class DetailsActivityFragment extends Fragment {
 
         return rootView;
     }
+
+    public int getScreenDimen() {
+
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        Log.d("Screen px value:", width + "");
+        return width;
+    }
+
 
 
 

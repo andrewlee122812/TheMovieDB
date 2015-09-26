@@ -116,7 +116,7 @@ public  class MovieGridFragment extends Fragment implements AdapterView.OnItemCl
             String builtUrl = builder1.build().toString();
             String checkUrl = "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=c74eefc5fded173206b2b3abb1bc76a2";
 
-            Log.d("Checking URI", checkUrl.compareTo(builtUrl) + "");
+            Log.d("Checking URI", checkUrl.compareTo(checkUrl) + "");
 
             try {
                 URL url    = new URL(builtUrl);
