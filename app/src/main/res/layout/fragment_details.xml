@@ -1,39 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
-
-    <ScrollView
+    android:layout_height="match_parent">
+<!--in.reduxpress.themoviedb.HelperClasses.TrackingScrollView-->
+    <in.reduxpress.themoviedb.HelperClasses.TrackingScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:id="@+id/scroller"
+        android:layout_height="match_parent">
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:orientation="vertical">
 
-            <RelativeLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/backdrop_parent_rl"
-                android:layout_weight="0.3">
+                android:background="@color/monsoon"
+                android:id="@+id/backdrop_parent_rl">
 
                 <ImageView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@color/iron"
+                    android:src="@color/black"
                     android:id="@+id/details_imageview_backdrop"/>
 
-            </RelativeLayout>
+            </FrameLayout>
 
 
             <RelativeLayout
                 android:layout_width="100dp"
                 android:layout_height="150dp"
-                android:layout_marginTop="135dp"
+                android:layout_below="@+id/backdrop_parent_rl"
                 android:id="@+id/details_poster_imageview_parent"
-                android:layout_marginLeft="30dp">
+                android:layout_marginLeft="20dp">
 
 
 
@@ -41,7 +42,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:padding="1dp"
-                    android:background="@color/material_blue_grey_800"
+                    android:background="@color/white"
                     android:id="@+id/details_poster_imageview"/>
 
             </RelativeLayout>
@@ -51,6 +52,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/details_title_parent"
                 android:layout_marginLeft="25dp"
+
                 android:layout_below="@+id/backdrop_parent_rl"
                 android:layout_toRightOf="@+id/details_poster_imageview_parent">
 
@@ -67,25 +69,99 @@
                     android:textColor="@color/white"/>
 
                 <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:id="@+id/view1"
+                    android:layout_below="@+id/details_movie_title"
+                    android:background="@color/material_blue_grey_950"
                     />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/review"
+                    android:id="@+id/review_imageview"
+                    android:layout_below="@+id/view1"
+                    android:layout_marginTop="5dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:text="10.0"
+                    android:id="@+id/review_texview_editing"
+                    android:layout_marginLeft="3dp"
+                    android:textSize="20sp"
+                    android:layout_below="@+id/review_imageview"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Genre"
+                    android:id="@+id/genre_info_textview"
+                    android:textSize="20sp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@+id/review_imageview"
+                    android:layout_below="@+id/view1"
+                    android:layout_marginLeft="30dp"/>
+
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:id="@+id/genre_listview"
+                    android:clickable="false"
+                    android:minHeight="2dp"
+                    android:layout_toRightOf="@+id/review_texview_editing"
+                    android:layout_marginLeft="30dp"
+                    android:layout_below="@+id/genre_info_textview">
+                </ListView>
 
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="fill_parent"
-                android:id="@+id/details_description_parent_rl"
+                android:layout_height="100dp"
+                android:id="@+id/button_for_use"
+                android:layout_marginTop="20dp"
                 android:layout_below="@+id/details_title_parent"
+                >
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@color/material_blue_grey_950"
+                    />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="30dp"
+                    android:background="@color/transparent"
+                    android:src="@drawable/ic_heart"/>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/details_description_parent_rl"
                 android:padding="@dimen/padding_min"
-                android:layout_marginTop="220dp">
+                android:layout_below="@+id/button_for_use">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@color/material_blue_grey_950"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:text="Overview"
+                    android:layout_marginTop="20dp"
                     android:textColor="@color/monsoon"
                     android:layout_centerHorizontal="true"
                     android:textSize="20sp"
@@ -102,13 +178,19 @@
                     android:id="@+id/details_description"
                     android:text="sdbvibsidfvisdfnvsdfnvinsdfnvsdfnvn"/>
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/test_button"
-                    android:layout_centerHorizontal="true"
-                    android:layout_alignParentBottom="true"
-                    android:text="Check parallax"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/details_description_parent_rl">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@color/material_blue_grey_950"
+                    />
 
             </RelativeLayout>
 
@@ -117,5 +199,5 @@
         </RelativeLayout>
 
 
-    </ScrollView>
-</LinearLayout>
+    </in.reduxpress.themoviedb.HelperClasses.TrackingScrollView>
+</ScrollView>

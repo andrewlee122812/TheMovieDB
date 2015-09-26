@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
 /**
  * Created by kumardivyarajat on 25/09/15.
  */
@@ -19,6 +21,15 @@ public class Movie implements Parcelable {
     String movieID;
     Bitmap movieBackdrop;
     Bitmap moviePoster;
+    ArrayList genre;
+
+    public ArrayList getGenre() {
+        return genre;
+    }
+
+    public void setGenre(ArrayList genre) {
+        this.genre = genre;
+    }
 
     public Bitmap getMovieBackdrop() {
         return movieBackdrop;
@@ -115,6 +126,12 @@ public class Movie implements Parcelable {
         movieID = in.readString();
         movieBackdrop = (Bitmap) in.readValue(Bitmap.class.getClassLoader());
         moviePoster = (Bitmap) in.readValue(Bitmap.class.getClassLoader());
+        if (in.readByte() == 0x01) {
+            genre = new ArrayList<>();
+            in.readList(genre, Genre.class.getClassLoader());
+        } else {
+            genre = null;
+        }
     }
 
     @Override
@@ -138,6 +155,12 @@ public class Movie implements Parcelable {
         dest.writeString(movieID);
         dest.writeValue(movieBackdrop);
         dest.writeValue(moviePoster);
+        if (genre == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(genre);
+        }
     }
 
     @SuppressWarnings("unused")

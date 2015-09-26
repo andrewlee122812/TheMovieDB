@@ -32,7 +32,7 @@ public class TestActivityFragment extends Fragment {
         mImage = (ImageView)wrapper.findViewById(R.id.image);
         mImageHeight = mImage.getLayoutParams().height;
 
-        ((TrackingScrollView) wrapper.findViewById(R.id.scroller)).setOnScrollChangedListener(
+        ((TrackingScrollView) wrapper.findViewById(R.id.scroller1)).setOnScrollChangedListener(
                 new TrackingScrollView.OnScrollChangedListener() {
                     @Override
                     public void onScrollChanged(TrackingScrollView source, int l, int t, int oldl, int oldt) {

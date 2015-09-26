@@ -1,9 +1,10 @@
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="in.reduxpress.themoviedb.TestActivityFragment">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <in.reduxpress.themoviedb.HelperClasses.TrackingScrollView
-        android:id="@+id/scroller"
+        android:id="@+id/scroller1"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -22,15 +23,16 @@
                     android:src="@drawable/trona_pinnacles"
                     android:scaleType="centerCrop"/>
 
-                <include layout="@layout/content"/>
             </LinearLayout>
+
+            <include layout="@layout/content"/>
 
             <!-- Should have a margin top equal to R.id.image's height -->
             <TextView
                 android:id="@+id/presentation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/image_height"
+                android:layout_marginTop="175dp"
                 android:background="@drawable/rectangle"
                 android:textStyle="bold"
                 android:textSize="20sp"
@@ -42,4 +44,4 @@
 
     </in.reduxpress.themoviedb.HelperClasses.TrackingScrollView>
 
-</merge>
+</LinearLayout>

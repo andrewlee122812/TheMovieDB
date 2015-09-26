@@ -1,7 +1,9 @@
 package in.reduxpress.themoviedb;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -30,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.reduxpress.themoviedb.Adapters.ImageAdapter;
+import in.reduxpress.themoviedb.DataModels.Genre;
 import in.reduxpress.themoviedb.DataModels.Movie;
 import in.reduxpress.themoviedb.HelperClasses.DatabaseHandler;
 
@@ -43,6 +46,8 @@ public  class MovieGridFragment extends Fragment implements AdapterView.OnItemCl
     private int screenWidth;
     private int screenDPI;
     private List<Movie> movieList;
+    private List<Genre> genreList;
+
     TwoWayView mHorizontalListView;
     TwoWayView mHorizontalListView1;
     TwoWayView mHorizontalListView2;
@@ -53,6 +58,9 @@ public  class MovieGridFragment extends Fragment implements AdapterView.OnItemCl
     final String SORT_BY_OLDEST = "release_date.asc";
     int flag = 0;
     FetchMovies fetchMoviesTask;
+    FetchGenreTask fetchGenreTask;
+    SharedPreferences genreStorage;
+    SharedPreferences.Editor genreEditor;
 
 
     public MovieGridFragment() {
@@ -69,6 +77,15 @@ public  class MovieGridFragment extends Fragment implements AdapterView.OnItemCl
         mHorizontalListView1 = (TwoWayView)  rootView.findViewById(R.id.list2);
         mHorizontalListView2 = (TwoWayView)  rootView.findViewById(R.id.list3);
 
+        genreStorage = getActivity().getApplicationContext().getSharedPreferences("Genre", Context.MODE_PRIVATE);
+        genreEditor = genreStorage.edit();
+
+
+        if(genreStorage.getBoolean("firstrun",true)) {
+            fetchGenreTask = new FetchGenreTask();
+            fetchGenreTask.execute();
+        }
+
 
 
         fetchMoviesTask = new FetchMovies();
@@ -80,8 +97,24 @@ public  class MovieGridFragment extends Fragment implements AdapterView.OnItemCl
         mHorizontalListView1.setOnItemClickListener(MovieGridFragment.this);
         mHorizontalListView2.setOnItemClickListener(MovieGridFragment.this);
 
+        Log.d("In launch actiivty",String.valueOf(genreStorage.getBoolean("firstrun",true)));
+
+
 
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (genreStorage.getBoolean("firstrun", true)) {
+            // Do first run stuff here then set 'firstrun' as false
+            fetchGenreTask = new FetchGenreTask();
+            fetchGenreTask.execute();
+            // using the following line to edit/commit prefs
+            genreStorage.edit().putBoolean("firstrun", false).commit();
+        }
     }
 
     @Override
@@ -181,6 +214,7 @@ public  class MovieGridFragment extends Fragment implements AdapterView.OnItemCl
             try
             {
                 myjson = new JSONObject(result);
+                Log.d("" ,myjson.toString());
                 JSONArray page1 = myjson.getJSONArray("results");
                 for(int i = 0; i < page1.length(); i++ ) {
                     JSONObject movieObject = page1.getJSONObject(i);
@@ -193,6 +227,13 @@ public  class MovieGridFragment extends Fragment implements AdapterView.OnItemCl
                     movie.setVoteAverage(movieObject.getString("vote_average"));
                     movie.setPoster_path("http://image.tmdb.org/t/p/w500//" + movieObject.getString("poster_path"));
                     movie.setBackdrop_path("http://image.tmdb.org/t/p/w780//" + movieObject.getString("backdrop_path"));
+                    JSONArray genre = movieObject.getJSONArray("genre_ids");
+                    ArrayList tempList = new ArrayList();
+                    for(int j = 0; j < genre.length(); j++ ) {
+                        tempList.add(genre.get(j));
+                    }
+                    movie.setGenre(tempList);
+
                     movieList.add(movie);
                 }
             }
@@ -201,7 +242,83 @@ public  class MovieGridFragment extends Fragment implements AdapterView.OnItemCl
             }
             return movieList;
         }
+    }
 
+    public class FetchGenreTask extends AsyncTask<Void,Void,String> {
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            HttpURLConnection connection = null;
+            BufferedReader reader     = null;
+            String movieStr    = null;
+
+            String checkUrl = "http://api.themoviedb.org/3/genre/movie/list?api_key=c74eefc5fded173206b2b3abb1bc76a2";
+            try {
+                URL url    = new URL(checkUrl);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.connect();
+
+
+                InputStream inputStream = connection.getInputStream();
+                StringBuilder builder   = new StringBuilder();
+                reader                  = new BufferedReader(new InputStreamReader(inputStream));
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    builder.append(line + "\n");
+                }
+
+                movieStr = builder.toString();
+            } catch (IOException e) {
+                Log.e("FetchGenreTask", "Error ", e);
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (final IOException e) {
+                        Log.e("FetchGenreTask", "Error closing stream", e);
+                    }
+                }
+            }
+
+            return movieStr;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            JSONObject myjson;
+            genreList = new ArrayList<>();
+            try
+            {
+                myjson = new JSONObject(result);
+                Log.d("" ,myjson.toString());
+
+                JSONArray genre = myjson.getJSONArray("genres");
+                for(int i = 0; i < genre.length(); i++ ) {
+                    JSONObject genreJSONObject = genre.getJSONObject(i);
+                    Genre genre1 = new Genre();
+                    genre1.setId(genreJSONObject.getString("id"));
+                    genre1.setTitle(genreJSONObject.getString("name"));
+                    genreEditor.putString(genre1.getId(),genre1.getTitle());
+                    genreEditor.commit();
+                    genreList.add(genre1);
+                }
+
+                for (Genre genre1 : genreList ) {
+                    Log.d(genre1.getId(),genre1.getTitle());
+                }
+            }
+            catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+        }
     }
 
     public int getScreenDimen() {
