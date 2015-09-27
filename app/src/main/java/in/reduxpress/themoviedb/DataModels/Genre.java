@@ -6,6 +6,8 @@ import android.os.Parcelable;
 /**
  * Created by kumardivyarajat on 26/09/15.
  */
+
+
 public class Genre implements Parcelable {
 
     String id;

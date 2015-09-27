@@ -14,11 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -31,7 +32,7 @@ import in.reduxpress.themoviedb.HelperClasses.TrackingScrollView;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class DetailsActivityFragment extends Fragment {
+public class DetailsActivityFragment extends Fragment implements View.OnClickListener {
 
     private Movie movie;
     private ImageView mBackDropImageView;
@@ -39,17 +40,26 @@ public class DetailsActivityFragment extends Fragment {
     private ImageView mPoster;
     private TextView mTitle;
     private TextView mDescription;
-    private Button mButton;
+    private ImageButton mFavouriteButton;
+    private ImageButton mAddtoListButton;
+    private ImageButton mShareButton;
     private int mImageHeight;
     private int screenWidth;
-    ColorDrawable transparentDrawable;
+    private ColorDrawable transparentDrawable;
     private TrackingScrollView trackingScrollView;
-    private ListView mListview;
     private ArrayAdapter<String> arrayAdapter;
-    ArrayList genreIDList;
-    ArrayList<String> genreList;
+    private ArrayList genreIDList;
+    private ArrayList<String> genreList;
     private  ListView mList;
     private TextView mRating;
+    private Boolean isFavourite;
+    private SharedPreferences genreStorage;
+    private SharedPreferences favourites;
+    private SharedPreferences.Editor editor;
+    final String FAVOURITE_PREFERENCE = "favourite";
+    final String GENRE_PREFERENCE = "Genre";
+    private int count = 1;
+
 
 
     public DetailsActivityFragment() {
@@ -61,25 +71,26 @@ public class DetailsActivityFragment extends Fragment {
         LinearLayout rootView = new LinearLayout(getActivity());
         inflater.inflate(R.layout.fragment_details, rootView, true);
 
-        /*LinearLayout wrapper = new LinearLayout(getActivity()); // for example
-        inflater.inflate(R.layout.fragment_test, wrapper, true);*/
 
-        SharedPreferences genreStorage = getActivity().getApplicationContext().getSharedPreferences("Genre", Context.MODE_PRIVATE);
-
-
+        genreStorage = getActivity().getApplicationContext().getSharedPreferences(GENRE_PREFERENCE, Context.MODE_PRIVATE);
+        favourites = getActivity().getApplicationContext().getSharedPreferences(FAVOURITE_PREFERENCE,Context.MODE_PRIVATE);
 
 
         mBackDropImageView = (ImageView)rootView.findViewById(R.id.details_imageview_backdrop);
         mPoster = (ImageView)rootView.findViewById(R.id.details_poster_imageview);
         mTitle = (TextView)rootView.findViewById(R.id.details_movie_title);
         mDescription = (TextView)rootView.findViewById(R.id.details_description);
-        //mButton = (Button)rootView.findViewById(R.id.test_button);
+        mFavouriteButton = (ImageButton)rootView.findViewById(R.id.add_favourite_imagebutton);
         mBackDrop = rootView.findViewById(R.id.backdrop_parent_rl);
         trackingScrollView = (TrackingScrollView)rootView.findViewById(R.id.scroller);
         mList = (ListView)rootView.findViewById(R.id.genre_listview);
         mRating = (TextView)rootView.findViewById(R.id.review_texview_editing);
+        mAddtoListButton = (ImageButton)rootView.findViewById(R.id.add_to_list);
+        mShareButton = (ImageButton)rootView.findViewById(R.id.share_imageButton);
         transparentDrawable= new ColorDrawable(Color.BLACK);
         transparentDrawable.setAlpha(0);
+
+        screenWidth = getScreenDimen();
 
 
 
@@ -90,50 +101,13 @@ public class DetailsActivityFragment extends Fragment {
         }
 
         Bundle b =  getArguments();
-        if(b != null) {
-            Log.d("",b.size() + "");
-            movie = b.getParcelable("MovieDetails");
-        } else {
-            Log.d("","Null");
-        }
+        movie = b.getParcelable("MovieDetails");
 
-        if (movie != null) {
-            genreIDList = movie.getGenre();
-        }
-
-        if(genreIDList != null) {
-            Map<String,?> keys = genreStorage.getAll();
-
-            genreList = new ArrayList<>();
-
-            for(int i = 0; i < genreIDList.size(); i++) {
-                for(Map.Entry<String,?> entry : keys.entrySet()){
-                    Log.d("map values",entry.getKey() + ": " +
-                            entry.getValue().toString());
-                    if(!entry.getKey().equals("firstrun")) {
-                        if(Integer.valueOf(genreIDList.get(i).toString()) == Integer.valueOf(entry.getKey())) {
-                            genreList.add(entry.getValue().toString());
-                        } else {
-                            Log.d(entry.getKey(),"couldn't find the id "+ genreIDList.get(i));
-                        }
-                    }
-
-                }
-            }
-        }
-
-        if(genreList != null ) {
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                    R.layout.list_item, R.id.list_item_textview, genreList);
-            for(String j: genreList) {
-                Log.d("In genrelist: ",j);
-            }
-            mList.setAdapter(adapter);
-
-        }
+        setUpImageButtons();
 
 
 
+        setUpGenreList(genreStorage);
 
         mTitle.setText(movie.getOriginal_title());
         mDescription.setText(movie.getOverView());
@@ -142,18 +116,10 @@ public class DetailsActivityFragment extends Fragment {
         String url = movie.getPoster_path();
         url = url.replace("w500", "w185");
 
-        screenWidth = getScreenDimen();
 
+        imageViewLoaderPicasso(movie.getBackdrop_path(), screenWidth, (int) (screenWidth * 0.56111111111111), mBackDropImageView);
+        imageViewLoaderPicasso(url, 300, 450, mPoster);
 
-        Picasso.with(getActivity())
-                .load(movie.getBackdrop_path())
-                .resize(screenWidth, (int) (screenWidth * 0.56111111111111))
-                .into(mBackDropImageView);
-
-        Picasso.with(getActivity())
-                .load(url)
-                .resize(300,450)
-                .into(mPoster);
 
         ViewGroup.LayoutParams layoutParams = mBackDropImageView.getLayoutParams();
         layoutParams.width = screenWidth;
@@ -181,36 +147,146 @@ public class DetailsActivityFragment extends Fragment {
             @Override
             public void onScrollChanged() {
                 final int scrollY = trackingScrollView.getScrollY();
-                Log.d("Scroll Y:",scrollY + "");
+                Log.d("Scroll Y:", scrollY + "");
                 final int boundY = 1077;
                 Log.d("Image Height: ", mImageHeight + "");
-                final float ratio = (float) (scrollY/boundY) ;
-                Log.d("Ratio",ratio + "");
+                final float ratio = (float) (scrollY / boundY);
+                Log.d("Ratio", ratio + "");
                 transparentDrawable.setAlpha((int) (ratio * 255));
                 Log.d("alpha", (ratio * 255) + "");
 
             }
         });
+
+        mFavouriteButton.setOnClickListener(DetailsActivityFragment.this);
+
         return rootView;
     }
 
+    private void setUpImageButtons() {
+        mFavouriteButton.setBackgroundColor(Color.TRANSPARENT);
+        mShareButton.setBackgroundColor(Color.TRANSPARENT);
+        mAddtoListButton.setBackgroundColor(Color.TRANSPARENT);
+        imageButtonLoaderPicasso(R.drawable.ic_share, 180, 180, mShareButton);
+        imageButtonLoaderPicasso(R.drawable.ic_add, 180, 180, mAddtoListButton);
+        toggleFavourite();
+    }
+
+    private void toggleFavourite() {
+        mFavouriteButton.setBackgroundColor(Color.TRANSPARENT);
+        editor = favourites.edit();
+        setFavourites();
+        if(isFavourite) {
+            imageButtonLoaderPicasso(R.drawable.added_favourite, 180, 180, mFavouriteButton);
+            editor.remove(movie.getMovieID());
+        } else {
+            imageButtonLoaderPicasso(R.drawable.ic_heart, 180, 180, mFavouriteButton);
+            editor.putString(movie.getMovieID(),movie.getOriginal_title());
+        }
+        editor.commit();
+        showFavourites();
+    }
+
+
+
+    private void setFavourites() {
+        if(isPresentInFavouriteSharedPreference()) {
+            isFavourite = true;
+        } else {
+            isFavourite = false;
+        }
+    }
+
+    private Boolean isPresentInFavouriteSharedPreference() {
+        Map<String,?> keys = favourites.getAll();
+        for(Map.Entry<String,?> entry : keys.entrySet()) {
+            Log.d("Favourite values", entry.getKey() + ": " +
+                    entry.getValue().toString());
+            if(entry.getKey().equals(movie.getMovieID())) {
+
+                return true;
+            } else  {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    private void showFavourites() {
+        Map<String,?> keys = favourites.getAll();
+
+            for(Map.Entry<String,?> entry : keys.entrySet()) {
+                Log.d("map values", entry.getKey() + ": " +
+                        entry.getValue().toString());
+            }
+    }
+
+    private void setUpGenreList(SharedPreferences genreStorage) {
+        if (movie != null) {
+            genreIDList = movie.getGenre();
+        }
+
+        if(genreIDList != null) {
+            Map<String,?> keys = genreStorage.getAll();
+
+            genreList = new ArrayList<>();
+
+            for(int i = 0; i < genreIDList.size(); i++) {
+                for(Map.Entry<String,?> entry : keys.entrySet()){
+                    Log.d("map values", entry.getKey() + ": " +
+                            entry.getValue().toString());
+                    if(!entry.getKey().equals("firstrun")) {
+                        if(Integer.valueOf(genreIDList.get(i).toString()) == Integer.valueOf(entry.getKey())) {
+                            genreList.add(entry.getValue().toString());
+                        } else {
+                            Log.d(entry.getKey(),"couldn't find the id "+ genreIDList.get(i));
+                        }
+                    }
+
+                }
+            }
+        }
+
+
+        if(genreList != null ) {
+             arrayAdapter = new ArrayAdapter<String>(getActivity(),
+                    R.layout.list_item, R.id.list_item_textview, genreList);
+            for(String j: genreList) {
+                Log.d("In genrelist: ",j);
+            }
+            mList.setAdapter(arrayAdapter);
+
+        }
+
+
+    }
+
+    private void imageViewLoaderPicasso(String resID,int widthPx, int heightPx,ImageView view) {
+        Picasso.with(getActivity())
+                .load(resID)
+                .resize(widthPx,heightPx)
+                .into(view);
+    }
+
+    private void imageButtonLoaderPicasso(int resID,int widthPx, int heightPx,ImageButton view) {
+        Picasso.with(getActivity())
+                .load(resID)
+                .resize(widthPx,heightPx)
+                .into(view);
+    }
+
+
+
     private void handleScroll(TrackingScrollView source, int top) {
         int scrolledImageHeight = Math.min(mImageHeight, Math.max(0, top));
-       // Log.d("Scrolled Image Height",scrolledImageHeight + "");
 
         ViewGroup.MarginLayoutParams imageParams = (ViewGroup.MarginLayoutParams) mBackDropImageView.getLayoutParams();
         int newImageHeight = mImageHeight - scrolledImageHeight;
-       // Log.d("newIMageHeight:" , newImageHeight +"");
         if (imageParams.height != newImageHeight) {
-            // Transfer image height to margin top
             imageParams.height = newImageHeight;
             imageParams.topMargin = scrolledImageHeight;
             imageParams.width = screenWidth;
-
-           // Log.d("Image width:", imageParams.width + "");
-            // Invalidate view
             mBackDropImageView.setLayoutParams(imageParams);
-
         }
     }
 
@@ -225,6 +301,18 @@ public class DetailsActivityFragment extends Fragment {
     }
 
 
+    @Override
+    public void onClick(View v) {
 
+        if(v == mFavouriteButton) {
+            toggleFavourite();
+            Toast.makeText(getActivity(),"CLicke",Toast.LENGTH_SHORT).show();
+        }
 
+    }
+
+    private class youtubeConfig {
+        public static final String DEVELOPER_KEY = "AIzaSyCaKtZ7jQaMQi06WnyOqF_K6pZl92qy9Rs";
+
+    }
 }
