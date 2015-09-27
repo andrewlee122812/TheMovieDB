@@ -59,6 +59,7 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
     final String FAVOURITE_PREFERENCE = "favourite";
     final String GENRE_PREFERENCE = "Genre";
     private int count = 1;
+    private TextView mReleaseDate;
 
 
 
@@ -87,6 +88,7 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
         mRating = (TextView)rootView.findViewById(R.id.review_texview_editing);
         mAddtoListButton = (ImageButton)rootView.findViewById(R.id.add_to_list);
         mShareButton = (ImageButton)rootView.findViewById(R.id.share_imageButton);
+        mReleaseDate = (TextView)rootView.findViewById(R.id.release_date_textview);
         transparentDrawable= new ColorDrawable(Color.BLACK);
         transparentDrawable.setAlpha(0);
 
@@ -112,6 +114,7 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
         mTitle.setText(movie.getOriginal_title());
         mDescription.setText(movie.getOverView());
         mRating.setText(movie.getVoteAverage());
+        mReleaseDate.setText(movie.getReleaseDate());
 
         String url = movie.getPoster_path();
         url = url.replace("w500", "w185");
@@ -313,6 +316,5 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
 
     private class youtubeConfig {
         public static final String DEVELOPER_KEY = "AIzaSyCaKtZ7jQaMQi06WnyOqF_K6pZl92qy9Rs";
-
     }
 }

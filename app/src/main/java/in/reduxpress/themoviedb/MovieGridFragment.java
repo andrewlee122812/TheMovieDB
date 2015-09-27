@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -47,6 +48,11 @@ public  class MovieGridFragment extends Fragment implements AdapterView.OnItemCl
     private int screenDPI;
     private List<Movie> movieList;
     private List<Genre> genreList;
+    public static int scrollX = 0;
+    public static int scrollY = -1;
+    private ScrollView mMainScrollView;
+
+    public static int scrollXHL1X = 0;
 
     TwoWayView mHorizontalListView;
     TwoWayView mHorizontalListView1;
@@ -76,6 +82,7 @@ public  class MovieGridFragment extends Fragment implements AdapterView.OnItemCl
         mHorizontalListView = (TwoWayView)  rootView.findViewById(R.id.list1);
         mHorizontalListView1 = (TwoWayView)  rootView.findViewById(R.id.list2);
         mHorizontalListView2 = (TwoWayView)  rootView.findViewById(R.id.list3);
+        mMainScrollView = (ScrollView) rootView.findViewById(R.id.main_scrollview);
 
         genreStorage = getActivity().getApplicationContext().getSharedPreferences("Genre", Context.MODE_PRIVATE);
         genreEditor = genreStorage.edit();
@@ -104,18 +111,6 @@ public  class MovieGridFragment extends Fragment implements AdapterView.OnItemCl
         return rootView;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        if (genreStorage.getBoolean("firstrun", true)) {
-            // Do first run stuff here then set 'firstrun' as false
-            fetchGenreTask = new FetchGenreTask();
-            fetchGenreTask.execute();
-            // using the following line to edit/commit prefs
-            genreStorage.edit().putBoolean("firstrun", false).commit();
-        }
-    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -336,6 +331,68 @@ public  class MovieGridFragment extends Fragment implements AdapterView.OnItemCl
         return metrics.densityDpi;
     }
 
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        scrollX = mMainScrollView.getScrollX();
+        scrollY = mMainScrollView.getScrollY();
+    }
 
+    @Override
+    public void onResume()
+    {
+        Log.d("X:" + scrollX + " Y:" + scrollY, "");
+        super.onResume();
 
+        if (genreStorage.getBoolean("firstrun", true)) {
+            // Do first run stuff here then set 'firstrun' as false
+            fetchGenreTask = new FetchGenreTask();
+            fetchGenreTask.execute();
+            // using the following line to edit/commit prefs
+            genreStorage.edit().putBoolean("firstrun", false).commit();
+        }
+
+        mMainScrollView.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                mMainScrollView.scrollTo(scrollX, scrollY);
+
+            }
+        });
+    }
+
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putIntArray("SCROLL_POSITION",
+                new int[]{mMainScrollView.getScrollX(), mMainScrollView.getScrollY()});
+        outState.putInt("SCROLL_POSITION_HL1", mHorizontalListView.getLastVisiblePosition());
+        Log.d("Scroll for horizontal HL1:",mHorizontalListView.getLastVisiblePosition() +"");
+    }
+
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if(savedInstanceState != null) {
+            final int[] position = savedInstanceState.getIntArray("SCROLL_POSITION");
+            final int hl1position = savedInstanceState.getInt("SCROLL_POSITION_HL1");
+            if (position != null )
+                mMainScrollView.post(new Runnable() {
+                    public void run() {
+                        mMainScrollView.scrollTo(position[0], position[1]);
+                        Log.d("X :" +  position[0],"Y :"+ position[1]);
+                    }
+                });
+            if(hl1position != 0 ){
+                mHorizontalListView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mHorizontalListView.smoothScrollToPosition(hl1position);
+                        Log.d("On view state restored",hl1position+"");
+                    }
+                });
+            }
+        }
+    }
 }

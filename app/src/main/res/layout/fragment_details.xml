@@ -43,10 +43,11 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:padding="1dp"
-                    android:background="@color/white"
+                    android:layout_alignParentTop="true"
                     android:id="@+id/details_poster_imageview"/>
 
             </RelativeLayout>
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -220,7 +221,169 @@
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/release_date_parent"
+                android:layout_below="@+id/details_description_parent_rl">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Release Date"
+                    android:id="@+id/release_date"
+                    android:textSize="20sp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:textColor="@color/monsoon"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="02-05-2015"
+                    android:id="@+id/release_date_textview"
+                    android:textSize="15sp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/release_date"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/white"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@color/material_blue_grey_950"
+                    android:layout_below="@+id/release_date_textview"
+                    android:layout_marginTop="5dp"
+                    />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/youtube_view_parent"
+                android:layout_below="@+id/release_date_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Videos"
+                    android:id="@+id/videos_textview"
+                    android:textSize="20sp"
+                    android:textColor="@color/monsoon"
+                    android:layout_centerHorizontal="true"
+                    />
+
+               <!-- <com.google.android.youtube.player.YouTubePlayerView
+                    android:id="@+id/youtube_view_trailer1"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@+id/videos_textview"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp" />
+
+                <com.google.android.youtube.player.YouTubePlayerView
+                    android:id="@+id/youtube_view_trailer2"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:visibility="gone"
+                    android:layout_below="@+id/youtube_view_trailer1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp" />
+
+                <com.google.android.youtube.player.YouTubePlayerView
+                    android:id="@+id/youtube_view_teaser"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:visibility="gone"
+                    android:layout_below="@+id/youtube_view_trailer2"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp" /> -->
+
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+
+                    android:background="@color/material_blue_grey_950"
+                    android:layout_below="@+id/videos_textview"
+                    android:layout_marginTop="5dp"
+                    />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/youtube_view_parent"
+                android:id="@+id/cast_gridview_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cast"
+                    android:id="@+id/cast_texview"
+                    android:textSize="20sp"
+                    android:textColor="@color/monsoon"
+                    android:layout_centerHorizontal="true"
+                    />
+
+                <GridView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:numColumns="auto_fit"
+                    android:layout_below="@+id/cast_texview"
+                    android:id="@+id/cast_gridview">
+
+
+                </GridView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@color/material_blue_grey_950"
+                    android:layout_below="@+id/cast_gridview"
+                    android:layout_marginTop="5dp"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="200dp"
+                android:layout_below="@+id/cast_gridview_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Images"
+                    android:id="@+id/images_textview"
+                    android:textSize="20sp"
+                    android:textColor="@color/monsoon"
+                    android:layout_centerHorizontal="true"
+                    />
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_below="@+id/images_textview">
+
+                    <org.lucasr.twowayview.TwoWayView
+                        android:id="@+id/list1"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:drawSelectorOnTop="false"
+                        />
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
 
         </RelativeLayout>
 
