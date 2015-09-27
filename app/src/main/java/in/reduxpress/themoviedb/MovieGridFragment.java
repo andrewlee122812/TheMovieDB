@@ -1,6 +1,6 @@
 package in.reduxpress.themoviedb;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -97,7 +97,7 @@ public  class MovieGridFragment extends Fragment implements AdapterView.OnItemCl
 
         fetchMoviesTask = new FetchMovies();
         fetchMoviesTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,SORT_BY_POPULARITY);
-       // fetchMoviesTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,SORT_BY_TOP_RATED);
+        // fetchMoviesTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,SORT_BY_TOP_RATED);
 
 
         mHorizontalListView.setOnItemClickListener(MovieGridFragment.this);
@@ -114,7 +114,7 @@ public  class MovieGridFragment extends Fragment implements AdapterView.OnItemCl
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-       Movie movie = movieList.get(position);
+        Movie movie = movieList.get(position);
 
 
         Toast.makeText(getActivity(),movie.getOriginal_title()+ "",Toast.LENGTH_SHORT).show();
@@ -196,7 +196,6 @@ public  class MovieGridFragment extends Fragment implements AdapterView.OnItemCl
                 mHorizontalListView2.setItemMargin(2);
                 flag = 1;
             } /*else if(flag == 1) {
-
                 flag = 2;
             } else {
                 Log.d("Flag value:" , flag + "out of context");
@@ -205,7 +204,7 @@ public  class MovieGridFragment extends Fragment implements AdapterView.OnItemCl
 
         private List<Movie> MoviesParser(String result) {
             JSONObject myjson;
-             movieList = new ArrayList<>();
+            movieList = new ArrayList<>();
             try
             {
                 myjson = new JSONObject(result);

@@ -276,40 +276,20 @@
                     android:layout_centerHorizontal="true"
                     />
 
-               <!-- <com.google.android.youtube.player.YouTubePlayerView
-                    android:id="@+id/youtube_view_trailer1"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="20dp"
-                    android:layout_below="@+id/videos_textview"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="30dp" />
+              <com.google.android.youtube.player.YouTubePlayerView
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_below="@+id/videos_textview"
+                  android:id="@+id/youtube_container">
 
-                <com.google.android.youtube.player.YouTubePlayerView
-                    android:id="@+id/youtube_view_trailer2"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="20dp"
-                    android:visibility="gone"
-                    android:layout_below="@+id/youtube_view_trailer1"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="30dp" />
-
-                <com.google.android.youtube.player.YouTubePlayerView
-                    android:id="@+id/youtube_view_teaser"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="20dp"
-                    android:visibility="gone"
-                    android:layout_below="@+id/youtube_view_trailer2"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="30dp" /> -->
-
+              </com.google.android.youtube.player.YouTubePlayerView>
 
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
-
                     android:background="@color/material_blue_grey_950"
-                    android:layout_below="@+id/videos_textview"
+                    android:layout_below="@+id/youtube_container"
                     android:layout_marginTop="5dp"
                     />
 

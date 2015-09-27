@@ -1,6 +1,5 @@
 package in.reduxpress.themoviedb;
 
-import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,9 +7,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.youtube.player.YouTubeBaseActivity;
+
 import in.reduxpress.themoviedb.DataModels.Movie;
 
-public class DetailsActivity extends Activity {
+public class DetailsActivity extends YouTubeBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class DetailsActivity extends Activity {
 
             DetailsActivityFragment newFragment = new DetailsActivityFragment();
             newFragment.setArguments(b);
+
             FragmentTransaction ft = getFragmentManager().beginTransaction()
                     .add(R.id.container_details, newFragment);
             ft.commit();

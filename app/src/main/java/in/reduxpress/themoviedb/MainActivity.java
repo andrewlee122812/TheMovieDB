@@ -1,12 +1,12 @@
 package in.reduxpress.themoviedb;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
 
     // TODO http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=c74eefc5fded173206b2b3abb1bc76a2
 
@@ -15,8 +15,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new MovieGridFragment())
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, new MovieGridFragment())
                     .commit();
         }
     }
