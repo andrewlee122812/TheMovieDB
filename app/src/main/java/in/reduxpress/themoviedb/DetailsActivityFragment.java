@@ -458,12 +458,11 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
                 Log.d("Youtube " + i, "ID - " + youTubePlayerView.getId());
 
                 final int finalI = i;
-                params.bottomMargin = 60;
-                params.topMargin = 60;
+                params.bottomMargin = 20;
                 youTubePlayerView.setLayoutParams(params);
                 mYoutubeParentLayout.addView(youTubePlayerView);
 
-                Log.d("youtubePlayerView", youTubePlayerView.getLayoutParams().width + " " + youTubePlayerView.getLayoutParams().height);
+               Log.d("youtubePlayerView", youTubePlayerView.getLayoutParams().width + " " + youTubePlayerView.getLayoutParams().height);
                 Log.d("youtubeParentLayout",mYoutubeParentLayout.getLayoutParams().width + " " +mYoutubeParentLayout.getLayoutParams().height);
 
 
