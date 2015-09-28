@@ -1,11 +1,12 @@
 package in.reduxpress.themoviedb;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class TestActivity extends Activity {
+import com.google.android.youtube.player.YouTubeBaseActivity;
+
+public class TestActivity extends YouTubeBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,7 +15,7 @@ public class TestActivity extends Activity {
 
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, new TestActivityFragment())
+                    .add(R.id.fragment, new TestActivityFragment())
                     .commit();
         }
     }

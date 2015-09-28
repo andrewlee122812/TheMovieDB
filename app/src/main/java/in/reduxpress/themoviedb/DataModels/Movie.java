@@ -22,6 +22,15 @@ public class Movie implements Parcelable {
     Bitmap movieBackdrop;
     Bitmap moviePoster;
     ArrayList genre;
+    String category;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     public ArrayList getGenre() {
         return genre;

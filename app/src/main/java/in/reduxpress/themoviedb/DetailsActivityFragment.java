@@ -1,5 +1,6 @@
 package in.reduxpress.themoviedb;
 
+import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -15,6 +16,8 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -42,9 +45,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import in.reduxpress.themoviedb.Adapters.GridAdapter;
+import in.reduxpress.themoviedb.DataModels.Actor;
 import in.reduxpress.themoviedb.DataModels.Cast;
 import in.reduxpress.themoviedb.DataModels.Movie;
 import in.reduxpress.themoviedb.DataModels.YoutubeVideo;
+import in.reduxpress.themoviedb.HelperClasses.ExpandedScrollView;
 import in.reduxpress.themoviedb.HelperClasses.TrackingScrollView;
 
 /**
@@ -68,7 +74,7 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
     private ArrayAdapter<String> arrayAdapter;
     private ArrayList genreIDList;
     private ArrayList<String> genreList;
-    private  ListView mList;
+    private ListView mList;
     private TextView mRating;
     private Boolean isFavourite;
     private SharedPreferences genreStorage;
@@ -78,13 +84,17 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
     final String GENRE_PREFERENCE = "Genre";
     private int count = 1;
     private TextView mReleaseDate;
-    private YouTubePlayerView youTubeView;
     private List<YoutubeVideo> mVideoList;
     private List<Cast> mCastList;
     FetchVideosTask fetchVideosTask;
     FetchCastTask fetchCastTask;
     int count1 = 0;
+    LinearLayout mYoutubeParentLayout;
+    ExpandedScrollView mCastView;
+    GridAdapter gridAdapter;
+    List<Movie> movieList;
 
+    YouTubePlayerView youTubePlayerView;
 
 
     public DetailsActivityFragment() {
@@ -98,23 +108,25 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
 
 
         genreStorage = getActivity().getApplicationContext().getSharedPreferences(GENRE_PREFERENCE, Context.MODE_PRIVATE);
-        favourites = getActivity().getApplicationContext().getSharedPreferences(FAVOURITE_PREFERENCE,Context.MODE_PRIVATE);
+        favourites = getActivity().getApplicationContext().getSharedPreferences(FAVOURITE_PREFERENCE, Context.MODE_PRIVATE);
 
 
-        mBackDropImageView = (ImageView)rootView.findViewById(R.id.details_imageview_backdrop);
-        mPoster = (ImageView)rootView.findViewById(R.id.details_poster_imageview);
-        mTitle = (TextView)rootView.findViewById(R.id.details_movie_title);
-        mDescription = (TextView)rootView.findViewById(R.id.details_description);
-        mFavouriteButton = (ImageButton)rootView.findViewById(R.id.add_favourite_imagebutton);
+        mBackDropImageView = (ImageView) rootView.findViewById(R.id.details_imageview_backdrop);
+        mPoster = (ImageView) rootView.findViewById(R.id.details_poster_imageview);
+        mTitle = (TextView) rootView.findViewById(R.id.details_movie_title);
+        mDescription = (TextView) rootView.findViewById(R.id.details_description);
+        mFavouriteButton = (ImageButton) rootView.findViewById(R.id.add_favourite_imagebutton);
         mBackDrop = rootView.findViewById(R.id.backdrop_parent_rl);
-        trackingScrollView = (TrackingScrollView)rootView.findViewById(R.id.scroller);
-        mList = (ListView)rootView.findViewById(R.id.genre_listview);
-        mRating = (TextView)rootView.findViewById(R.id.review_texview_editing);
-        mAddtoListButton = (ImageButton)rootView.findViewById(R.id.add_to_list);
-        mShareButton = (ImageButton)rootView.findViewById(R.id.share_imageButton);
-        mReleaseDate = (TextView)rootView.findViewById(R.id.release_date_textview);
-        youTubeView = (YouTubePlayerView)rootView.findViewById(R.id.youtube_container);
-        transparentDrawable= new ColorDrawable(Color.BLACK);
+        trackingScrollView = (TrackingScrollView) rootView.findViewById(R.id.scroller);
+        mList = (ListView) rootView.findViewById(R.id.genre_listview);
+        mRating = (TextView) rootView.findViewById(R.id.review_texview_editing);
+        mAddtoListButton = (ImageButton) rootView.findViewById(R.id.add_to_list);
+        mShareButton = (ImageButton) rootView.findViewById(R.id.share_imageButton);
+        mReleaseDate = (TextView) rootView.findViewById(R.id.release_date_textview);
+        mYoutubeParentLayout = (LinearLayout)rootView.findViewById(R.id.youtube_view_parent);
+        mCastView = (ExpandedScrollView) rootView.findViewById(R.id.cast_grid);
+       // youTubePlayerView = (YouTubePlayerView) rootView.findViewById(R.id.youtube_view1);
+        transparentDrawable = new ColorDrawable(Color.BLACK);
         fetchCastTask = new FetchCastTask();
         fetchVideosTask = new FetchVideosTask();
 
@@ -125,13 +137,12 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
 
         setUpTransparentActionBar();
 
-        Bundle b =  getArguments();
+        Bundle b = getArguments();
         movie = b.getParcelable("MovieDetails");
 
 
         setUpImageButtons();
 
-        setUpGenreList(genreStorage);
 
         mTitle.setText(movie.getOriginal_title());
         mDescription.setText(movie.getOverView());
@@ -141,20 +152,16 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
         String url = movie.getPoster_path();
         url = url.replace("w500", "w185");
 
-        fetchCastTask.execute(movie.getMovieID());
-        fetchVideosTask.execute(movie.getMovieID());
-
-
-
 
         imageViewLoaderPicasso(movie.getBackdrop_path(), screenWidth, (int) (screenWidth * 0.56111111111111), mBackDropImageView);
         imageViewLoaderPicasso(url, 300, 450, mPoster);
-
 
         ViewGroup.LayoutParams layoutParams = mBackDropImageView.getLayoutParams();
         layoutParams.width = screenWidth;
         layoutParams.height = (int) (screenWidth * 0.56111111111111);
         mBackDropImageView.setLayoutParams(layoutParams);
+
+        setUpGenreList(genreStorage);
 
 
         mImageHeight = mBackDropImageView.getLayoutParams().height;
@@ -174,7 +181,7 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
                 }
         );
 
-         Drawable.Callback mDrawableCallback = new Drawable.Callback() {
+        Drawable.Callback mDrawableCallback = new Drawable.Callback() {
             @Override
             public void invalidateDrawable(Drawable who) {
                 getActivity().getActionBar().setBackgroundDrawable(who);
@@ -190,7 +197,15 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
         };
 
         mFavouriteButton.setOnClickListener(DetailsActivityFragment.this);
+        Log.d("Height of gridview", mCastView.getLayoutParams().height + "");
+        Log.d("Width of gridview", mCastView.getLayoutParams().width + "");
 
+        mCastView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                setUpOverView(position);
+            }
+        });
 
 
         return rootView;
@@ -209,7 +224,7 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
 
     private void setUpTransparentActionBar() {
         android.app.ActionBar actionBar = getActivity().getActionBar();
-        if(actionBar != null) {
+        if (actionBar != null) {
             actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setBackgroundDrawable(transparentDrawable);
         }
@@ -228,38 +243,37 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
         mFavouriteButton.setBackgroundColor(Color.TRANSPARENT);
         editor = favourites.edit();
         setFavourites();
-        Log.d("isFavourite",isFavourite + "");
+        Log.d("isFavourite", isFavourite + "");
         if (isFavourite) {
             imageButtonLoaderPicasso(R.drawable.added_favourite, 180, 180, mFavouriteButton);
             editor.remove(movie.getMovieID());
             isFavourite = false;
         } else {
             imageButtonLoaderPicasso(R.drawable.ic_heart, 180, 180, mFavouriteButton);
-            editor.putString(movie.getMovieID(),movie.getOriginal_title());
-            isFavourite =true;
+            editor.putString(movie.getMovieID(), movie.getOriginal_title());
+            isFavourite = true;
         }
         editor.commit();
         showFavourites();
     }
 
 
-
     private void setFavourites() {
-        if(isPresentInFavouriteSharedPreference()) {
+        if (isPresentInFavouriteSharedPreference()) {
             isFavourite = true;
         }
-            isFavourite = false;
+        isFavourite = false;
 
     }
 
     private Boolean isPresentInFavouriteSharedPreference() {
-        Map<String,?> keys = favourites.getAll();
-        for(Map.Entry<String,?> entry : keys.entrySet()) {
+        Map<String, ?> keys = favourites.getAll();
+        for (Map.Entry<String, ?> entry : keys.entrySet()) {
             Log.d("Favourite values", entry.getKey() + ": " +
                     entry.getValue().toString());
-            if(entry.getKey().equals(movie.getMovieID())) {
+            if (entry.getKey().equals(movie.getMovieID())) {
                 return true;
-            } else  {
+            } else {
                 return false;
             }
         }
@@ -267,12 +281,12 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
     }
 
     private void showFavourites() {
-        Map<String,?> keys = favourites.getAll();
+        Map<String, ?> keys = favourites.getAll();
 
-            for(Map.Entry<String,?> entry : keys.entrySet()) {
-                Log.d("map values", entry.getKey() + ": " +
-                        entry.getValue().toString());
-            }
+        for (Map.Entry<String, ?> entry : keys.entrySet()) {
+            Log.d("map values", entry.getKey() + ": " +
+                    entry.getValue().toString());
+        }
     }
 
     private void setUpGenreList(SharedPreferences genreStorage) {
@@ -280,55 +294,52 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
             genreIDList = movie.getGenre();
         }
 
-        if(genreIDList != null) {
-            Map<String,?> keys = genreStorage.getAll();
+        if (genreIDList != null) {
+            Map<String, ?> keys = genreStorage.getAll();
 
             genreList = new ArrayList<>();
 
-            for(int i = 0; i < genreIDList.size(); i++) {
-                for(Map.Entry<String,?> entry : keys.entrySet()){
+            for (int i = 0; i < genreIDList.size(); i++) {
+                for (Map.Entry<String, ?> entry : keys.entrySet()) {
                     Log.d("map values", entry.getKey() + ": " +
                             entry.getValue().toString());
-                    if(!entry.getKey().equals("firstrun")) {
-                        if(Integer.valueOf(genreIDList.get(i).toString()) == Integer.valueOf(entry.getKey())) {
+                    if (!entry.getKey().equals("firstrun")) {
+                        if (Integer.valueOf(genreIDList.get(i).toString()) == Integer.valueOf(entry.getKey())) {
                             genreList.add(entry.getValue().toString());
                         } else {
-                            Log.d(entry.getKey(),"couldn't find the id "+ genreIDList.get(i));
+                            Log.d(entry.getKey(), "couldn't find the id " + genreIDList.get(i));
                         }
                     }
-
                 }
             }
         }
 
 
-        if(genreList != null ) {
-             arrayAdapter = new ArrayAdapter<String>(getActivity(),
+        if (genreList != null) {
+            arrayAdapter = new ArrayAdapter<String>(getActivity(),
                     R.layout.list_item, R.id.list_item_textview, genreList);
-            for(String j: genreList) {
-                Log.d("In genrelist: ",j);
+            for (String j : genreList) {
+                Log.d("In genrelist: ", j);
             }
             mList.setAdapter(arrayAdapter);
-
+            Log.d("Genre Set up", "complete ");
+            fetchVideosTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, movie.getMovieID());
         }
-
-
     }
 
-    private void imageViewLoaderPicasso(String resID,int widthPx, int heightPx,ImageView view) {
+    private void imageViewLoaderPicasso(String resID, int widthPx, int heightPx, ImageView view) {
         Picasso.with(getActivity())
                 .load(resID)
-                .resize(widthPx,heightPx)
+                .resize(widthPx, heightPx)
                 .into(view);
     }
 
-    private void imageButtonLoaderPicasso(int resID,int widthPx, int heightPx,ImageButton view) {
+    private void imageButtonLoaderPicasso(int resID, int widthPx, int heightPx, ImageButton view) {
         Picasso.with(getActivity())
                 .load(resID)
-                .resize(widthPx,heightPx)
+                .resize(widthPx, heightPx)
                 .into(view);
     }
-
 
 
     private void handleScroll(TrackingScrollView source, int top) {
@@ -355,6 +366,7 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
     }
 
 
+
     public class FetchVideosTask extends AsyncTask<String, Void, String> {
 
         @Override
@@ -373,7 +385,7 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
                     .appendPath("movie")
                     .appendPath(movieID)
                     .appendPath("videos")
-                    .appendQueryParameter("api_key","c74eefc5fded173206b2b3abb1bc76a2");
+                    .appendQueryParameter("api_key", "c74eefc5fded173206b2b3abb1bc76a2");
             String builtUrl = builder1.build().toString();
 
             try {
@@ -407,7 +419,7 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
                     }
                 }
             }
-         return videosStr;
+            return videosStr;
         }
 
 
@@ -416,17 +428,16 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
 
             JSONObject myjson;
             mVideoList = new ArrayList<>();
-            try
-            {
+            try {
                 myjson = new JSONObject(result);
-                Log.d("" ,myjson.toString());
+                Log.d("", myjson.toString());
                 JSONArray page1 = myjson.getJSONArray("results");
 
-                for(int i = 0; i < page1.length(); i++ ) {
+                for (int i = 0; i < page1.length(); i++) {
 
-                JSONObject movieObject = page1.getJSONObject(i);
-                YoutubeVideo youtubeVideo = new YoutubeVideo();
-                    if(movieObject.getString("site").equals("YouTube")) {
+                    JSONObject movieObject = page1.getJSONObject(i);
+                    YoutubeVideo youtubeVideo = new YoutubeVideo();
+                    if (movieObject.getString("site").equals("YouTube")) {
                         youtubeVideo.setId(movieObject.getString("id"));
                         youtubeVideo.setKey(movieObject.getString("key"));
                         youtubeVideo.setName(movieObject.getString("name"));
@@ -435,49 +446,70 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
                         youtubeVideo.setType(movieObject.getString("type"));
                         mVideoList.add(youtubeVideo);
                     }
-               }
-            }
-            catch (JSONException e) {
+                }
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            Log.d("Size of list", mVideoList.size() + "");
+            for( int i = 0; i < mVideoList.size(); i++ ) {
+                YouTubePlayerView youTubePlayerView = new YouTubePlayerView(getActivity());
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                youTubePlayerView.setId((i + 1));
+                Log.d("Youtube " + i, "ID - " + youTubePlayerView.getId());
 
-            for(YoutubeVideo youtubeVideo: mVideoList)  {
-                Log.d("Name: ", youtubeVideo.getKey());
+                final int finalI = i;
+                params.bottomMargin = 60;
+                params.topMargin = 60;
+                youTubePlayerView.setLayoutParams(params);
+                mYoutubeParentLayout.addView(youTubePlayerView);
+
+                Log.d("youtubePlayerView", youTubePlayerView.getLayoutParams().width + " " + youTubePlayerView.getLayoutParams().height);
+                Log.d("youtubeParentLayout",mYoutubeParentLayout.getLayoutParams().width + " " +mYoutubeParentLayout.getLayoutParams().height);
+
+
+                youTubePlayerView.initialize(youtubeConfig.DEVELOPER_KEY, new YouTubePlayer.OnInitializedListener() {
+                    @Override
+                    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+                        if (!b) {
+                            youTubePlayer.cueVideo(mVideoList.get(finalI).getKey());
+                            Log.d(finalI + "Youtube init", "Initialised");
+                        }
+                    }
+
+                    @Override
+                    public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+                        Log.d( "Error " + youTubeInitializationResult.toString(), "");
+
+                    }
+                });
             }
 
+            /*
+            youTubePlayerView.setVisibility(View.VISIBLE);
 
-
-
-            youTubeView.initialize(youtubeConfig.DEVELOPER_KEY, new YouTubePlayer.OnInitializedListener() {
+            youTubePlayerView.initialize(youtubeConfig.DEVELOPER_KEY, new YouTubePlayer.OnInitializedListener() {
                 @Override
                 public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
                     if (!b) {
-                        youTubePlayer.cueVideo(mVideoList.get(1).getKey());
-                        Log.d("Youtube init", "Initialised");
+
+                        // loadVideo() will auto play video
+                        // Use cueVideo() method, if you don't want to play it automatically
+                        youTubePlayer.cueVideo(mVideoList.get(0).getKey());
+
+                        // Hiding player controls
                     }
+
                 }
 
                 @Override
                 public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-                    Log.d( "Error " + youTubeInitializationResult.toString(), "");
-
+                    Log.d("Error " + youTubeInitializationResult.toString(), "");
                 }
-            });
+            });*/
 
-            for(YoutubeVideo youtubeVideo: mVideoList)  {
-                Log.d("Name:Video- ", youtubeVideo.getName());
-                Log.d("ID:Video- ", youtubeVideo.getKey());
+            Log.d("FetchVideo Task: ", "complete");
+            fetchCastTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, movie.getMovieID());
 
-            }
-
-
-
-            if(count1 == 0 )
-                count1 ++;
-            else
-                showLists();
         }
     }
 
@@ -498,7 +530,7 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
                     .appendPath("movie")
                     .appendPath(movieID)
                     .appendPath("casts")
-                    .appendQueryParameter("api_key","c74eefc5fded173206b2b3abb1bc76a2");
+                    .appendQueryParameter("api_key", "c74eefc5fded173206b2b3abb1bc76a2");
             String builtUrl = builder1.build().toString();
 
             try {
@@ -541,57 +573,278 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
 
             JSONObject myjson;
             mCastList = new ArrayList<>();
-            try
-            {
+            try {
                 myjson = new JSONObject(result);
-                Log.d("" ,myjson.toString());
                 JSONArray page1 = myjson.getJSONArray("cast");
-                Log.d("JSON array: ",page1.toString());
 
-                for(int i = 0; i < page1.length(); i++ ) {
+                for (int i = 0; i < 9; i++) {
 
                     JSONObject movieObject = page1.getJSONObject(i);
-                    Log.d("JSON object for cast:  ",movieObject.toString());
-
                     Cast cast = new Cast();
                     cast.setId(movieObject.get("id").toString());
-                    Log.d("JSON object for ID: ", movieObject.get("id").toString());
-
+                    Log.d("Cast Id",cast.getId());
                     cast.setCharacter(movieObject.getString("character"));
-                    Log.d("JSON object for character: ", cast.getCharacter());
-
                     cast.setName(movieObject.getString("name"));
-                    Log.d("JSON object for name: ", cast.getName());
-
                     cast.setCredit_id(movieObject.get("credit_id").toString());
-                    Log.d("JSON object for cast Credit ID: ", cast.getCredit_id());
-
                     cast.setProfile_path(movieObject.getString("profile_path"));
-                    Log.d("JSON object for cast profile path: ", cast.getProfile_path());
-
 
                     mCastList.add(cast);
                 }
-
-            }
-            catch (JSONException e) {
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
-            Log.d("Size of list, Cast List", mCastList.size() + "");
 
-            for(Cast cast: mCastList)  {
-                Log.d("Name - Cast List: ", cast.getName());
-                Log.d("ID - cast list:", cast.getId());
-            }
+            gridAdapter = new GridAdapter(getActivity(), mCastList, screenWidth);
+            mCastView.setExpanded(true);
+            mCastView.setAdapter(gridAdapter);
+            gridAdapter.notifyDataSetChanged();
 
-            if(count1 == 0 )
-                count1 ++;
-            else
-                showLists();
+
+
         }
     }
 
+    public class FetchActorsTask extends AsyncTask<String, Void, List<Movie>> {
 
+        @Override
+        protected List<Movie> doInBackground(String... params) {
+            HttpURLConnection connection = null;
+            BufferedReader reader = null;
+            String movieStr = null;
+            String sort_by = params[0];
+            Uri.Builder builder1 = new Uri.Builder();
+            builder1.scheme("http")
+                    .authority("api.themoviedb.org")
+                    .appendPath("3")
+                    .appendPath("discover")
+                    .appendPath("movie")
+                    .appendQueryParameter("sort_by", sort_by)
+                    .appendQueryParameter("api_key", "c74eefc5fded173206b2b3abb1bc76a2");
+            String builtUrl = builder1.build().toString();
+            String checkUrl = "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=c74eefc5fded173206b2b3abb1bc76a2";
+
+            Log.d("Checking URI", checkUrl.compareTo(checkUrl) + "");
+
+            try {
+                URL url = new URL(builtUrl);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.connect();
+
+
+                InputStream inputStream = connection.getInputStream();
+                StringBuilder builder = new StringBuilder();
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    builder.append(line + "\n");
+                }
+
+                movieStr = builder.toString();
+            } catch (IOException e) {
+                Log.e("MovieGridFragment", "Error ", e);
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (final IOException e) {
+                        Log.e("MovieGridFragment", "Error closing stream", e);
+                    }
+                }
+            }
+            return MoviesParser(movieStr);
+
+        }
+
+        @Override
+        protected void onPostExecute(List<Movie> result) {
+            screenWidth = getScreenDimen();
+
+        } /*else if(flag == 1) {
+                flag = 2;
+            } else {
+                Log.d("Flag value:" , flag + "out of context");
+            }*/
+
+
+    }
+
+    private List<Movie> MoviesParser(String result) {
+        JSONObject myjson;
+        movieList = new ArrayList<>();
+        try {
+            myjson = new JSONObject(result);
+            Log.d("", myjson.toString());
+            JSONArray page1 = myjson.getJSONArray("results");
+            for (int i = 0; i < page1.length(); i++) {
+                JSONObject movieObject = page1.getJSONObject(i);
+                Movie movie = new Movie();
+                movie.setOriginal_title(movieObject.getString("original_title"));
+                movie.setAdult(movieObject.getBoolean("adult"));
+                movie.setOverView(movieObject.getString("overview"));
+                movie.setMovieID(movieObject.getString("id"));
+                movie.setReleaseDate(movieObject.getString("release_date"));
+                movie.setVoteAverage(movieObject.getString("vote_average"));
+                movie.setPoster_path("http://image.tmdb.org/t/p/w500//" + movieObject.getString("poster_path"));
+                movie.setBackdrop_path("http://image.tmdb.org/t/p/w780//" + movieObject.getString("backdrop_path"));
+                JSONArray genre = movieObject.getJSONArray("genre_ids");
+                ArrayList tempList = new ArrayList();
+                for (int j = 0; j < genre.length(); j++) {
+                    tempList.add(genre.get(j));
+                }
+                movie.setGenre(tempList);
+
+                movieList.add(movie);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return movieList;
+
+    }
+
+    public class FetchActorDetailsTask extends AsyncTask<String, Void, Actor> {
+
+        @Override
+        protected Actor doInBackground(String... params) {
+
+            //http://api.themoviedb.org/3/person/2524?api_key=c74eefc5fded173206b2b3abb1bc76a2
+            HttpURLConnection connection = null;
+            BufferedReader reader = null;
+            String movieStr = null;
+            String actorId = params[0];
+            Uri.Builder builder1 = new Uri.Builder();
+            builder1.scheme("http")
+                    .authority("api.themoviedb.org")
+                    .appendPath("3")
+                    .appendPath("person")
+                    .appendPath(actorId)
+                    .appendQueryParameter("api_key", "c74eefc5fded173206b2b3abb1bc76a2");
+            String builtUrl = builder1.build().toString();
+            Log.d(builtUrl, "");
+
+
+            try {
+                URL url = new URL(builtUrl);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.connect();
+
+
+                InputStream inputStream = connection.getInputStream();
+                StringBuilder builder = new StringBuilder();
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    builder.append(line + "\n");
+                }
+
+                movieStr = builder.toString();
+            } catch (IOException e) {
+                Log.e("MovieGridFragment", "Error ", e);
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (final IOException e) {
+                        Log.e("MovieGridFragment", "Error closing stream", e);
+                    }
+                }
+            }
+
+            return MoviesParser(movieStr);
+        }
+
+        @Override
+        protected void onPostExecute(Actor actor) {
+
+            Dialog profileDialog = new Dialog(getActivity());
+            profileDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+            profileDialog.setContentView(getActivity().getLayoutInflater().inflate(R.layout.actor_overview
+                    , null));
+            profileDialog.show();
+
+            ImageView imageView = (ImageView)profileDialog.findViewById(R.id.actors_overview_imageview);
+            TextView mName = (TextView)profileDialog.findViewById(R.id.actor_nsame_);
+            TextView mBirography = (TextView)profileDialog.findViewById(R.id.biorapgy);
+            TextView dob = (TextView)profileDialog.findViewById(R.id.birthday_textview);
+            TextView place = (TextView)profileDialog.findViewById(R.id.place_textview);
+            TextView deathDay = (TextView)profileDialog.findViewById(R.id.deathday);
+            TextView death = (TextView)profileDialog.findViewById(R.id.death_textview);
+
+            mName.setText(actor.getName());
+            mBirography.setText(actor.getBio());
+            dob.setText(actor.getBirthday());
+            place.setText(actor.getPlaceOfBirth());
+
+            if(!actor.getDeath().equals("")) {
+                death.setText(actor.getDeath());
+                death.setVisibility(View.VISIBLE);
+                deathDay.setVisibility(View.VISIBLE);
+            }
+
+            Picasso.with(getActivity())
+                    .load(actor.getProfilePath())
+                    .resize(300,450)
+                    .into(imageView);
+
+
+//            dialog.setTitle(actor.getName());
+        }
+
+        private Actor MoviesParser(String result) {
+            JSONObject myjson;
+            Actor actor = new Actor();
+
+            movieList = new ArrayList<>();
+            try {
+                myjson = new JSONObject(result);
+                Log.d("Actor overview:", myjson.toString());
+
+                actor.setId(myjson.getString("id"));
+                Log.d("Actor overview:", myjson.getString("id"));
+                actor.setBio(myjson.getString("biography"));
+                Log.d("Actor overview:", myjson.getString("biography"));
+
+                actor.setBirthday(myjson.getString("birthday"));
+                Log.d("Actor overview:", myjson.getString("birthday"));
+
+                actor.setDeath(myjson.getString("deathday"));
+                Log.d("Actor overview:", myjson.getString("deathday"));
+
+
+                actor.setHomepage(myjson.getString("homepage"));
+                Log.d("Actor overview:", myjson.getString("homepage"));
+
+                actor.setImdbID(myjson.getString("imdb_id"));
+                Log.d("Actor overview:", myjson.getString("imdb_id"));
+
+                actor.setName(myjson.getString("name"));
+                Log.d("Actor overview:", myjson.getString("name"));
+
+                actor.setPlaceOfBirth(myjson.getString("place_of_birth"));
+                Log.d("Actor overview:", myjson.getString("place_of_birth"));
+
+                actor.setProfilePath("http://image.tmdb.org/t/p/w185//" + myjson.getString("profile_path"));
+                Log.d("Actor overview:", myjson.getString("profile_path"));
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            //Log.d("Actor overview:",actor.getName());
+            return actor;
+
+        }
+    }
 
     @Override
     public void onClick(View v) {
@@ -618,7 +871,14 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
         }
     }
 
+    private void setUpOverView(int position) {
+        FetchActorDetailsTask detailsTask = new FetchActorDetailsTask();
+        detailsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,mCastList.get(position).getId());
+    }
+
     private class youtubeConfig {
         public static final String DEVELOPER_KEY = "AIzaSyCaKtZ7jQaMQi06WnyOqF_K6pZl92qy9Rs";
     }
+
+
 }

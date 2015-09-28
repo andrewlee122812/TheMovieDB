@@ -260,10 +260,11 @@
 
             </RelativeLayout>
 
+
             <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:id="@+id/youtube_view_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/youtube_view_parent_parent"
                 android:layout_below="@+id/release_date_parent">
 
                 <TextView
@@ -273,24 +274,53 @@
                     android:id="@+id/videos_textview"
                     android:textSize="20sp"
                     android:textColor="@color/monsoon"
-                    android:layout_centerHorizontal="true"
-                    />
+                    android:layout_centerHorizontal="true" />
 
-              <com.google.android.youtube.player.YouTubePlayerView
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_below="@+id/videos_textview"
-                  android:id="@+id/youtube_container">
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/youtube_view_parent"
+                    android:orientation="vertical"
+                    android:layout_below="@+id/videos_textview">
 
-              </com.google.android.youtube.player.YouTubePlayerView>
+                    <!--<com.google.android.youtube.player.YouTubePlayerView
+                        android:layout_width="match_parent"
+                        android:layout_height="240dp"
+                        android:id="@+id/youtube_view1"
+                        />
 
+                    <com.google.android.youtube.player.YouTubePlayerView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:id="@+id/youtube_view2"
+                        />
+
+                    <com.google.android.youtube.player.YouTubePlayerView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+
+                        android:id="@+id/youtube_view3"
+                        />
+
+                    <com.google.android.youtube.player.YouTubePlayerView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+
+                        android:id="@+id/youtube_view4"
+                        />-->
+
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
+                    android:id="@+id/youtube_view_footer"
+                    android:layout_below="@+id/youtube_view_parent"
                     android:background="@color/material_blue_grey_950"
-                    android:layout_below="@+id/youtube_container"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="35dp"
                     />
 
 
@@ -299,7 +329,7 @@
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/youtube_view_parent"
+                android:layout_below="@+id/youtube_view_parent_parent"
                 android:id="@+id/cast_gridview_parent">
 
                 <TextView
@@ -312,21 +342,24 @@
                     android:layout_centerHorizontal="true"
                     />
 
-                <GridView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:numColumns="auto_fit"
+                <in.reduxpress.themoviedb.HelperClasses.ExpandedScrollView
+                    android:id="@+id/cast_grid"
+                    android:orientation="horizontal"
                     android:layout_below="@+id/cast_texview"
-                    android:id="@+id/cast_gridview">
+                    android:layout_width="wrap_content"
+                    android:numColumns="3"
+                    android:layout_height="wrap_content"
+                    android:drawSelectorOnTop="false"
+                    android:stretchMode="columnWidth"
+                    >
 
+                </in.reduxpress.themoviedb.HelperClasses.ExpandedScrollView>
 
-                </GridView>
-
-                <View
+               <View
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:background="@color/material_blue_grey_950"
-                    android:layout_below="@+id/cast_gridview"
+                    android:layout_below="@+id/cast_grid"
                     android:layout_marginTop="5dp"
                     />
 
@@ -334,7 +367,7 @@
 
             <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="200dp"
+                android:layout_height="300dp"
                 android:layout_below="@+id/cast_gridview_parent">
 
                 <TextView

@@ -14,16 +14,19 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/CustomActionBarTheme1" >
+            android:theme="@style/CustomActionBarTheme1"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".DetailsActivity"
             android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_details"
             android:parentActivityName=".MainActivity"
             android:theme="@style/CustomActionBarTheme" >
@@ -34,6 +37,8 @@
         <activity
             android:name=".TestActivity"
             android:label="@string/title_activity_test" >
+
+
         </activity>
     </application>
 

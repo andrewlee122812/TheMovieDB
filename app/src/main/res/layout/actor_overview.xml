@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="225dp"
+            android:src="@color/monsoon"
+            android:id="@+id/actors_overview_imageview"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:id="@+id/actors_overview_name_textview"
+            android:textSize="15sp"
+            android:layout_toRightOf="@+id/actors_overview_imageview"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="30dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height= "wrap_content"
+            android:text="Actor name"
+            android:id="@+id/actor_nsame_"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/actors_overview_name_textview"
+            android:layout_marginTop="30dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/birthday"
+            android:text="Birthday"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@+id/actors_overview_name_textview"
+            android:layout_alignEnd="@+id/actors_overview_name_textview"
+            android:layout_marginTop="30dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/birthday_textview"
+            android:text="2015-09-05"
+            android:layout_below="@+id/actor_nsame_"
+            android:layout_toRightOf="@+id/birthday"
+            android:layout_marginTop="30dp"
+            android:layout_alignStart="@+id/actor_nsame_"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/birth_place"
+            android:text="Place"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@+id/birthday"
+            android:layout_alignEnd="@+id/actors_overview_name_textview"
+            android:layout_marginTop="30dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/place_textview"
+            android:text="London"
+            android:layout_below="@+id/birthday_textview"
+            android:layout_toRightOf="@+id/birthday"
+            android:layout_marginTop="30dp"
+            android:layout_alignStart="@+id/actor_nsame_"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/deathday"
+            android:text="Death"
+            android:visibility="invisible"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@+id/birth_place"
+            android:layout_alignEnd="@+id/actors_overview_name_textview"
+            android:layout_marginTop="30dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/death_textview"
+            android:text="2015-09-05"
+            android:visibility="invisible"
+            android:layout_below="@+id/place_textview"
+            android:layout_toRightOf="@+id/birthday"
+            android:layout_marginTop="30dp"
+            android:layout_alignStart="@+id/actor_nsame_"
+            />
+
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Biogrpahy"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:id="@+id/biorapgytextview"
+            android:layout_below="@+id/actors_overview_imageview"
+            android:layout_marginTop="50dp"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/biorapgytextview"
+            android:layout_marginTop="30dp"
+            android:id="@+id/biorapgy"/>
+
+
+    </RelativeLayout>
+
+</ScrollView>
