@@ -81,7 +81,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/review"
+                    android:src="@mipmap/review"
                     android:id="@+id/review_imageview"
                     android:layout_below="@+id/view1"
                     android:layout_marginTop="5dp"/>
@@ -143,7 +143,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_alignParentLeft="true"
                     android:id="@+id/add_favourite_imagebutton"
-                    android:src="@drawable/ic_heart"/>
+                    android:src="@mipmap/ic_heart"/>
 
                 <ImageButton
                     android:layout_width="wrap_content"
@@ -161,7 +161,7 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:id="@+id/share_imageButton"
-                    android:src="@drawable/ic_share"
+                    android:src="@mipmap/ic_share"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="40dp"
                     android:layout_alignParentRight="true"

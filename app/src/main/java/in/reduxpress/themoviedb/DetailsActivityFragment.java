@@ -234,8 +234,8 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
         mFavouriteButton.setBackgroundColor(Color.TRANSPARENT);
         mShareButton.setBackgroundColor(Color.TRANSPARENT);
         mAddtoListButton.setBackgroundColor(Color.TRANSPARENT);
-        imageButtonLoaderPicasso(R.drawable.ic_share, 180, 180, mShareButton);
-        imageButtonLoaderPicasso(R.drawable.ic_add, 180, 180, mAddtoListButton);
+        imageButtonLoaderPicasso(R.mipmap.ic_share, 180, 180, mShareButton);
+        imageButtonLoaderPicasso(R.mipmap.ic_add, 180, 180, mAddtoListButton);
         toggleFavourite();
     }
 
@@ -245,11 +245,11 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
         setFavourites();
         Log.d("isFavourite", isFavourite + "");
         if (isFavourite) {
-            imageButtonLoaderPicasso(R.drawable.added_favourite, 180, 180, mFavouriteButton);
+            imageButtonLoaderPicasso(R.mipmap.added_favourite, 180, 180, mFavouriteButton);
             editor.remove(movie.getMovieID());
             isFavourite = false;
         } else {
-            imageButtonLoaderPicasso(R.drawable.ic_heart, 180, 180, mFavouriteButton);
+            imageButtonLoaderPicasso(R.mipmap.ic_heart, 180, 180, mFavouriteButton);
             editor.putString(movie.getMovieID(), movie.getOriginal_title());
             isFavourite = true;
         }
@@ -451,7 +451,7 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
                 e.printStackTrace();
             }
 
-            for( int i = 0; i < mVideoList.size(); i++ ) {
+            for( int i = 0; i < 1; i++ ) {
                 YouTubePlayerView youTubePlayerView = new YouTubePlayerView(getActivity());
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 youTubePlayerView.setId((i + 1));
@@ -482,29 +482,6 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
                     }
                 });
             }
-
-            /*
-            youTubePlayerView.setVisibility(View.VISIBLE);
-
-            youTubePlayerView.initialize(youtubeConfig.DEVELOPER_KEY, new YouTubePlayer.OnInitializedListener() {
-                @Override
-                public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                    if (!b) {
-
-                        // loadVideo() will auto play video
-                        // Use cueVideo() method, if you don't want to play it automatically
-                        youTubePlayer.cueVideo(mVideoList.get(0).getKey());
-
-                        // Hiding player controls
-                    }
-
-                }
-
-                @Override
-                public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-                    Log.d("Error " + youTubeInitializationResult.toString(), "");
-                }
-            });*/
 
             Log.d("FetchVideo Task: ", "complete");
             fetchCastTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, movie.getMovieID());
@@ -576,19 +553,37 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
                 myjson = new JSONObject(result);
                 JSONArray page1 = myjson.getJSONArray("cast");
 
-                for (int i = 0; i < 9; i++) {
+                if(page1.length() >= 9) {
+                    for (int i = 0; i < 9; i++) {
 
-                    JSONObject movieObject = page1.getJSONObject(i);
-                    Cast cast = new Cast();
-                    cast.setId(movieObject.get("id").toString());
-                    Log.d("Cast Id",cast.getId());
-                    cast.setCharacter(movieObject.getString("character"));
-                    cast.setName(movieObject.getString("name"));
-                    cast.setCredit_id(movieObject.get("credit_id").toString());
-                    cast.setProfile_path(movieObject.getString("profile_path"));
+                        JSONObject movieObject = page1.getJSONObject(i);
+                        Cast cast = new Cast();
+                        cast.setId(movieObject.get("id").toString());
+                        Log.d("Cast Id",cast.getId());
+                        cast.setCharacter(movieObject.getString("character"));
+                        cast.setName(movieObject.getString("name"));
+                        cast.setCredit_id(movieObject.get("credit_id").toString());
+                        cast.setProfile_path(movieObject.getString("profile_path"));
 
-                    mCastList.add(cast);
+                        mCastList.add(cast);
+                    }
+                } else {
+                    for (int i = 0; i < page1.length(); i++) {
+
+                        JSONObject movieObject = page1.getJSONObject(i);
+                        Cast cast = new Cast();
+                        cast.setId(movieObject.get("id").toString());
+                        Log.d("Cast Id",cast.getId());
+                        cast.setCharacter(movieObject.getString("character"));
+                        cast.setName(movieObject.getString("name"));
+                        cast.setCredit_id(movieObject.get("credit_id").toString());
+                        cast.setProfile_path(movieObject.getString("profile_path"));
+
+                        mCastList.add(cast);
+                    }
                 }
+
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
