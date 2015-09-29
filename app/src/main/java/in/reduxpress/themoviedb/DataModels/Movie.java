@@ -24,6 +24,22 @@ public class Movie implements Parcelable {
     ArrayList genre;
     String category;
 
+    public Movie(String movieID, String voteAverage, String releaseDate, String overView, String poster_path, String backdrop_path, String adult, String original_title) {
+        this.movieID = movieID;
+        this.voteAverage = voteAverage;
+        this.releaseDate = releaseDate;
+        this.overView = overView;
+        this.poster_path = poster_path;
+        this.backdrop_path = backdrop_path;
+        if(adult.equals("true")) {
+            this.adult = true;
+
+        } else if(adult.equals("false")) {
+            this.adult = false;
+        }
+        this.original_title = original_title;
+    }
+
     public String getCategory() {
         return category;
     }

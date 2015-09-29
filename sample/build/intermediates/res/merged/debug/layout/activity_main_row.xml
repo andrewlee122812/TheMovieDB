@@ -48,4 +48,4 @@
         android:textSize="@dimen/listview_row_description_size"
         android:visibility="gone"/>
 
-</LinearLayout><!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/src/main/res/layout/activity_main_row.xml -->
+</LinearLayout><!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/src/main/res/layout/activity_main_row.xml -->

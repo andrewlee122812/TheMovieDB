@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/library/src/main/res/values-fr/strings.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/library/src/main/res/values-fr/strings.xml -->
     <eat-comment/>
     <string name="mdl_add_account">Ajouter un compte</string>
     <string name="mdl_back">Retour</string>

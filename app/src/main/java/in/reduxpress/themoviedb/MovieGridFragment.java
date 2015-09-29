@@ -221,7 +221,6 @@ public  class MovieGridFragment extends Fragment implements AsyncResponse{
         List<Movie> movieList = output;
         screenWidth = getScreenDimen();
         screenDPI = getScreenDPI();
-        DatabaseHandler db = new DatabaseHandler(getActivity());
         mImageAdapter = new ImageAdapter(getActivity(),movieList,screenWidth,screenDPI);
         String category = movieList.get(0).getCategory();
         if(category.equals(SORT_BY_POPULARITY)) {

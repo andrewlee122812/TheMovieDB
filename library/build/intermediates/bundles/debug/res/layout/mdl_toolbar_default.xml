@@ -11,4 +11,4 @@
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"/>
 
-</merge><!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/library/src/main/res/layout/mdl_toolbar_default.xml -->
+</merge><!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/library/src/main/res/layout/mdl_toolbar_default.xml -->

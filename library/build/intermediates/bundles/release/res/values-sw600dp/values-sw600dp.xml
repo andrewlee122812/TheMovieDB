@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/library/src/main/res/values-sw600dp/dimens.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/library/src/main/res/values-sw600dp/dimens.xml -->
     <eat-comment/>
     <dimen name="mdl_cardview_button_size">15sp</dimen>
     <dimen name="mdl_cardview_description_size">17sp</dimen>

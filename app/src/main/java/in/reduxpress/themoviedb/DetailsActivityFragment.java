@@ -52,6 +52,7 @@ import in.reduxpress.themoviedb.DataModels.Cast;
 import in.reduxpress.themoviedb.DataModels.Movie;
 import in.reduxpress.themoviedb.DataModels.TvShows;
 import in.reduxpress.themoviedb.DataModels.YoutubeVideo;
+import in.reduxpress.themoviedb.HelperClasses.DatabaseHandler;
 import in.reduxpress.themoviedb.HelperClasses.ExpandedScrollView;
 import in.reduxpress.themoviedb.HelperClasses.TrackingScrollView;
 
@@ -99,6 +100,8 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
     RelativeLayout youTubeParentParent;
     String content;
     TvShows tvShows;
+    DatabaseHandler db ;
+
 
     YouTubePlayerView youTubePlayerView;
 
@@ -134,6 +137,7 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
         youTubeParentParent = (RelativeLayout)rootView.findViewById(R.id.youtube_view_parent_parent);
        // youTubePlayerView = (YouTubePlayerView) rootView.findViewById(R.id.youtube_view1);
         transparentDrawable = new ColorDrawable(Color.BLACK);
+        db = new DatabaseHandler(getActivity());
         fetchCastTask = new FetchCastTask();
         fetchVideosTask = new FetchVideosTask();
 
@@ -871,6 +875,31 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
             toggleFavourite();
             Toast.makeText(getActivity(),"CLicke",Toast.LENGTH_SHORT).show();
 
+            getActivity().deleteDatabase("moviesOffline");
+
+
+
+
+
+            /**
+             * CRUD Operations
+             **/
+            // Inserting Contacts
+            if(content == null ) {
+                Log.d("Insert: ", "Inserting ..");
+                db.addContact(movie);
+
+            }
+
+            // Reading all contacts
+            Log.d("Reading: ", "Reading all contacts..");
+            List<Movie> contacts = db.getAllContacts();
+
+            for (Movie cn : contacts) {
+                String log = "Id: " + cn.getMovieID() + " ,Name: " + cn.getOriginal_title() + " ,Phone: " + cn.getOverView();
+                // Writing Contacts to log
+                Log.d("Name: ", log);
+            }
 
         }
     }
@@ -897,6 +926,8 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
     private class youtubeConfig {
         public static final String DEVELOPER_KEY = "AIzaSyCaKtZ7jQaMQi06WnyOqF_K6pZl92qy9Rs";
     }
+
+
 
 
 }

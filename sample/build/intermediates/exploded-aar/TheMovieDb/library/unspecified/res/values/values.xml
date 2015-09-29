@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/library/src/main/res/values/colors.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/library/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="mdl_cardview_background">#fafafa</color>
     <color name="mdl_cardview_highlight_button_color">#ffab40</color>
@@ -20,7 +20,7 @@
     <color name="mdl_navigation_drawer_item_title_color">#212121</color>
     <color name="mdl_navigation_drawer_item_top_background">#f6f6f6</color>
     <declare-styleable name="MDLCardView"><attr format="string" name="mdl_title"/><attr format="string" name="mdl_description"/><attr format="reference" name="mdl_image"/><attr format="string" name="mdl_imageUrl"/><attr format="enum" name="mdl_imagePosition"><enum name="none" value="0"/><enum name="left" value="1"/><enum name="top" value="2"/></attr><attr format="string" name="mdl_normalButton"/><attr format="string" name="mdl_highlightButton"/></declare-styleable>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/library/src/main/res/values/dimens.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/library/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="mdl_cardview_button_size">14sp</dimen>
     <dimen name="mdl_cardview_description_size">16sp</dimen>
@@ -42,10 +42,10 @@
     <dimen name="mdl_navigationdrawer_accounts_small_height">68dp</dimen>
     <dimen name="mdl_navigationdrawer_accounts_title_size">15sp</dimen>
     <dimen name="mdl_viewpager_with_tabs_height">48dip</dimen>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/library/src/main/res/values/ids.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/library/src/main/res/values/ids.xml -->
     <eat-comment/>
     <item name="mdl_toolbar_search_menu_item" type="id"/>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/library/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/library/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="mdl_add_account">Add an account</string>
     <string name="mdl_back">Back</string>
@@ -56,7 +56,7 @@
     <string name="mdl_navigation_drawer_open">Open navigation drawer</string>
     <string name="mdl_search">Search</string>
     <string name="mdl_settings">Settings</string>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/library/src/main/res/values/styles.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/library/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="MaterialDesignLibraryTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/mdl_color_primary</item>

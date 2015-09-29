@@ -16,4 +16,4 @@
         app:mdl_imagePosition="top"
         app:mdl_image="@mipmap/cardview_image_top"/>
 
-</FrameLayout><!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/src/main/res/layout/activity_cardview_with_top_image.xml -->
+</FrameLayout><!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/src/main/res/layout/activity_cardview_with_top_image.xml -->

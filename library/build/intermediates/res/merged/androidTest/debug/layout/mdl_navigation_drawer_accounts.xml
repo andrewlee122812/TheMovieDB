@@ -133,4 +133,4 @@
         android:layout_height="1dp"
         android:background="@color/mdl_navigation_drawer_accounts_separator_color"/>
 
-</merge><!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/library/src/main/res/layout/mdl_navigation_drawer_accounts.xml --><!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/library/build/intermediates/bundles/debug/res/layout/mdl_navigation_drawer_accounts.xml -->
+</merge><!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/library/src/main/res/layout/mdl_navigation_drawer_accounts.xml --><!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/library/build/intermediates/bundles/debug/res/layout/mdl_navigation_drawer_accounts.xml -->

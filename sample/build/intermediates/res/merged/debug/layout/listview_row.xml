@@ -8,4 +8,4 @@
     android:textSize="@dimen/listview_row_title_size"
     android:minHeight="@dimen/listview_row_height"
     android:paddingLeft="@dimen/listview_row_title_padding"
-    android:paddingRight="@dimen/listview_row_title_padding"/><!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/src/main/res/layout/listview_row.xml -->
+    android:paddingRight="@dimen/listview_row_title_padding"/><!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/src/main/res/layout/listview_row.xml -->
