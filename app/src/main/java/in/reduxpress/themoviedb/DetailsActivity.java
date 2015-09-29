@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 
 import in.reduxpress.themoviedb.DataModels.Movie;
+import in.reduxpress.themoviedb.DataModels.TvShows;
 
 public class DetailsActivity extends YouTubeBaseActivity {
 
@@ -19,14 +20,18 @@ public class DetailsActivity extends YouTubeBaseActivity {
         setContentView(R.layout.activity_details);
 
         Intent intent = getIntent();
-        Movie movie = intent.getParcelableExtra("MovieDetails");
+        String content = intent.getStringExtra("Content");
 
         Bundle b = new Bundle();
-        if(movie != null) {
+        if(content == null) {
             Log.d("Details", "Received Arraylist");
-            Log.d("Details", movie.getOriginal_title());
-
+            Movie movie = intent.getParcelableExtra("MovieDetails");
             b.putParcelable("MovieDetails", movie);
+        } else {
+            Log.d("Tv show recived", "");
+            TvShows tvShows = intent.getParcelableExtra("MovieDetails");
+            b.putParcelable("MovieDetails",tvShows);
+            b.putString("Content",content);
         }
 
         if (savedInstanceState == null) {

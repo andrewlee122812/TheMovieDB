@@ -6,12 +6,17 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="fill_parent">
 
 
         <ImageView
             android:layout_width="150dp"
             android:layout_height="225dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:background="@color/iron"
+            android:padding="10dp"
+            android:cropToPadding="true"
             android:src="@color/monsoon"
             android:id="@+id/actors_overview_imageview"
             />
@@ -22,29 +27,33 @@
             android:text="Name"
             android:id="@+id/actors_overview_name_textview"
             android:textSize="15sp"
-            android:layout_toRightOf="@+id/actors_overview_imageview"
-            android:layout_marginLeft="13dp"
-            android:layout_marginTop="30dp"/>
+            android:textStyle="bold"
+
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/actors_overview_imageview"
+            android:layout_alignLeft="@+id/actors_overview_imageview"
+            android:layout_alignStart="@+id/actors_overview_imageview" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height= "wrap_content"
             android:text="Actor name"
             android:id="@+id/actor_nsame_"
-            android:layout_marginLeft="15dp"
-            android:layout_toRightOf="@+id/actors_overview_name_textview"
-            android:layout_marginTop="30dp"/>
+            android:layout_alignBottom="@+id/actors_overview_name_textview"
+            android:layout_alignRight="@+id/actors_overview_imageview"
+            />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/birthday"
             android:text="Birthday"
-            android:layout_marginLeft="20dp"
-            android:layout_below="@+id/actors_overview_name_textview"
-            android:layout_alignEnd="@+id/actors_overview_name_textview"
-            android:layout_marginTop="30dp"
-            />
+            android:textStyle="bold"
+
+            android:layout_alignBaseline="@+id/birthday_textview"
+            android:layout_alignBottom="@+id/birthday_textview"
+            android:layout_alignLeft="@+id/actors_overview_imageview"
+            android:layout_alignStart="@+id/actors_overview_imageview" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -62,6 +71,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/birth_place"
             android:text="Place"
+            android:textStyle="bold"
+
             android:layout_marginLeft="20dp"
             android:layout_below="@+id/birthday"
             android:layout_alignEnd="@+id/actors_overview_name_textview"
@@ -72,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/place_textview"
-            android:text="London"
+            android:text="London vucvuvuvjvjhhv jvjvjvjhvjhvjvjhvjvjvjvjvjvjhvjhvjvjvjj"
             android:layout_below="@+id/birthday_textview"
             android:layout_toRightOf="@+id/birthday"
             android:layout_marginTop="30dp"
@@ -84,6 +95,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/deathday"
             android:text="Death"
+            android:textStyle="bold"
+
             android:visibility="invisible"
             android:layout_marginLeft="20dp"
             android:layout_below="@+id/birth_place"
@@ -109,19 +122,30 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Biogrpahy"
+            android:text="Biography"
             android:layout_centerHorizontal="true"
             android:gravity="center"
+            android:textStyle="bold"
             android:id="@+id/biorapgytextview"
-            android:layout_below="@+id/actors_overview_imageview"
+            android:layout_below="@+id/death_textview"
             android:layout_marginTop="50dp"/>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="20dp"
+            android:layout_above="@+id/biorapgytextview"
+            android:background="@color/iron">
+
+        </View>
+
         <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/biorapgy"
+            android:layout_marginTop="5dp"
             android:layout_below="@+id/biorapgytextview"
-            android:layout_marginTop="30dp"
-            android:id="@+id/biorapgy"/>
+            android:layout_centerHorizontal="true" />
 
 
     </RelativeLayout>

@@ -16,6 +16,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import in.reduxpress.themoviedb.DataModels.Movie;
+import in.reduxpress.themoviedb.DataModels.TvShows;
 import in.reduxpress.themoviedb.R;
 
 public class ImageAdapter extends BaseAdapter {
@@ -25,6 +26,8 @@ public class ImageAdapter extends BaseAdapter {
     private Context activity;
     private LayoutInflater inflater = null;
     private List<Movie> movieList;
+    private List<TvShows> tvShowsList;
+
     private int screenWidth;
     private int screenDPI;
     private int width;
@@ -38,15 +41,29 @@ public class ImageAdapter extends BaseAdapter {
         inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);;
     }
 
+    public ImageAdapter(Context activity,List<TvShows> movieList, int screenWidth) {
+        this.screenWidth = screenWidth;
+        this.activity = activity;
+        this.tvShowsList = movieList;
+        inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);;
+    }
+
     @Override
     public int getCount() {
-        return movieList.size();
-    }
+        if(movieList == null) {
+            return tvShowsList.size();
+        } else {
+            return movieList.size();
+        }    }
 
 
     @Override
     public Object getItem(int position) {
-        return movieList.get(position);
+        if(movieList == null) {
+            return tvShowsList.get(position);
+        } else {
+            return movieList.get(position);
+        }
     }
 
     @Override
@@ -79,12 +96,23 @@ public class ImageAdapter extends BaseAdapter {
 
         int height = computeImageHeight(width);
 
-        Picasso picasso = Picasso.with(activity);
-        picasso.load(movieList.get(position).getPoster_path())
-                .resize((154*3), (231*3))
-                .noFade()
-                .into(holder.imageView);
-        picasso.setIndicatorsEnabled(true);
+        if(movieList == null) {
+            Picasso picasso = Picasso.with(activity);
+            picasso.load(tvShowsList.get(position).getPoster_path())
+                    .resize((154*3), (231*3))
+                    .noFade()
+                    .into(holder.imageView);
+            picasso.setIndicatorsEnabled(true);
+        } else {
+            Picasso picasso = Picasso.with(activity);
+            picasso.load(movieList.get(position).getPoster_path())
+                    .resize((154*3), (231*3))
+                    .noFade()
+                    .into(holder.imageView);
+            picasso.setIndicatorsEnabled(true);
+        }
+
+
 
 
         view.setTag(holder);

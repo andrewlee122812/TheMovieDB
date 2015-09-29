@@ -39,13 +39,13 @@ import in.reduxpress.themoviedb.Adapters.ImageAdapter;
 import in.reduxpress.themoviedb.AsyncTasks.AsyncResponse;
 import in.reduxpress.themoviedb.AsyncTasks.FetchContentTask;
 import in.reduxpress.themoviedb.DataModels.Genre;
-import in.reduxpress.themoviedb.DataModels.Movie;
+import in.reduxpress.themoviedb.DataModels.TvShows;
 import in.reduxpress.themoviedb.HelperClasses.DatabaseHandler;
 
 /**
  * Created by kumardivyarajat on 10/06/15.
  */
-public  class MovieGridFragment extends Fragment implements AsyncResponse{
+public  class TVShowsFragment extends Fragment implements AsyncResponse{
 
     //private ListView mGridView;
     private ImageAdapter mImageAdapter;
@@ -66,7 +66,7 @@ public  class MovieGridFragment extends Fragment implements AsyncResponse{
     final String SORT_BY_TOP_RATED = "vote_average.desc";
     final String SORT_BY_LATEST = "release_date.desc";
     final String SORT_BY_OLDEST = "release_date.asc";
-    final String CONTENT = "movie";
+    final String CONTENT = "tv";
     int flag = 0;
     FetchContentTask fetchPoplularMoviesTask;
     FetchContentTask fetchTopRatedMoviesTask;
@@ -75,15 +75,15 @@ public  class MovieGridFragment extends Fragment implements AsyncResponse{
     FetchGenreTask fetchGenreTask;
     SharedPreferences genreStorage;
     SharedPreferences.Editor genreEditor;
-    List<Movie> popularmovieList;
-    List<Movie> topRatedMovieList;
-    List<Movie> latestMovieList;
-    Movie movie;
+    List<TvShows> popularmovieList;
+    List<TvShows> topRatedMovieList;
+    List<TvShows> latestMovieList;
+    TvShows movie;
 
 
 
 
-    public MovieGridFragment() {
+    public TVShowsFragment() {
 
     }
 
@@ -180,9 +180,10 @@ public  class MovieGridFragment extends Fragment implements AsyncResponse{
     };
 
     private void startNewActivity() {
-        Toast.makeText(getActivity(), movie.getOriginal_title() + "", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), movie.getOriginal_name() + "", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity().getApplicationContext(),DetailsActivity.class);
         intent.putExtra("MovieDetails",movie);
+        intent.putExtra("Content","Tv");
         startActivity(intent);
     }
 
@@ -218,28 +219,29 @@ public  class MovieGridFragment extends Fragment implements AsyncResponse{
 
     @Override
     public void processFinish(List output) {
-        List<Movie> movieList = output;
+        List<TvShows> tvShowsList = output;
         screenWidth = getScreenDimen();
         screenDPI = getScreenDPI();
         DatabaseHandler db = new DatabaseHandler(getActivity());
-        mImageAdapter = new ImageAdapter(getActivity(),movieList,screenWidth,screenDPI);
-        String category = movieList.get(0).getCategory();
+        mImageAdapter = new ImageAdapter(getActivity(),tvShowsList,screenWidth);
+        String category = tvShowsList.get(0).getCategory();
+
         if(category.equals(SORT_BY_POPULARITY)) {
-            popularmovieList = output;
+            popularmovieList = tvShowsList;
 
             mHorizontalListView.setAdapter(mImageAdapter);
 
             mHorizontalListView.setItemMargin(10);
 
         } else if(category.equals(SORT_BY_TOP_RATED)) {
-            topRatedMovieList = output;
+            topRatedMovieList = tvShowsList;
 
             mHorizontalListView1.setAdapter(mImageAdapter);
 
             mHorizontalListView1.setItemMargin(10);
 
         } else if(category.equals(SORT_BY_LATEST)) {
-            latestMovieList = output;
+            latestMovieList = tvShowsList;
 
             mHorizontalListView2.setAdapter(mImageAdapter);
 
@@ -260,7 +262,7 @@ public  class MovieGridFragment extends Fragment implements AsyncResponse{
             BufferedReader reader     = null;
             String movieStr    = null;
 
-            String checkUrl = "http://api.themoviedb.org/3/genre/movie/list?api_key=c74eefc5fded173206b2b3abb1bc76a2";
+            String checkUrl = "http://api.themoviedb.org/3/genre/tv/list?api_key=c74eefc5fded173206b2b3abb1bc76a2";
             try {
                 URL url    = new URL(checkUrl);
                 connection = (HttpURLConnection) url.openConnection();
@@ -403,4 +405,6 @@ public  class MovieGridFragment extends Fragment implements AsyncResponse{
             }
         }
     }
+
+
 }

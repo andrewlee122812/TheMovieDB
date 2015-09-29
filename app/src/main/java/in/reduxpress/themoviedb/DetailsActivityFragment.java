@@ -23,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +50,7 @@ import in.reduxpress.themoviedb.Adapters.GridAdapter;
 import in.reduxpress.themoviedb.DataModels.Actor;
 import in.reduxpress.themoviedb.DataModels.Cast;
 import in.reduxpress.themoviedb.DataModels.Movie;
+import in.reduxpress.themoviedb.DataModels.TvShows;
 import in.reduxpress.themoviedb.DataModels.YoutubeVideo;
 import in.reduxpress.themoviedb.HelperClasses.ExpandedScrollView;
 import in.reduxpress.themoviedb.HelperClasses.TrackingScrollView;
@@ -93,6 +95,10 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
     ExpandedScrollView mCastView;
     GridAdapter gridAdapter;
     List<Movie> movieList;
+    List<TvShows> tvShowsList;
+    RelativeLayout youTubeParentParent;
+    String content;
+    TvShows tvShows;
 
     YouTubePlayerView youTubePlayerView;
 
@@ -125,6 +131,7 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
         mReleaseDate = (TextView) rootView.findViewById(R.id.release_date_textview);
         mYoutubeParentLayout = (LinearLayout)rootView.findViewById(R.id.youtube_view_parent);
         mCastView = (ExpandedScrollView) rootView.findViewById(R.id.cast_grid);
+        youTubeParentParent = (RelativeLayout)rootView.findViewById(R.id.youtube_view_parent_parent);
        // youTubePlayerView = (YouTubePlayerView) rootView.findViewById(R.id.youtube_view1);
         transparentDrawable = new ColorDrawable(Color.BLACK);
         fetchCastTask = new FetchCastTask();
@@ -138,28 +145,60 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
         setUpTransparentActionBar();
 
         Bundle b = getArguments();
-        movie = b.getParcelable("MovieDetails");
+        content = b.getString("Content");
 
 
-        setUpImageButtons();
+
+        if(content == null ) {
+            movie = b.getParcelable("MovieDetails");
+            Log.d("Movie receivved", "");
+
+            setUpImageButtons();
 
 
-        mTitle.setText(movie.getOriginal_title());
-        mDescription.setText(movie.getOverView());
-        mRating.setText(movie.getVoteAverage());
-        mReleaseDate.setText(movie.getReleaseDate());
+            mTitle.setText(movie.getOriginal_title());
+            mDescription.setText(movie.getOverView());
+            mRating.setText(movie.getVoteAverage());
+            mReleaseDate.setText(movie.getReleaseDate());
 
-        String url = movie.getPoster_path();
-        url = url.replace("w500", "w185");
+            String url = movie.getPoster_path();
+            url = url.replace("w500", "w185");
 
 
-        imageViewLoaderPicasso(movie.getBackdrop_path(), screenWidth, (int) (screenWidth * 0.56111111111111), mBackDropImageView);
-        imageViewLoaderPicasso(url, 300, 450, mPoster);
+            imageViewLoaderPicasso(movie.getBackdrop_path(), screenWidth, (int) (screenWidth * 0.56111111111111), mBackDropImageView);
+            imageViewLoaderPicasso(url, 300, 450, mPoster);
+
+            ViewGroup.LayoutParams layoutParams = mBackDropImageView.getLayoutParams();
+            layoutParams.width = screenWidth;
+            layoutParams.height = (int) (screenWidth * 0.56111111111111);
+            mBackDropImageView.setLayoutParams(layoutParams);
+        } else {
+
+            Log.d("Check ", content);
+            tvShows = b.getParcelable("MovieDetails");
+
+            setUpImageButtons();
+
+            mTitle.setText(tvShows.getOriginal_name());
+            mDescription.setText(tvShows.getOverview());
+            mRating.setText(tvShows.getVoteAverage());
+            mReleaseDate.setText(tvShows.getFirst_air_date());
+
+            String url = tvShows.getPoster_path();
+            url = url.replace("w500", "w185");
+
+
+            imageViewLoaderPicasso(tvShows.getBackdrop_path(), screenWidth, (int) (screenWidth * 0.56111111111111), mBackDropImageView);
+            imageViewLoaderPicasso(url, 300, 450, mPoster);
+
+        }
+
 
         ViewGroup.LayoutParams layoutParams = mBackDropImageView.getLayoutParams();
         layoutParams.width = screenWidth;
         layoutParams.height = (int) (screenWidth * 0.56111111111111);
         mBackDropImageView.setLayoutParams(layoutParams);
+
 
         setUpGenreList(genreStorage);
 
@@ -167,8 +206,6 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
         mImageHeight = mBackDropImageView.getLayoutParams().height;
 
 
-        Log.d("", movie.getBackdrop_path());
-        Log.d("Image Height: ", mImageHeight + "");
 
 
         trackingScrollView.setOnScrollChangedListener(
@@ -246,11 +283,21 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
         Log.d("isFavourite", isFavourite + "");
         if (isFavourite) {
             imageButtonLoaderPicasso(R.mipmap.added_favourite, 180, 180, mFavouriteButton);
-            editor.remove(movie.getMovieID());
+
+            if(content == null) {
+                editor.remove(movie.getMovieID());
+            } else {
+                editor.remove(tvShows.getId());
+            }
             isFavourite = false;
         } else {
             imageButtonLoaderPicasso(R.mipmap.ic_heart, 180, 180, mFavouriteButton);
-            editor.putString(movie.getMovieID(), movie.getOriginal_title());
+            if(content == null) {
+                editor.putString(movie.getMovieID(), movie.getOriginal_title());
+
+            } else {
+                editor.putString(tvShows.getId(), tvShows.getOriginal_name());
+            }
             isFavourite = true;
         }
         editor.commit();
@@ -271,11 +318,20 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
         for (Map.Entry<String, ?> entry : keys.entrySet()) {
             Log.d("Favourite values", entry.getKey() + ": " +
                     entry.getValue().toString());
-            if (entry.getKey().equals(movie.getMovieID())) {
-                return true;
+            if(content == null) {
+                if (entry.getKey().equals(movie.getMovieID())) {
+                    return true;
+                } else {
+                    return false;
+                }
             } else {
-                return false;
+                if (entry.getKey().equals(tvShows.getId())) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
+
         }
         return false;
     }
@@ -290,41 +346,80 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
     }
 
     private void setUpGenreList(SharedPreferences genreStorage) {
-        if (movie != null) {
-            genreIDList = movie.getGenre();
-        }
+        if(content == null ) {
+            if (movie != null) {
+                genreIDList = movie.getGenre();
+            }
 
-        if (genreIDList != null) {
-            Map<String, ?> keys = genreStorage.getAll();
+            if (genreIDList != null) {
+                Map<String, ?> keys = genreStorage.getAll();
 
-            genreList = new ArrayList<>();
+                genreList = new ArrayList<>();
 
-            for (int i = 0; i < genreIDList.size(); i++) {
-                for (Map.Entry<String, ?> entry : keys.entrySet()) {
-                    Log.d("map values", entry.getKey() + ": " +
-                            entry.getValue().toString());
-                    if (!entry.getKey().equals("firstrun")) {
-                        if (Integer.valueOf(genreIDList.get(i).toString()) == Integer.valueOf(entry.getKey())) {
-                            genreList.add(entry.getValue().toString());
-                        } else {
-                            Log.d(entry.getKey(), "couldn't find the id " + genreIDList.get(i));
+                for (int i = 0; i < genreIDList.size(); i++) {
+                    for (Map.Entry<String, ?> entry : keys.entrySet()) {
+                        Log.d("map values", entry.getKey() + ": " +
+                                entry.getValue().toString());
+                        if (!entry.getKey().equals("firstrun")) {
+                            if (Integer.valueOf(genreIDList.get(i).toString()) == Integer.valueOf(entry.getKey())) {
+                                genreList.add(entry.getValue().toString());
+                            } else {
+                                Log.d(entry.getKey(), "couldn't find the id " + genreIDList.get(i));
+                            }
                         }
                     }
                 }
             }
-        }
 
 
-        if (genreList != null) {
-            arrayAdapter = new ArrayAdapter<String>(getActivity(),
-                    R.layout.list_item, R.id.list_item_textview, genreList);
-            for (String j : genreList) {
-                Log.d("In genrelist: ", j);
+            if (genreList != null) {
+                arrayAdapter = new ArrayAdapter<String>(getActivity(),
+                        R.layout.list_item, R.id.list_item_textview, genreList);
+                for (String j : genreList) {
+                    Log.d("In genrelist: ", j);
+                }
+                mList.setAdapter(arrayAdapter);
+                Log.d("Genre Set up", "complete ");
+                fetchVideosTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, movie.getMovieID());
             }
-            mList.setAdapter(arrayAdapter);
-            Log.d("Genre Set up", "complete ");
-            fetchVideosTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, movie.getMovieID());
+        } else {
+            if (tvShows != null) {
+                genreIDList = tvShows.getGenre();
+            }
+
+            if (genreIDList != null) {
+                Map<String, ?> keys = genreStorage.getAll();
+
+                genreList = new ArrayList<>();
+
+                for (int i = 0; i < genreIDList.size(); i++) {
+                    for (Map.Entry<String, ?> entry : keys.entrySet()) {
+                        Log.d("map values", entry.getKey() + ": " +
+                                entry.getValue().toString());
+                        if (!entry.getKey().equals("firstrun")) {
+                            if (Integer.valueOf(genreIDList.get(i).toString()) == Integer.valueOf(entry.getKey())) {
+                                genreList.add(entry.getValue().toString());
+                            } else {
+                                Log.d(entry.getKey(), "couldn't find the id " + genreIDList.get(i));
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            if (genreList != null) {
+                arrayAdapter = new ArrayAdapter<String>(getActivity(),
+                        R.layout.list_item, R.id.list_item_textview, genreList);
+                for (String j : genreList) {
+                    Log.d("In genrelist: ", j);
+                }
+                mList.setAdapter(arrayAdapter);
+                Log.d("Genre Set up", "complete ");
+                fetchVideosTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, tvShows.getId());
+            }
         }
+
     }
 
     private void imageViewLoaderPicasso(String resID, int widthPx, int heightPx, ImageView view) {
@@ -376,13 +471,19 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
             BufferedReader reader = null;
             String videosStr = null;
             String movieID = params[0];
+            String discover = null;
+            if(content == null) {
+                discover = "movie";
+            } else {
+                discover = "tv";
+            }
 
             //http://api.themoviedb.org/3/movie/87101/videos?api_key=c74eefc5fded173206b2b3abb1bc76a2
             Uri.Builder builder1 = new Uri.Builder();
             builder1.scheme("http")
                     .authority("api.themoviedb.org")
                     .appendPath("3")
-                    .appendPath("movie")
+                    .appendPath(discover)
                     .appendPath(movieID)
                     .appendPath("videos")
                     .appendQueryParameter("api_key", "c74eefc5fded173206b2b3abb1bc76a2");
@@ -451,40 +552,48 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
                 e.printStackTrace();
             }
 
-            for( int i = 0; i < 1; i++ ) {
-                YouTubePlayerView youTubePlayerView = new YouTubePlayerView(getActivity());
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                youTubePlayerView.setId((i + 1));
-                Log.d("Youtube " + i, "ID - " + youTubePlayerView.getId());
+            if(mVideoList.size() != 0 ) {
+                for( int i = 0; i < 1; i++ ) {
+                    YouTubePlayerView youTubePlayerView = new YouTubePlayerView(getActivity());
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    youTubePlayerView.setId((i + 1));
+                    Log.d("Youtube " + i, "ID - " + youTubePlayerView.getId());
 
-                final int finalI = i;
-                params.bottomMargin = 20;
-                youTubePlayerView.setLayoutParams(params);
-                mYoutubeParentLayout.addView(youTubePlayerView);
+                    final int finalI = i;
+                    params.bottomMargin = 20;
+                    youTubePlayerView.setLayoutParams(params);
+                    mYoutubeParentLayout.addView(youTubePlayerView);
 
-               Log.d("youtubePlayerView", youTubePlayerView.getLayoutParams().width + " " + youTubePlayerView.getLayoutParams().height);
-                Log.d("youtubeParentLayout",mYoutubeParentLayout.getLayoutParams().width + " " +mYoutubeParentLayout.getLayoutParams().height);
+                    Log.d("youtubePlayerView", youTubePlayerView.getLayoutParams().width + " " + youTubePlayerView.getLayoutParams().height);
+                    Log.d("youtubeParentLayout",mYoutubeParentLayout.getLayoutParams().width + " " +mYoutubeParentLayout.getLayoutParams().height);
 
 
-                youTubePlayerView.initialize(youtubeConfig.DEVELOPER_KEY, new YouTubePlayer.OnInitializedListener() {
-                    @Override
-                    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                        if (!b) {
-                            youTubePlayer.cueVideo(mVideoList.get(finalI).getKey());
-                            Log.d(finalI + "Youtube init", "Initialised");
+                    youTubePlayerView.initialize(youtubeConfig.DEVELOPER_KEY, new YouTubePlayer.OnInitializedListener() {
+                        @Override
+                        public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+                            if (!b) {
+                                youTubePlayer.cueVideo(mVideoList.get(finalI).getKey());
+                                Log.d(finalI + "Youtube init", "Initialised");
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-                        Log.d( "Error " + youTubeInitializationResult.toString(), "");
+                        @Override
+                        public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+                            Log.d( "Error " + youTubeInitializationResult.toString(), "");
 
-                    }
-                });
+                        }
+                    });
+                }
+            } else {
+                youTubeParentParent.setVisibility(View.GONE);
             }
 
             Log.d("FetchVideo Task: ", "complete");
-            fetchCastTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, movie.getMovieID());
+            if(content == null ) {
+                fetchCastTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, movie.getMovieID());
+            } else {
+                fetchCastTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, tvShows.getId());
+            }
 
         }
     }
@@ -494,20 +603,38 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
         @Override
         protected String doInBackground(String... params) {
 
+            //http://api.themoviedb.org/3/tv/1418/credits?api_key=c74eefc5fded173206b2b3abb1bc76a2
+            //http://api.themoviedb.org/3/movie/1418/casts?api_key=c74eefc5fded173206b2b3abb1bc76a2
+
             HttpURLConnection connection = null;
             BufferedReader reader = null;
             String videosStr = null;
             String movieID = params[0];
+            String builtUrl = "";
+            if(content == null ) {
+                Uri.Builder builder1 = new Uri.Builder();
+                builder1.scheme("http")
+                        .authority("api.themoviedb.org")
+                        .appendPath("3")
+                        .appendPath("movie")
+                        .appendPath(movieID)
+                        .appendPath("credits")
+                        .appendQueryParameter("api_key", "c74eefc5fded173206b2b3abb1bc76a2");
+                builtUrl = builder1.build().toString();
+                Log.d("Url for cast:",builtUrl);
+            } else {
+                Uri.Builder builder1 = new Uri.Builder();
+                builder1.scheme("http")
+                        .authority("api.themoviedb.org")
+                        .appendPath("3")
+                        .appendPath("tv")
+                        .appendPath(movieID)
+                        .appendPath("credits")
+                        .appendQueryParameter("api_key", "c74eefc5fded173206b2b3abb1bc76a2");
+                builtUrl = builder1.build().toString();
+                Log.d("Url for cast:",builtUrl);
+            }
 
-            Uri.Builder builder1 = new Uri.Builder();
-            builder1.scheme("http")
-                    .authority("api.themoviedb.org")
-                    .appendPath("3")
-                    .appendPath("movie")
-                    .appendPath(movieID)
-                    .appendPath("casts")
-                    .appendQueryParameter("api_key", "c74eefc5fded173206b2b3abb1bc76a2");
-            String builtUrl = builder1.build().toString();
 
             try {
                 URL url = new URL(builtUrl);
@@ -550,39 +677,40 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
             JSONObject myjson;
             mCastList = new ArrayList<>();
             try {
-                myjson = new JSONObject(result);
-                JSONArray page1 = myjson.getJSONArray("cast");
+                if(result != null) {
+                    myjson = new JSONObject(result);
+                    JSONArray page1 = myjson.getJSONArray("cast");
 
-                if(page1.length() >= 9) {
-                    for (int i = 0; i < 9; i++) {
+                    if(page1.length() >= 9) {
+                        for (int i = 0; i < 9; i++) {
 
-                        JSONObject movieObject = page1.getJSONObject(i);
-                        Cast cast = new Cast();
-                        cast.setId(movieObject.get("id").toString());
-                        Log.d("Cast Id",cast.getId());
-                        cast.setCharacter(movieObject.getString("character"));
-                        cast.setName(movieObject.getString("name"));
-                        cast.setCredit_id(movieObject.get("credit_id").toString());
-                        cast.setProfile_path(movieObject.getString("profile_path"));
+                            JSONObject movieObject = page1.getJSONObject(i);
+                            Cast cast = new Cast();
+                            cast.setId(movieObject.get("id").toString());
+                            Log.d("Cast Id",cast.getId());
+                            cast.setCharacter(movieObject.getString("character"));
+                            cast.setName(movieObject.getString("name"));
+                            cast.setCredit_id(movieObject.get("credit_id").toString());
+                            cast.setProfile_path(movieObject.getString("profile_path"));
 
-                        mCastList.add(cast);
-                    }
-                } else {
-                    for (int i = 0; i < page1.length(); i++) {
+                            mCastList.add(cast);
+                        }
+                    } else {
+                        for (int i = 0; i < page1.length(); i++) {
 
-                        JSONObject movieObject = page1.getJSONObject(i);
-                        Cast cast = new Cast();
-                        cast.setId(movieObject.get("id").toString());
-                        Log.d("Cast Id",cast.getId());
-                        cast.setCharacter(movieObject.getString("character"));
-                        cast.setName(movieObject.getString("name"));
-                        cast.setCredit_id(movieObject.get("credit_id").toString());
-                        cast.setProfile_path(movieObject.getString("profile_path"));
+                            JSONObject movieObject = page1.getJSONObject(i);
+                            Cast cast = new Cast();
+                            cast.setId(movieObject.get("id").toString());
+                            Log.d("Cast Id",cast.getId());
+                            cast.setCharacter(movieObject.getString("character"));
+                            cast.setName(movieObject.getString("name"));
+                            cast.setCredit_id(movieObject.get("credit_id").toString());
+                            cast.setProfile_path(movieObject.getString("profile_path"));
 
-                        mCastList.add(cast);
+                            mCastList.add(cast);
+                        }
                     }
                 }
-
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -593,113 +721,9 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
             mCastView.setAdapter(gridAdapter);
             gridAdapter.notifyDataSetChanged();
 
-
-
         }
     }
 
-    public class FetchActorsTask extends AsyncTask<String, Void, List<Movie>> {
-
-        @Override
-        protected List<Movie> doInBackground(String... params) {
-            HttpURLConnection connection = null;
-            BufferedReader reader = null;
-            String movieStr = null;
-            String sort_by = params[0];
-            Uri.Builder builder1 = new Uri.Builder();
-            builder1.scheme("http")
-                    .authority("api.themoviedb.org")
-                    .appendPath("3")
-                    .appendPath("discover")
-                    .appendPath("movie")
-                    .appendQueryParameter("sort_by", sort_by)
-                    .appendQueryParameter("api_key", "c74eefc5fded173206b2b3abb1bc76a2");
-            String builtUrl = builder1.build().toString();
-            String checkUrl = "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=c74eefc5fded173206b2b3abb1bc76a2";
-
-            Log.d("Checking URI", checkUrl.compareTo(checkUrl) + "");
-
-            try {
-                URL url = new URL(builtUrl);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.connect();
-
-
-                InputStream inputStream = connection.getInputStream();
-                StringBuilder builder = new StringBuilder();
-                reader = new BufferedReader(new InputStreamReader(inputStream));
-
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    builder.append(line + "\n");
-                }
-
-                movieStr = builder.toString();
-            } catch (IOException e) {
-                Log.e("MovieGridFragment", "Error ", e);
-            } finally {
-                if (connection != null) {
-                    connection.disconnect();
-                }
-                if (reader != null) {
-                    try {
-                        reader.close();
-                    } catch (final IOException e) {
-                        Log.e("MovieGridFragment", "Error closing stream", e);
-                    }
-                }
-            }
-            return MoviesParser(movieStr);
-
-        }
-
-        @Override
-        protected void onPostExecute(List<Movie> result) {
-            screenWidth = getScreenDimen();
-
-        } /*else if(flag == 1) {
-                flag = 2;
-            } else {
-                Log.d("Flag value:" , flag + "out of context");
-            }*/
-
-
-    }
-
-    private List<Movie> MoviesParser(String result) {
-        JSONObject myjson;
-        movieList = new ArrayList<>();
-        try {
-            myjson = new JSONObject(result);
-            Log.d("", myjson.toString());
-            JSONArray page1 = myjson.getJSONArray("results");
-            for (int i = 0; i < page1.length(); i++) {
-                JSONObject movieObject = page1.getJSONObject(i);
-                Movie movie = new Movie();
-                movie.setOriginal_title(movieObject.getString("original_title"));
-                movie.setAdult(movieObject.getBoolean("adult"));
-                movie.setOverView(movieObject.getString("overview"));
-                movie.setMovieID(movieObject.getString("id"));
-                movie.setReleaseDate(movieObject.getString("release_date"));
-                movie.setVoteAverage(movieObject.getString("vote_average"));
-                movie.setPoster_path("http://image.tmdb.org/t/p/w500//" + movieObject.getString("poster_path"));
-                movie.setBackdrop_path("http://image.tmdb.org/t/p/w780//" + movieObject.getString("backdrop_path"));
-                JSONArray genre = movieObject.getJSONArray("genre_ids");
-                ArrayList tempList = new ArrayList();
-                for (int j = 0; j < genre.length(); j++) {
-                    tempList.add(genre.get(j));
-                }
-                movie.setGenre(tempList);
-
-                movieList.add(movie);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return movieList;
-
-    }
 
     public class FetchActorDetailsTask extends AsyncTask<String, Void, Actor> {
 
