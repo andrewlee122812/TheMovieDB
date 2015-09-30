@@ -101,13 +101,11 @@ public class ImageAdapter extends BaseAdapter {
             picasso.load(tvShowsList.get(position).getPoster_path())
                     .fit()
                     .into(holder.imageView);
-            picasso.setIndicatorsEnabled(true);
         } else {
             Picasso picasso = Picasso.with(activity);
             picasso.load(movieList.get(position).getPoster_path())
                     .fit()
                     .into(holder.imageView);
-            picasso.setIndicatorsEnabled(true);
         }
 
 
