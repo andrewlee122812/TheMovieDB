@@ -12,7 +12,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -171,7 +170,7 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
 
 
             imageViewLoaderPicasso(movie.getBackdrop_path(), screenWidth, (int) (screenWidth * 0.56111111111111), mBackDropImageView);
-            imageViewLoaderPicasso(url, 300, 450, mPoster);
+            imageViewLoaderPicasso(url, 600, 900, mPoster);
 
             ViewGroup.LayoutParams layoutParams = mBackDropImageView.getLayoutParams();
             layoutParams.width = screenWidth;
@@ -826,9 +825,16 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
             }
         } else if (v == mAddtoListButton) {
         } else if(v == mShareButton) {
+
+            String share = "Hey! I like "
+                    + (content == null ? movie.getOriginal_title() : tvShows.getOriginal_name())
+                    + " a lot. You guys should see it. Check out the details here. https://www.themoviedb.org/"
+                    + (content == null ? "movie/"  : "tv/")
+                    + (content == null ? movie.getMovieID()  : tvShows.getId())
+                    + ;
             Intent sharingIntent = new Intent(Intent.ACTION_SEND);
             sharingIntent.setType("text/html");
-            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, Html.fromHtml("<p>This is the text that will be shared.</p>"));
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT,  );
             startActivity(Intent.createChooser(sharingIntent,"Share using"));
         }
     }

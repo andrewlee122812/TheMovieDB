@@ -5,4 +5,4 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:divider="@android:color/transparent"
-    android:dividerHeight="0dp"/><!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/library/src/main/res/layout/mdl_listview.xml -->
+    android:dividerHeight="0dp"/><!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/library/src/main/res/layout/mdl_listview.xml -->

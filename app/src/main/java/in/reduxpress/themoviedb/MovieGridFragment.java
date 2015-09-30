@@ -55,6 +55,10 @@ public  class MovieGridFragment extends Fragment implements AsyncResponse{
     public static int scrollX = 0;
     public static int scrollY = -1;
     private ScrollView mMainScrollView;
+    private final String POPULAR_LIST = "popularMovies";
+    private final String TOP_RATED = "topRated";
+    private final String LATEST = "latestMovies";
+
 
     public static int scrollXHL1X = 0;
     List<Movie> movieList;
@@ -76,9 +80,9 @@ public  class MovieGridFragment extends Fragment implements AsyncResponse{
     FetchGenreTask fetchGenreTask;
     SharedPreferences genreStorage;
     SharedPreferences.Editor genreEditor;
-    List<Movie> popularmovieList;
-    List<Movie> topRatedMovieList;
-    List<Movie> latestMovieList;
+    ArrayList<Movie> popularmovieList;
+    ArrayList<Movie> topRatedMovieList;
+    ArrayList<Movie> latestMovieList;
     Movie movie;
 
 
@@ -92,66 +96,98 @@ public  class MovieGridFragment extends Fragment implements AsyncResponse{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
-        mHorizontalListView = (TwoWayView)  rootView.findViewById(R.id.list1);
-        mHorizontalListView1 = (TwoWayView)  rootView.findViewById(R.id.list2);
-        mHorizontalListView2 = (TwoWayView)  rootView.findViewById(R.id.list3);
-        mMainScrollView = (ScrollView) rootView.findViewById(R.id.main_scrollview);
-
-        genreStorage = getActivity().getApplicationContext().getSharedPreferences("Genre", Context.MODE_PRIVATE);
-        genreEditor = genreStorage.edit();
-        fetchPoplularMoviesTask = new FetchContentTask();
-        fetchLatestMoviesTask = new FetchContentTask();
-        fetchTopRatedMoviesTask = new FetchContentTask();
-        fetchGenreTask = new FetchGenreTask();
-
-
-        fetchPoplularMoviesTask.delegate = this;
-        fetchLatestMoviesTask.delegate = this;
-        fetchTopRatedMoviesTask.delegate = this;
-
         popularmovieList = new ArrayList<>();
         topRatedMovieList = new ArrayList<>();
         latestMovieList = new ArrayList<>();
 
 
+        if(savedInstanceState == null ) {
+            mHorizontalListView = (TwoWayView)  rootView.findViewById(R.id.list1);
+            mHorizontalListView1 = (TwoWayView)  rootView.findViewById(R.id.list2);
+            mHorizontalListView2 = (TwoWayView)  rootView.findViewById(R.id.list3);
+            mMainScrollView = (ScrollView) rootView.findViewById(R.id.main_scrollview);
 
-        if(isNetworkAvailable()) {
+            genreStorage = getActivity().getApplicationContext().getSharedPreferences("Genre", Context.MODE_PRIVATE);
+            genreEditor = genreStorage.edit();
+            fetchPoplularMoviesTask = new FetchContentTask();
+            fetchLatestMoviesTask = new FetchContentTask();
+            fetchTopRatedMoviesTask = new FetchContentTask();
+            fetchGenreTask = new FetchGenreTask();
 
 
-            fetchPoplularMoviesTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, CONTENT, SORT_BY_POPULARITY);
-            fetchTopRatedMoviesTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,CONTENT, SORT_BY_TOP_RATED);
-            fetchLatestMoviesTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,CONTENT, SORT_BY_LATEST);
+            fetchPoplularMoviesTask.delegate = this;
+            fetchLatestMoviesTask.delegate = this;
+            fetchTopRatedMoviesTask.delegate = this;
 
 
-            fetchGenreTask.execute();
+            Log.d("Activity created","");
+            screenWidth = getScreenDimen();
+            screenDPI = getScreenDPI();
+
+            if(isNetworkAvailable()) {
 
 
-            mHorizontalListView.setOnItemClickListener(popularClickListener);
-            mHorizontalListView1.setOnItemClickListener(topRatedClickListener);
-            mHorizontalListView2.setOnItemClickListener(latestClickListener);
+                fetchPoplularMoviesTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, CONTENT, SORT_BY_POPULARITY);
+                fetchTopRatedMoviesTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,CONTENT, SORT_BY_TOP_RATED);
+                fetchLatestMoviesTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,CONTENT, SORT_BY_LATEST);
 
-            Log.d("In launch actiivty",String.valueOf(genreStorage.getBoolean("firstrun",true)));
 
+                fetchGenreTask.execute();
+
+
+                mHorizontalListView.setOnItemClickListener(popularClickListener);
+                mHorizontalListView1.setOnItemClickListener(topRatedClickListener);
+                mHorizontalListView2.setOnItemClickListener(latestClickListener);
+
+                Log.d("In launch actiivty",String.valueOf(genreStorage.getBoolean("firstrun",true)));
+
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setCancelable(true)
+                        .setMessage("No internet connection. Please check your connection and then try again.")
+                        .setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = getActivity().getIntent();
+                                getActivity().finish();
+                                startActivity(intent);
+                            }
+                        });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
         } else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setCancelable(true)
-                    .setMessage("No internet connection. Please check your connection and then try again.")
-                    .setPositiveButton("Retry", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = getActivity().getIntent();
-                            getActivity().finish();
-                            startActivity(intent);
-                        }
-                    });
-            AlertDialog dialog = builder.create();
-            dialog.show();
+               popularmovieList = savedInstanceState.getParcelableArrayList(POPULAR_LIST);
+               latestMovieList = savedInstanceState.getParcelableArrayList(LATEST);
+               topRatedMovieList = savedInstanceState.getParcelableArrayList(TOP_RATED);
+
+            for(Movie movie : popularmovieList) {
+                Log.d(movie.getMovieID(), movie.getOriginal_title());
+            }
+            for(Movie movie : latestMovieList) {
+                Log.d(movie.getMovieID(), movie.getOriginal_title());
+            }
+            for(Movie movie : topRatedMovieList) {
+                Log.d(movie.getMovieID(), movie.getOriginal_title());
+            }
 
         }
 
 
+
+
+
+
+
+
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState ) {
+        super.onActivityCreated(savedInstanceState);
+
+
     }
 
 
@@ -198,10 +234,9 @@ public  class MovieGridFragment extends Fragment implements AsyncResponse{
     }
 
     @Override
-    public void processFinish(List output) {
-         = output;
-        screenWidth = getScreenDimen();
-        screenDPI = getScreenDPI();
+    public void processFinish(ArrayList output) {
+        movieList = output;
+        Log.d("After activty attach","");
         mImageAdapter = new ImageAdapter(getActivity(),movieList,screenWidth,screenDPI);
         String category = movieList.get(0).getCategory();
         if(category.equals(SORT_BY_POPULARITY)) {
@@ -314,6 +349,7 @@ public  class MovieGridFragment extends Fragment implements AsyncResponse{
 
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+
     }
 
     public int getScreenDimen() {
@@ -329,8 +365,11 @@ public  class MovieGridFragment extends Fragment implements AsyncResponse{
     }
 
     public int getScreenDPI() {
-        DisplayMetrics metrics = getResources().getDisplayMetrics();
-        return metrics.densityDpi;
+        if(getActivity() != null) {
+            DisplayMetrics metrics = getResources().getDisplayMetrics();
+            return metrics.densityDpi;
+        }
+        return 320;
     }
 
     @Override
@@ -365,7 +404,10 @@ public  class MovieGridFragment extends Fragment implements AsyncResponse{
         outState.putIntArray("SCROLL_POSITION",
                 new int[]{mMainScrollView.getScrollX(), mMainScrollView.getScrollY()});
         outState.putInt("SCROLL_POSITION_HL1", mHorizontalListView.getLastVisiblePosition());
-        Log.d("Scroll for horizontal HL1:",mHorizontalListView.getLastVisiblePosition() +"");
+        outState.putParcelableArrayList(POPULAR_LIST, popularmovieList);
+        outState.putParcelableArrayList(TOP_RATED, topRatedMovieList);
+        outState.putParcelableArrayList(LATEST, latestMovieList);
+        Log.d("Scroll for horizontal HL1:", mHorizontalListView.getLastVisiblePosition() + "");
     }
 
     public void onViewStateRestored(Bundle savedInstanceState) {
@@ -388,6 +430,20 @@ public  class MovieGridFragment extends Fragment implements AsyncResponse{
                         Log.d("On view state restored",hl1position+"");
                     }
                 });
+            }
+
+            popularmovieList = savedInstanceState.getParcelableArrayList(POPULAR_LIST);
+            latestMovieList = savedInstanceState.getParcelableArrayList(LATEST);
+            topRatedMovieList = savedInstanceState.getParcelableArrayList(TOP_RATED);
+
+            for(Movie movie : popularmovieList) {
+                Log.d(movie.getMovieID(), movie.getOriginal_title());
+            }
+            for(Movie movie : latestMovieList) {
+                Log.d(movie.getMovieID(), movie.getOriginal_title());
+            }
+            for(Movie movie : topRatedMovieList) {
+                Log.d(movie.getMovieID(), movie.getOriginal_title());
             }
         }
     }

@@ -14,8 +14,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
 
 import in.reduxpress.themoviedb.DataModels.Movie;
 import in.reduxpress.themoviedb.DataModels.TvShows;
@@ -25,32 +26,54 @@ import in.reduxpress.themoviedb.DataModels.TvShows;
  */
 public class FetchContentTask extends AsyncTask<String,Void,Void> {
 
-    private List<Movie> movieList;
-    private List<TvShows> tvShowsList;
+    private ArrayList<Movie> movieList;
+    private ArrayList<TvShows> tvShowsList;
     public AsyncResponse delegate=null;
     String category;
     String contentQuery;
+    String PRIMARY_RELEASE_DATE_GREATER_THAN= "primary_release_date.gte";
+    String PRIMARY_RELEASE_DATE_LESS_THAN= "primary_release_date.lte";
+
 
     @Override
     protected Void doInBackground(String... params) {
         HttpURLConnection connection = null;
         BufferedReader reader     = null;
         String movieStr    = null;
+        Calendar cal = Calendar.getInstance();
+        Calendar cal1 = Calendar.getInstance();
+        cal.add(Calendar.MONTH, -1);
+
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+        String today = format1.format(cal1.getTime());
+        System.out.println(today);
+        String oneMonthBack = format1.format(cal.getTime());
+        System.out.println(oneMonthBack);
+
         String content = params[0];
         String sort_by = params[1];
         category = sort_by;
         contentQuery = content;
         Uri.Builder builder1 = new Uri.Builder();
+        //http://api.themoviedb.org/3/discover/movie?primary_release_date.gte=2015-09-01&sort_by=release_date.desc&api_key=c74eefc5fded173206b2b3abb1bc76a2
+        //primary_release_date.gte=2015-09-01
         builder1.scheme("http")
                 .authority("api.themoviedb.org")
                 .appendPath("3")
                 .appendPath("discover")
-                .appendPath(content)
-                .appendQueryParameter("sort_by",sort_by)
-                .appendQueryParameter("api_key", "c74eefc5fded173206b2b3abb1bc76a2");
+                .appendPath(content);
+
+        if(sort_by.equals("release_date.desc")) {
+            builder1.appendQueryParameter("sort_by", "popularity.desc");
+            builder1.appendQueryParameter(PRIMARY_RELEASE_DATE_GREATER_THAN,oneMonthBack);
+            builder1.appendQueryParameter(PRIMARY_RELEASE_DATE_LESS_THAN,today);
+        } else {
+            builder1.appendQueryParameter("sort_by", sort_by);
+        }
+        builder1.appendQueryParameter("api_key", "c74eefc5fded173206b2b3abb1bc76a2");
         String builtUrl = builder1.build().toString();
         String checkUrl = "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=c74eefc5fded173206b2b3abb1bc76a2";
-
+        Log.d("URL",builtUrl);
 
         try {
             URL url    = new URL(builtUrl);

@@ -1,7 +1,6 @@
 package in.reduxpress.themoviedb;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.blunderer.materialdesignlibrary.handlers.ActionBarHandler;
 import com.blunderer.materialdesignlibrary.handlers.ActionBarSearchHandler;
@@ -17,9 +16,6 @@ import com.blunderer.materialdesignlibrary.models.Account;
 
 import java.util.List;
 
-import in.reduxpress.themoviedb.DataModels.Movie;
-import in.reduxpress.themoviedb.DataModels.TvShows;
-
 
 public class MainActivity extends com.blunderer.materialdesignlibrary.activities.NavigationDrawerActivity {
 
@@ -31,23 +27,9 @@ public class MainActivity extends com.blunderer.materialdesignlibrary.activities
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(findViewById(R.id.container_tb) == null ) {
-            mTwoPane = false;
-        } else {
+        if(savedInstanceState != null ) {
 
-            mTwoPane = true;
-            Bundle b = new Bundle();
-
-            String content = b.getString("Content");
-            Movie movie = new Movie();
-            if(content == null) {
-                b.putParcelable("MovieDetails", movie);
-            } else {
-                Log.d("Tv show recived", "");
-                TvShows tvShows = new TvShows();
-                b.putParcelable("MovieDetails",tvShows);
-                b.putString("Content",content);
-            }
+        }
 
                /* DetailsActivityFragment newFragment = new DetailsActivityFragment();
                 newFragment.setArguments(b);
@@ -56,9 +38,6 @@ public class MainActivity extends com.blunderer.materialdesignlibrary.activities
                         .add(R.id.container_details, newFragment);
                 ft.commit();*/
 
-        }
-
-        Log.d("Two pane", mTwoPane.toString());
 
 
 
@@ -122,7 +101,10 @@ public class MainActivity extends com.blunderer.materialdesignlibrary.activities
                 .addItem("Movies", new MovieGridFragment())
                 .addItem("TV Shows", new TVShowsFragment())
                 .addItem("People", new PeopleFragment())
-                .addItem("Lists", new FavouritesFragment());
+                .addSection("Favourites")
+                .addItem("Movies", new FavouritesFragment())
+                .addItem("TV", new FavouritesFragment());
+
 
     }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/values/values.xml -->
     <eat-comment/>
     <attr format="reference" name="carbon_circularProgressStyle"/>
     <attr format="dimension" name="carbon_cornerRadius"/>
@@ -58,25 +58,25 @@
     <attr format="dimension" name="carbon_touchMarginLeft"/>
     <attr format="dimension" name="carbon_touchMarginRight"/>
     <attr format="dimension" name="carbon_touchMarginTop"/>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
     <eat-comment/>
     <attr format="boolean" name="centered"/>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <attr format="reference" name="drawerArrowStyle"/>
     <attr format="dimension" name="height"/>
     <attr format="boolean" name="isLightTheme"/>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
     <eat-comment/>
     <attr format="color" name="selectedColor"/>
     <attr format="dimension" name="strokeWidth"/>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <attr format="string" name="title"/>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
     <eat-comment/>
     <attr format="color" name="unselectedColor"/>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <bool name="abc_action_bar_embed_tabs">true</bool>
     <bool name="abc_action_bar_embed_tabs_pre_jb">false</bool>
@@ -85,14 +85,14 @@
     <bool name="abc_config_allowActionMenuItemTextWithIcon">false</bool>
     <bool name="abc_config_closeDialogWhenTouchOutside">true</bool>
     <bool name="abc_config_showMenuShortcutsWhenKeyboardPresent">false</bool>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
     <eat-comment/>
     <bool name="default_circle_indicator_centered">true</bool>
     <bool name="default_circle_indicator_snap">false</bool>
     <bool name="default_line_indicator_centered">true</bool>
     <bool name="default_title_indicator_selected_bold">true</bool>
     <bool name="default_underline_indicator_fades">true</bool>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <color name="abc_input_method_navigation_guard">@android:color/black</color>
     <color name="abc_search_url_text_normal">#7fa87f</color>
@@ -100,19 +100,19 @@
     <color name="abc_search_url_text_selected">@android:color/black</color>
     <color name="accent_material_dark">@color/material_deep_teal_200</color>
     <color name="accent_material_light">@color/material_deep_teal_500</color>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/src/main/res/values/colors.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="activity_main_row_title_color">#cccccc</color>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <color name="background_floating_material_dark">#ff424242</color>
     <color name="background_floating_material_light">#ffeeeeee</color>
     <color name="background_material_dark">#ff303030</color>
     <color name="background_material_light">#ffeeeeee</color>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/com.astuetz/pagerslidingtabstrip/1.0.1/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/com.astuetz/pagerslidingtabstrip/1.0.1/res/values/values.xml -->
     <eat-comment/>
     <color name="background_tab_pressed">#6633B5E5</color>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <color name="bright_foreground_disabled_material_dark">#80ffffff</color>
     <color name="bright_foreground_disabled_material_light">#80000000</color>
@@ -122,7 +122,7 @@
     <color name="bright_foreground_material_light">@android:color/black</color>
     <color name="button_material_dark">#ff5a595b</color>
     <color name="button_material_light">#ffd6d7d7</color>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/values/values.xml -->
     <eat-comment/>
     <color name="carbon_background_dark">#ff333333</color>
     <color name="carbon_background_light">#ffeeeeee</color>
@@ -153,18 +153,18 @@
     <color name="carbon_white">#ffffffff</color>
     <color name="carbon_white_30">#4dffffff</color>
     <color name="carbon_white_70">#b3ffffff</color>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <color name="cardview_dark_background">#FF202020</color>
     <color name="cardview_light_background">#FFFAFAFA</color>
     <color name="cardview_shadow_end_color">#03000000</color>
     <color name="cardview_shadow_start_color">#37000000</color>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/src/main/res/values/colors.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="color_primary">#e64e40</color>
     <color name="color_primary_dark">#c94438</color>
     <color name="cyan">#00FFFF</color>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
     <eat-comment/>
     <color name="default_circle_indicator_fill_color">#FFFFFFFF</color>
     <color name="default_circle_indicator_page_color">#00000000</color>
@@ -175,16 +175,16 @@
     <color name="default_title_indicator_selected_color">#FFFFFFFF</color>
     <color name="default_title_indicator_text_color">#BBFFFFFF</color>
     <color name="default_underline_indicator_selected_color">#FF33B5E5</color>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <color name="dim_foreground_disabled_material_dark">#80bebebe</color>
     <color name="dim_foreground_disabled_material_light">#80323232</color>
     <color name="dim_foreground_material_dark">#ffbebebe</color>
     <color name="dim_foreground_material_light">#ff323232</color>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/src/main/res/values/colors.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="gray">#bdbdbd</color>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <color name="highlighted_text_material_dark">#6680cbc4</color>
     <color name="highlighted_text_material_light">#66009688</color>
@@ -197,7 +197,7 @@
     <color name="material_blue_grey_950">#ff21272b</color>
     <color name="material_deep_teal_200">#ff80cbc4</color>
     <color name="material_deep_teal_500">#ff009688</color>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/TheMovieDb/library/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/TheMovieDb/library/unspecified/res/values/values.xml -->
     <eat-comment/>
     <color name="mdl_cardview_background">#fafafa</color>
     <color name="mdl_cardview_highlight_button_color">#ffab40</color>
@@ -216,7 +216,7 @@
     <color name="mdl_navigation_drawer_item_header_separator_color">#e0e0e0</color>
     <color name="mdl_navigation_drawer_item_title_color">#212121</color>
     <color name="mdl_navigation_drawer_item_top_background">#f6f6f6</color>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <color name="primary_dark_material_dark">#ff000000</color>
     <color name="primary_dark_material_light">#ff757575</color>
@@ -236,7 +236,7 @@
     <color name="switch_thumb_disabled_material_light">#ffbdbdbd</color>
     <color name="switch_thumb_normal_material_dark">#ffbdbdbd</color>
     <color name="switch_thumb_normal_material_light">#fff1f1f1</color>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
     <eat-comment/>
     <color name="vpi__background_holo_dark">#ff000000</color>
     <color name="vpi__background_holo_light">#fff3f3f3</color>
@@ -296,7 +296,7 @@
     <declare-styleable name="ViewPagerIndicator"><attr format="reference" name="vpiCirclePageIndicatorStyle"/><attr format="reference" name="vpiIconPageIndicatorStyle"/><attr format="reference" name="vpiLinePageIndicatorStyle"/><attr format="reference" name="vpiTitlePageIndicatorStyle"/><attr format="reference" name="vpiTabPageIndicatorStyle"/><attr format="reference" name="vpiUnderlinePageIndicatorStyle"/></declare-styleable>
     <declare-styleable name="ViewStubCompat"><attr name="android:layout"/><attr name="android:inflatedId"/><attr name="android:id"/></declare-styleable>
     <declare-styleable name="carbon"><attr format="reference|color" name="carbon_colorPrimary"/><attr format="reference|color" name="carbon_colorPrimaryDark"/><attr format="reference|color" name="carbon_colorAccent"/><attr format="reference|color" name="carbon_colorBackground"/><attr format="reference|color" name="carbon_colorBackground_inverse"/><attr format="reference|color" name="carbon_colorError"/><attr format="reference|color" name="carbon_dividerColor"/><attr format="reference|color" name="carbon_rippleColor"/><attr format="reference" name="carbon_textAppearance_headline"/><attr format="reference" name="carbon_textAppearance_title"/><attr format="reference" name="carbon_textAppearance_subhead"/><attr format="reference" name="carbon_textAppearance_body2"/><attr format="reference" name="carbon_textAppearance_body1"/><attr format="reference" name="carbon_textAppearance_caption"/><attr format="reference" name="carbon_textAppearance_button"/><attr format="reference" name="carbon_textAppearance_headline_inverse"/><attr format="reference" name="carbon_textAppearance_title_inverse"/><attr format="reference" name="carbon_textAppearance_subhead_inverse"/><attr format="reference" name="carbon_textAppearance_body2_inverse"/><attr format="reference" name="carbon_textAppearance_body1_inverse"/><attr format="reference" name="carbon_textAppearance_caption_inverse"/><attr format="reference" name="carbon_textAppearance_button_inverse"/></declare-styleable>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <dimen name="abc_action_bar_content_inset_material">16dp</dimen>
     <dimen name="abc_action_bar_default_height_material">56dp</dimen>
@@ -358,7 +358,7 @@
     <dimen name="abc_text_size_subtitle_material_toolbar">16dp</dimen>
     <dimen name="abc_text_size_title_material">20sp</dimen>
     <dimen name="abc_text_size_title_material_toolbar">20dp</dimen>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/values/values.xml -->
     <eat-comment/>
     <dimen name="carbon_avatarSize">40dp</dimen>
     <dimen name="carbon_dialogPadding">24dp</dimen>
@@ -375,15 +375,15 @@
     <dimen name="carbon_toolbarHeight">56dp</dimen>
     <dimen name="carbon_toolbarTextSize">20sp</dimen>
     <dimen name="carbon_translation">2dp</dimen>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <dimen name="cardview_compat_inset_shadow">1dp</dimen>
     <dimen name="cardview_default_elevation">2dp</dimen>
     <dimen name="cardview_default_radius">2dp</dimen>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/src/main/res/values/dimens.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="cardview_margin_horizontal">16dp</dimen>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
     <eat-comment/>
     <dimen name="default_circle_indicator_radius">3dp</dimen>
     <dimen name="default_circle_indicator_stroke_width">1dp</dimen>
@@ -398,20 +398,20 @@
     <dimen name="default_title_indicator_text_size">15dp</dimen>
     <dimen name="default_title_indicator_title_padding">5dp</dimen>
     <dimen name="default_title_indicator_top_padding">7dp</dimen>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <item name="dialog_fixed_height_major" type="dimen">80%</item>
     <item name="dialog_fixed_height_minor" type="dimen">100%</item>
     <item name="dialog_fixed_width_major" type="dimen">320dp</item>
     <item name="dialog_fixed_width_minor" type="dimen">320dp</item>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/values/values.xml -->
     <eat-comment/>
     <dimen name="dip">1dp</dimen>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <item format="float" name="disabled_alpha_material_dark" type="dimen">0.30</item>
     <item format="float" name="disabled_alpha_material_light" type="dimen">0.26</item>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/src/main/res/values/dimens.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="listview_row_description_padding">16dp</dimen>
     <dimen name="listview_row_description_size">15sp</dimen>
@@ -421,7 +421,7 @@
     <dimen name="listview_row_height">48dp</dimen>
     <dimen name="listview_row_title_padding">16dp</dimen>
     <dimen name="listview_row_title_size">16sp</dimen>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/TheMovieDb/library/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/TheMovieDb/library/unspecified/res/values/values.xml -->
     <eat-comment/>
     <dimen name="mdl_cardview_button_size">14sp</dimen>
     <dimen name="mdl_cardview_description_size">16sp</dimen>
@@ -443,16 +443,16 @@
     <dimen name="mdl_navigationdrawer_accounts_small_height">68dp</dimen>
     <dimen name="mdl_navigationdrawer_accounts_title_size">15sp</dimen>
     <dimen name="mdl_viewpager_with_tabs_height">48dip</dimen>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <dimen name="notification_large_icon_height">64dp</dimen>
     <dimen name="notification_large_icon_width">64dp</dimen>
     <dimen name="notification_subtext_size">12dp</dimen>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/src/main/res/values/dimens.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="scrollview_padding">16dp</dimen>
     <dimen name="textview_size">16sp</dimen>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <drawable name="notification_template_icon_bg">#3333B5E5</drawable>
     <item name="action_bar_activity_content" type="id"/>
@@ -460,10 +460,10 @@
     <item name="action_menu_divider" type="id"/>
     <item name="action_menu_presenter" type="id"/>
     <item name="home" type="id"/>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/TheMovieDb/library/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/TheMovieDb/library/unspecified/res/values/values.xml -->
     <eat-comment/>
     <item name="mdl_toolbar_search_menu_item" type="id"/>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <item name="progress_circular" type="id"/>
     <item name="progress_horizontal" type="id"/>
@@ -473,17 +473,17 @@
     <integer name="abc_config_activityShortDur">150</integer>
     <integer name="abc_max_action_buttons">2</integer>
     <integer name="cancel_button_image_alpha">127</integer>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/values/values.xml -->
     <eat-comment/>
     <integer name="carbon_snackbarDuration">2000</integer>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
     <eat-comment/>
     <integer name="default_circle_indicator_orientation">0</integer>
     <integer name="default_title_indicator_footer_indicator_style">2</integer>
     <integer name="default_title_indicator_line_position">0</integer>
     <integer name="default_underline_indicator_fade_delay">300</integer>
     <integer name="default_underline_indicator_fade_length">400</integer>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <integer name="status_bar_notification_info_maxnum">999</integer>
     <string name="abc_action_bar_home_description">Navigate home</string>
@@ -503,7 +503,7 @@
     <string name="abc_shareactionprovider_share_with">Share with</string>
     <string name="abc_shareactionprovider_share_with_application">Share with %s</string>
     <string name="abc_toolbar_collapse_description">Collapse</string>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="activity">Activity</string>
     <string name="app_name">Material Design Library</string>
@@ -516,7 +516,7 @@
     <string name="fragment_viewpager_with_tabs">Fragment ViewPager with Tabs</string>
     <string name="github">GitHub</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in justo consequat, porta ipsum vel, condimentum sapien. In fringilla malesuada vestibulum. Fusce suscipit eros non augue rhoncus placerat a a lorem. In est ipsum, blandit quis eros ut, lobortis porttitor nisi. Quisque purus quam, consectetur et semper eu, sodales vel augue. Suspendisse ultrices nunc nec sem interdum egestas. Aenean ut eros at quam scelerisque tempus. Ut condimentum ullamcorper augue non tempus. Quisque id ligula quam. Ut maximus risus dolor, a volutpat ipsum finibus vel. Aenean in porta lectus, vel aliquet felis. In hac habitasse platea dictumst. Duis interdum mauris ut arcu semper pulvinar.  Quisque quis leo sed elit elementum tincidunt. Aenean interdum augue nulla, vitae maximus tellus consequat sed. Pellentesque volutpat varius elit dignissim dictum. Nulla a vestibulum urna. Fusce a lacus quis nisi scelerisque efficitur vitae ac nibh. Donec luctus sed lectus quis ultrices. Curabitur sagittis, risus et tristique mollis, ipsum felis interdum sapien, non congue eros turpis sit amet leo. Suspendisse potenti. Integer nec urna fringilla, euismod dolor vitae, euismod velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur pharetra consectetur lobortis. Aenean sit amet metus a ligula ultricies laoreet in eu lacus. Donec congue, quam fringilla ultricies finibus, nulla erat ullamcorper tortor, vitae blandit ante massa in est. Quisque tempus porttitor erat id porttitor. Nam dictum non nulla a convallis. Integer sodales lorem lorem, quis vehicula quam luctus sed. Suspendisse et congue ipsum, non aliquet nisi. Vestibulum eu dignissim eros, eget pretium augue. Phasellus placerat nulla sed tempor dignissim. Ut egestas diam nec sem pulvinar gravida. Nulla facilisi. Maecenas tincidunt metus quis massa rhoncus cursus. Curabitur non sapien sed nunc posuere facilisis. Sed vulputate facilisis leo, sed mattis leo efficitur ac. Interdum et malesuada fames ac ante ipsum primis in faucibus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus sit amet felis sed turpis scelerisque tempus et vel lacus. Curabitur rutrum, dui ac interdum iaculis, neque mauris semper eros, a efficitur enim magna non neque. Duis venenatis turpis vehicula purus rhoncus, et dignissim neque posuere. Etiam pulvinar mauris purus, vel rutrum dolor luctus sit amet. Aliquam convallis nec nisl ut maximus. Suspendisse vitae dignissim mauris. Aenean mauris tortor, aliquam quis dui in, lobortis dictum nisl. Suspendisse quis odio hendrerit, vestibulum elit non, ultricies lorem. Integer bibendum nibh turpis. Nam purus tortor, pulvinar ac nisl ac, dictum ornare odio. Donec viverra dolor at mi tempus aliquet. Integer condimentum, sapien et semper feugiat, nunc nisl egestas lectus, quis mattis metus lacus quis velit. Pellentesque non urna porttitor, bibendum nisl non, ultricies massa. Proin quis mauris ac dui accumsan pharetra. Aliquam erat volutpat. Suspendisse fringilla dolor sed nulla euismod sollicitudin. Pellentesque et arcu feugiat magna facilisis tempor id at leo. Aliquam egestas rhoncus convallis. Quisque vitae dolor elit. Cras eleifend felis mauris, eu sodales lacus imperdiet eget. Donec vulputate tortor ut purus lobortis bibendum. Nulla lectus nunc, finibus sed nisi in, porttitor hendrerit lorem. Fusce vehicula ante enim. Pellentesque et consequat metus. In neque eros, euismod vitae lectus sed, ornare rutrum dolor. Nulla malesuada, ante at fringilla suscipit, sem leo sollicitudin orci, mattis iaculis velit metus sit amet dui. Cras malesuada luctus risus, vel egestas neque lacinia ut. Morbi non convallis ligula. Nunc orci diam, elementum eu tincidunt at, lacinia eget diam. Nunc volutpat ante non diam semper pulvinar. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse mollis ipsum non mi pulvinar ultricies. Cras tincidunt metus sit amet urna mollis, sit amet vulputate arcu placerat. In accumsan interdum purus eget tempus. Maecenas sit amet dolor lobortis, tincidunt elit nec, sagittis purus. Phasellus vestibulum interdum efficitur. Mauris id sem sollicitudin, ornare metus eget, semper arcu. Etiam vestibulum tincidunt ante nec fermentum. Mauris iaculis leo ac luctus tempus. Duis dapibus mollis neque. Sed efficitur ipsum ac metus sodales maximus. Ut feugiat tortor in egestas tincidunt. Nunc a fringilla enim. Aenean a odio ante. Suspendisse aliquet finibus lacinia. Mauris fringilla ornare odio. In eget blandit tortor. Cras id ultrices magna. Nunc feugiat ex sed sagittis accumsan. Aenean nec efficitur massa, et hendrerit magna. Aenean porta turpis varius, vestibulum libero nec, varius ipsum. Sed hendrerit nulla ut massa aliquet efficitur. Proin consectetur euismod efficitur. Sed in metus id leo blandit imperdiet. Curabitur cursus nisi et odio finibus placerat vel sed turpis. Fusce placerat ipsum eget purus egestas, vel euismod erat pharetra. Curabitur non nisl felis. Nam vestibulum purus ac metus pulvinar, in aliquam lectus sagittis. Phasellus a porttitor risus. Cras nec ante turpis. Sed convallis dui id quam venenatis, sit amet sodales nisi molestie. Phasellus vulputate eget lacus sed tempor. Curabitur id ornare nisi. Fusce a nisl quis purus tempus tempus in eget felis. Integer congue tellus condimentum justo pellentesque finibus. In rutrum leo nec cursus tempor. In vitae sagittis neque, eget lacinia nisi. Sed quis felis cursus, pretium augue at, gravida nulla. Phasellus at ante sollicitudin, tempor nulla eu, commodo orci. Nam scelerisque sit amet erat a molestie. Donec lacinia ligula vitae erat congue, nec volutpat ante pulvinar. Ut pretium diam eget dignissim pulvinar. Quisque eget efficitur est. Aenean faucibus bibendum tempus. Nullam non enim non sapien fermentum semper. Vivamus commodo velit quis erat hendrerit congue. Suspendisse tincidunt, arcu pharetra mattis pulvinar, tellus neque rhoncus justo, eget interdum arcu magna at urna. </string>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/TheMovieDb/library/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/TheMovieDb/library/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="mdl_add_account">Add an account</string>
     <string name="mdl_back">Back</string>
@@ -527,13 +527,13 @@
     <string name="mdl_navigation_drawer_open">Open navigation drawer</string>
     <string name="mdl_search">Search</string>
     <string name="mdl_settings">Settings</string>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="start_activity">Start Activity</string>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <string name="status_bar_notification_info_overflow">999+</string>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="title_item1">Item 1</string>
     <string name="title_item2">Item 2</string>
@@ -541,20 +541,20 @@
     <string name="title_item4">Item 4</string>
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <style name="AlertDialog.AppCompat" parent="Base.AlertDialog.AppCompat"/>
     <style name="AlertDialog.AppCompat.Light" parent="Base.AlertDialog.AppCompat.Light"/>
     <style name="Animation.AppCompat.Dialog" parent="Base.Animation.AppCompat.Dialog"/>
     <style name="Animation.AppCompat.DropDownUp" parent="Base.Animation.AppCompat.DropDownUp"/>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/src/main/res/values/styles.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppTheme" parent="@style/MaterialDesignLibraryTheme.Light">
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
     </style>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <style name="Base.AlertDialog.AppCompat" parent="android:Widget">
         <item name="android:layout">@layout/abc_alert_dialog_material</item>
@@ -1470,7 +1470,7 @@
         <item name="android:scaleType">center</item>
         <item name="android:background">?attr/selectableItemBackground</item>
     </style>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <style name="CardView">
         <item name="cardBackgroundColor">@color/cardview_light_background</item>
@@ -1486,12 +1486,12 @@
     <style name="CardView.Light">
         <item name="cardBackgroundColor">@color/cardview_light_background</item>
     </style>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/src/main/res/values/styles.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="color">@android:color/white</item>
     </style>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/TheMovieDb/library/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/TheMovieDb/library/unspecified/res/values/values.xml -->
     <eat-comment/>
     <style name="MaterialDesignLibraryTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/mdl_color_primary</item>
@@ -1513,7 +1513,7 @@
         <item name="android:textColor">@color/mdl_navigation_drawer_item_header_color</item>
         <item name="android:gravity">center_vertical</item>
     </style>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <style name="Platform.AppCompat" parent="android:Theme">
         <item name="android:windowNoTitle">true</item>
@@ -1717,13 +1717,13 @@
     <style name="TextAppearance.StatusBar.EventContent.Line2" parent=""/>
     <style name="TextAppearance.StatusBar.EventContent.Time" parent=""/>
     <style name="TextAppearance.StatusBar.EventContent.Title" parent=""/>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
     <eat-comment/>
     <style name="TextAppearance.TabPageIndicator" parent="Widget">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/vpi__dark_theme</item>
     </style>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <style name="TextAppearance.Widget.AppCompat.ExpandedMenu.Item" parent="Base.TextAppearance.Widget.AppCompat.ExpandedMenu.Item">
     </style>
@@ -1753,23 +1753,23 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
     <eat-comment/>
     <style name="Theme.PageIndicatorDefaults" parent="android:Theme">
         <item name="vpiIconPageIndicatorStyle">@style/Widget.IconPageIndicator</item>
         <item name="vpiTabPageIndicatorStyle">@style/Widget.TabPageIndicator</item>
     </style>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <style name="ThemeOverlay.AppCompat" parent="Base.ThemeOverlay.AppCompat"/>
     <style name="ThemeOverlay.AppCompat.ActionBar" parent="Base.ThemeOverlay.AppCompat.ActionBar"/>
     <style name="ThemeOverlay.AppCompat.Dark" parent="Base.ThemeOverlay.AppCompat.Dark"/>
     <style name="ThemeOverlay.AppCompat.Dark.ActionBar" parent="Base.ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="ThemeOverlay.AppCompat.Light" parent="Base.ThemeOverlay.AppCompat.Light"/>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
     <eat-comment/>
     <style name="Widget"/>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <style name="Widget.AppCompat.ActionBar" parent="Base.Widget.AppCompat.ActionBar">
     </style>
@@ -1861,7 +1861,7 @@
     <style name="Widget.AppCompat.TextView.SpinnerItem" parent="Base.Widget.AppCompat.TextView.SpinnerItem"/>
     <style name="Widget.AppCompat.Toolbar" parent="Base.Widget.AppCompat.Toolbar"/>
     <style name="Widget.AppCompat.Toolbar.Button.Navigation" parent="RtlOverlay.Widget.AppCompat.Toolbar.Button.Navigation"/>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
     <eat-comment/>
     <style name="Widget.IconPageIndicator" parent="Widget">
         <item name="android:layout_marginLeft">6dp</item>
@@ -1878,7 +1878,7 @@
         <item name="android:textSize">12sp</item>
         <item name="android:maxLines">1</item>
     </style>
-    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/values/values.xml -->
+    <!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/values/values.xml -->
     <eat-comment/>
     <style name="carbon_Button" parent="@android:style/Widget.Button">
         <item name="android:gravity">center_vertical|center_horizontal</item>

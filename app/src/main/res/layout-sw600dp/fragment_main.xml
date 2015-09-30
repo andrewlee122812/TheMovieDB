@@ -1,0 +1,154 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/main_scrollview"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity$PlaceholderFragment">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="400dp"
+            android:background="@color/monsoon"
+            android:layout_marginTop="20dp"
+            android:id="@+id/main_activity_rl1">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:typeface="serif"
+
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
+                android:id="@+id/most_popular_textview"
+                android:text="Most Popular"/>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="3dp"
+                android:id="@+id/view1"
+                android:background="@color/white"
+                android:layout_below="@+id/most_popular_textview"/>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@+id/view1">
+
+                <org.lucasr.twowayview.TwoWayView
+                    android:id="@+id/list1"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:drawSelectorOnTop="false"
+                    />
+
+            </RelativeLayout>
+
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="400dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/monsoon"
+            android:layout_below="@+id/main_activity_rl1"
+            android:id="@+id/main_activity_rl2">
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="3dp"
+                android:id="@+id/view2"
+                android:background="@color/white"
+                android:layout_below="@+id/top_rated_textview"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:typeface="serif"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
+                android:id="@+id/top_rated_textview"
+                android:text="Top Rated"/>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@+id/view2">
+
+                <org.lucasr.twowayview.TwoWayView
+                    android:id="@+id/list2"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:drawSelectorOnTop="false"
+                    />
+
+            </RelativeLayout>
+
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="400dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/monsoon"
+            android:layout_below="@+id/main_activity_rl2"
+            android:id="@+id/main_activity_rl3">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:typeface="serif"
+
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
+                android:id="@+id/latest_movie_textview"
+                android:text="Latest Movies"/>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="3dp"
+                android:id="@+id/view3"
+                android:background="@color/white"
+                android:layout_below="@+id/latest_movie_textview"/>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@+id/view3">
+
+                <org.lucasr.twowayview.TwoWayView
+                    android:id="@+id/list3"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:drawSelectorOnTop="false"
+                    />
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+</ScrollView>

@@ -7,4 +7,4 @@
     android:layout_marginTop="?attr/actionBarSize"
     android:background="@drawable/toolbar_shadow"
     android:visibility="invisible"/>
-<!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/library/src/main/res/layout/mdl_toolbar_shadow.xml -->
+<!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/library/src/main/res/layout/mdl_toolbar_shadow.xml -->

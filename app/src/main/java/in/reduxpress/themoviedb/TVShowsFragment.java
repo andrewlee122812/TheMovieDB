@@ -218,7 +218,7 @@ public  class TVShowsFragment extends Fragment implements AsyncResponse{
     }
 
     @Override
-    public void processFinish(List output) {
+    public void processFinish(ArrayList output) {
         List<TvShows> tvShowsList = output;
         screenWidth = getScreenDimen();
         screenDPI = getScreenDPI();

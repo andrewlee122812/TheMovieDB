@@ -37,4 +37,4 @@
         android:textColor="?attr/carbon_colorError"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-</LinearLayout><!-- From: file:/D:/projekty/android%20studio%20workspace/Carbon/carbon/src/main/res/layout/carbon_validated_edittext.xml --><!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/library/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/layout/carbon_validated_edittext.xml -->
+</LinearLayout><!-- From: file:/D:/projekty/android%20studio%20workspace/Carbon/carbon/src/main/res/layout/carbon_validated_edittext.xml --><!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/library/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/layout/carbon_validated_edittext.xml -->

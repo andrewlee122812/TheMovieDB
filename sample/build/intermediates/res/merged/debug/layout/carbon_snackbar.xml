@@ -35,4 +35,4 @@
         android:textColor="?attr/carbon_colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="36dp" />
-</LinearLayout><!-- From: file:/D:/projekty/android%20studio%20workspace/Carbon/carbon/src/main/res/layout/carbon_snackbar.xml --><!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDB/sample/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/layout/carbon_snackbar.xml -->
+</LinearLayout><!-- From: file:/D:/projekty/android%20studio%20workspace/Carbon/carbon/src/main/res/layout/carbon_snackbar.xml --><!-- From: file:/Users/kumardivyarajat/AndroidStudioProjects/TheMovieDb/sample/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/layout/carbon_snackbar.xml -->

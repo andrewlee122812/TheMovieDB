@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent">
+    <!--in.reduxpress.themoviedb.HelperClasses.TrackingScrollView-->
+    <in.reduxpress.themoviedb.HelperClasses.TrackingScrollView
+        android:layout_width="fill_parent"
+        android:id="@+id/scroller"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/monsoon"
+                android:id="@+id/backdrop_parent_rl">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@color/black"
+                    android:scaleType="centerCrop"
+                    android:id="@+id/details_imageview_backdrop"/>
+
+            </FrameLayout>
+
+            <RelativeLayout
+                android:layout_width="240dp"
+                android:layout_height="360dp"
+                android:layout_above="@+id/button_for_use"
+                android:layout_marginBottom="35dp"
+                android:id="@+id/details_poster_imageview_parent"
+                android:layout_marginLeft="10dp">
+
+
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="5dp"
+                    android:cropToPadding="true"
+                    android:layout_alignParentTop="true"
+                    android:id="@+id/details_poster_imageview"/>
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/details_title_parent"
+                android:layout_marginLeft="25dp"
+
+                android:layout_below="@+id/backdrop_parent_rl"
+                android:layout_toRightOf="@+id/details_poster_imageview_parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:typeface="serif"
+                    android:textStyle="bold"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    android:text="Movie In the name of god"
+                    android:id="@+id/details_movie_title"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:id="@+id/view1"
+                    android:layout_below="@+id/details_movie_title"
+                    android:background="@color/material_blue_grey_950"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/review"
+                    android:id="@+id/review_imageview"
+                    android:layout_below="@+id/view1"
+                    android:layout_marginTop="5dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:text="10.0"
+                    android:id="@+id/review_texview_editing"
+                    android:layout_marginLeft="9dp"
+                    android:textSize="25sp"
+                    android:layout_below="@+id/review_imageview"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Genre"
+                    android:id="@+id/genre_info_textview"
+                    android:textSize="25sp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@+id/review_imageview"
+                    android:layout_below="@+id/view1"
+                    android:layout_marginLeft="30dp"/>
+
+                <ListView
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:id="@+id/genre_listview"
+                    android:clickable="false"
+                    android:minHeight="2dp"
+                    android:layout_toRightOf="@+id/review_texview_editing"
+                    android:layout_marginLeft="30dp"
+                    android:layout_below="@+id/genre_info_textview">
+                </ListView>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:id="@+id/button_for_use"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/details_title_parent"
+                >
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@color/material_blue_grey_950"
+                    />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:layout_marginTop="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:id="@+id/add_favourite_imagebutton"
+                    android:src="@mipmap/ic_heart"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:layout_centerVertical="true"
+
+                    android:id="@+id/add_to_list"
+                    android:src="@drawable/ic_add"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_centerHorizontal="true"
+                    />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:id="@+id/share_imageButton"
+                    android:src="@mipmap/ic_share"
+                    android:layout_centerVertical="true"
+
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_alignParentEnd="true"/>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/details_description_parent_rl"
+                android:padding="@dimen/padding_min"
+                android:layout_below="@+id/button_for_use">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@color/material_blue_grey_950"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:text="Overview"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/monsoon"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="25sp"
+                    android:id="@+id/details_overview"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:textSize="22sp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/details_overview"
+                    android:id="@+id/details_description"
+                    android:text="sdbvibsidfvisdfnvsdfnvinsdfnvsdfnvn"/>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/details_description_parent_rl">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@color/material_blue_grey_950"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/release_date_parent"
+                android:layout_below="@+id/details_description_parent_rl">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Release Date"
+                    android:id="@+id/release_date"
+                    android:textSize="25sp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:textColor="@color/monsoon"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="02-05-2015"
+                    android:id="@+id/release_date_textview"
+                    android:textSize="22sp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/release_date"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/white"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@color/material_blue_grey_950"
+                    android:layout_below="@+id/release_date_textview"
+                    android:layout_marginTop="5dp"
+                    />
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/youtube_view_parent_parent"
+                android:layout_below="@+id/release_date_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Videos"
+                    android:id="@+id/videos_textview"
+                    android:textSize="25sp"
+                    android:textColor="@color/monsoon"
+                    android:layout_centerHorizontal="true" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/youtube_view_parent"
+                    android:orientation="vertical"
+                    android:layout_below="@+id/videos_textview">
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:id="@+id/youtube_view_footer"
+                    android:layout_below="@+id/youtube_view_parent"
+                    android:background="@color/material_blue_grey_950"
+                    android:layout_marginTop="35dp"
+                    />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/youtube_view_parent_parent"
+                android:id="@+id/cast_gridview_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cast"
+                    android:id="@+id/cast_texview"
+                    android:textSize="25sp"
+                    android:textColor="@color/monsoon"
+                    android:layout_centerHorizontal="true"
+                    />
+
+                <in.reduxpress.themoviedb.HelperClasses.ExpandedScrollView
+                    android:id="@+id/cast_grid"
+                    android:orientation="horizontal"
+                    android:layout_below="@+id/cast_texview"
+                    android:layout_width="wrap_content"
+                    android:numColumns="3"
+                    android:layout_height="wrap_content"
+                    android:drawSelectorOnTop="false"
+                    android:stretchMode="columnWidth"
+                    >
+
+                </in.reduxpress.themoviedb.HelperClasses.ExpandedScrollView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@color/material_blue_grey_950"
+                    android:layout_below="@+id/cast_grid"
+                    android:layout_marginTop="5dp"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="300dp"
+                android:layout_below="@+id/cast_gridview_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Images"
+                    android:id="@+id/images_textview"
+                    android:textSize="25sp"
+                    android:textColor="@color/monsoon"
+                    android:layout_centerHorizontal="true"
+                    />
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_below="@+id/images_textview">
+
+                    <org.lucasr.twowayview.TwoWayView
+                        android:id="@+id/list1"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:drawSelectorOnTop="false"
+                        />
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+    </in.reduxpress.themoviedb.HelperClasses.TrackingScrollView>
+</FrameLayout>
