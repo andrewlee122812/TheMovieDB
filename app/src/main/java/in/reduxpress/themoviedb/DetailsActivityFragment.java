@@ -663,7 +663,12 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
             mCastView.setAdapter(gridAdapter);
             gridAdapter.notifyDataSetChanged();
 
-            fetchReviewTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            if(content == null ) {
+                fetchReviewTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            } else {
+                mReviewParent.setVisibility(View.GONE);
+            }
+
 
 
         }

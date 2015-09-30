@@ -21,129 +21,161 @@
             android:id="@+id/actors_overview_imageview"
             />
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name"
-            android:id="@+id/actors_overview_name_textview"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="120dp"
-            android:layout_marginTop="30dp"
-            android:layout_below="@+id/actors_overview_imageview"/>
+            android:orientation="horizontal"
+            android:layout_below="@+id/actors_overview_imageview"
+            android:id="@+id/actor_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height= "wrap_content"
-            android:text="Actor name"
-            android:id="@+id/actor_nsame_"
-            android:layout_alignBottom="@+id/actors_overview_name_textview"
-            android:layout_alignRight="@+id/actors_overview_imageview"
-            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:id="@+id/actors_overview_name_textview"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="40dp"
+               />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/birthday"
-            android:text="Birthday"
-            android:textStyle="bold"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height= "wrap_content"
+                android:text="Actor name"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="30dp"
+                android:id="@+id/actor_nsame_"
+                />
 
-            android:layout_alignBaseline="@+id/birthday_textview"
-            android:layout_alignBottom="@+id/birthday_textview"
-            android:layout_alignLeft="@+id/actors_overview_imageview"
-            android:layout_alignStart="@+id/actors_overview_imageview" />
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/birthday_textview"
-            android:text="2015-09-05"
-            android:layout_below="@+id/actor_nsame_"
-            android:layout_toRightOf="@+id/birthday"
-            android:layout_marginTop="30dp"
-            android:layout_alignStart="@+id/actor_nsame_"
-            />
+            android:id="@+id/birthday_parent"
+            android:layout_below="@+id/actor_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/birthday"
+                android:text="Birthday"
+                android:textStyle="bold"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="20dp"/>
 
-        <TextView
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/birthday_textview"
+                android:text="2015-09-05"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="30dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/birth_place"
-            android:text="Place"
-            android:textStyle="bold"
+            android:layout_below="@+id/birthday_parent"
+            android:id="@+id/place_of_birth_parent">
 
-            android:layout_marginLeft="20dp"
-            android:layout_below="@+id/birthday"
-            android:layout_alignEnd="@+id/actors_overview_name_textview"
-            android:layout_marginTop="30dp"
-            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/birth_place"
+                android:text="Place"
+                android:textStyle="bold"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="20dp"
+                />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/place_textview"
-            android:text="London vucvuvuvjvjhhv jvjvjvjhvjhvjvjhvjvjvjvjvjvjhvjhvjvjvjj"
-            android:layout_below="@+id/birthday_textview"
-            android:layout_toRightOf="@+id/birthday"
-            android:layout_marginTop="30dp"
-            android:layout_alignStart="@+id/actor_nsame_"
-            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/place_textview"
+                android:text="asdvadsfg"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="30dp"
+                />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/deathday"
-            android:text="Death"
-            android:textStyle="bold"
 
-            android:visibility="invisible"
-            android:layout_marginLeft="20dp"
-            android:layout_below="@+id/birth_place"
-            android:layout_alignEnd="@+id/actors_overview_name_textview"
-            android:layout_marginTop="30dp"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/death_textview"
-            android:text="2015-09-05"
-            android:visibility="invisible"
-            android:layout_below="@+id/place_textview"
-            android:layout_toRightOf="@+id/birthday"
-            android:layout_marginTop="30dp"
-            android:layout_alignStart="@+id/actor_nsame_"
-            />
+        </LinearLayout>
 
 
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Biography"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:id="@+id/biorapgytextview"
-            android:layout_below="@+id/death_textview"
-            android:layout_marginTop="50dp"/>
+       <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/death_parent"
+           android:layout_below="@+id/place_of_birth_parent">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="20dp"
-            android:layout_above="@+id/biorapgytextview"
-            android:background="@color/iron">
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/deathday"
+               android:text="Death"
+               android:textStyle="bold"
+               android:visibility="gone"
+               android:layout_marginTop="20dp"
+               android:layout_marginLeft="50dp"
+               />
 
-        </View>
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/death_textview"
+               android:text="2015-09-05"
+               android:visibility="gone"
+               android:layout_marginTop="20dp"
+               android:layout_marginLeft="30dp"
+               />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/biorapgy"
-            android:layout_marginTop="5dp"
-            android:layout_below="@+id/biorapgytextview"
-            android:layout_centerHorizontal="true" />
+
+
+       </LinearLayout>
+
+
+
+      <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/biography_parent"
+          android:orientation="vertical"
+          android:layout_below="@+id/death_parent">
+
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Biography"
+              android:gravity="center"
+              android:textStyle="bold"
+              android:id="@+id/biorapgytextview"
+              android:layout_marginTop="30dp"/>
+
+          <View
+              android:layout_width="match_parent"
+              android:layout_height="2dp"
+              android:layout_marginTop="20dp"
+              android:background="@color/iron">
+
+          </View>
+
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:id="@+id/biorapgy"
+              android:layout_marginTop="5dp"
+              android:layout_gravity="center"
+               />
+
+
+
+      </LinearLayout>
+
 
 
     </RelativeLayout>
