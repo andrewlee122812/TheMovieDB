@@ -40,7 +40,7 @@ import in.reduxpress.themoviedb.AsyncTasks.AsyncResponse;
 import in.reduxpress.themoviedb.AsyncTasks.FetchContentTask;
 import in.reduxpress.themoviedb.DataModels.Genre;
 import in.reduxpress.themoviedb.DataModels.TvShows;
-import in.reduxpress.themoviedb.HelperClasses.DatabaseHandler;
+import in.reduxpress.themoviedb.HelperClasses.MoviesDBHandler;
 
 /**
  * Created by kumardivyarajat on 10/06/15.
@@ -222,7 +222,7 @@ public  class TVShowsFragment extends Fragment implements AsyncResponse{
         List<TvShows> tvShowsList = output;
         screenWidth = getScreenDimen();
         screenDPI = getScreenDPI();
-        DatabaseHandler db = new DatabaseHandler(getActivity());
+        MoviesDBHandler db = new MoviesDBHandler(getActivity());
         mImageAdapter = new ImageAdapter(getActivity(),tvShowsList,screenWidth);
         String category = tvShowsList.get(0).getCategory();
 

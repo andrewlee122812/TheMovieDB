@@ -21,6 +21,28 @@ public class TvShows extends Movie implements Parcelable {
     String voteAverage;
     String category;
 
+    public TvShows(String id, String original_name, String overview, String vote_average,String first_air_date, String origin_country, String poster_path, String backdrop_path) {
+        this.id = id;
+        this.original_name = original_name;
+        this.overview = overview;
+        this.voteAverage = vote_average;
+        this.first_air_date = first_air_date;
+        this.origin_country = origin_country;
+        this.poster_path = poster_path;
+        this.backdrop_path = backdrop_path;
+    }
+
+
+
+    /*   + KEY_ID + " INTEGER PRIMARY KEY,"
+                + KEY_NAME + " TEXT,"
+                + KEY_DESC + " TEXT,"
+                + KEY_VOTE_AVG + " TEXT,"
+                + KEY_RELEASE_DATE + " TEXT,"
+                + KEY_ORIGIN_COUNTRY + " TEXT,"
+                + KEY_POSTER_PATH + " TEXT,"
+                + KEY_BACKDROP_PATH + " TEXT"*/
+
     public String getCategory() {
         return category;
     }

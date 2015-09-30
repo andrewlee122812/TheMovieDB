@@ -3,6 +3,7 @@ package in.reduxpress.themoviedb;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -11,6 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -52,8 +54,9 @@ import in.reduxpress.themoviedb.DataModels.Cast;
 import in.reduxpress.themoviedb.DataModels.Movie;
 import in.reduxpress.themoviedb.DataModels.TvShows;
 import in.reduxpress.themoviedb.DataModels.YoutubeVideo;
-import in.reduxpress.themoviedb.HelperClasses.DatabaseHandler;
 import in.reduxpress.themoviedb.HelperClasses.ExpandedScrollView;
+import in.reduxpress.themoviedb.HelperClasses.MoviesDBHandler;
+import in.reduxpress.themoviedb.HelperClasses.TVShowsDBHandler;
 import in.reduxpress.themoviedb.HelperClasses.TrackingScrollView;
 
 /**
@@ -81,9 +84,6 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
     private TextView mRating;
     private Boolean isFavourite;
     private SharedPreferences genreStorage;
-    private SharedPreferences favourites;
-    private SharedPreferences.Editor editor;
-    final String FAVOURITE_PREFERENCE = "favourite";
     final String GENRE_PREFERENCE = "Genre";
     private int count = 1;
     private TextView mReleaseDate;
@@ -100,7 +100,8 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
     RelativeLayout youTubeParentParent;
     String content;
     TvShows tvShows;
-    DatabaseHandler db ;
+    MoviesDBHandler db ;
+    TVShowsDBHandler dbHandler;
 
 
     YouTubePlayerView youTubePlayerView;
@@ -117,7 +118,6 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
 
 
         genreStorage = getActivity().getApplicationContext().getSharedPreferences(GENRE_PREFERENCE, Context.MODE_PRIVATE);
-        favourites = getActivity().getApplicationContext().getSharedPreferences(FAVOURITE_PREFERENCE, Context.MODE_PRIVATE);
 
 
         mBackDropImageView = (ImageView) rootView.findViewById(R.id.details_imageview_backdrop);
@@ -137,7 +137,8 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
         youTubeParentParent = (RelativeLayout)rootView.findViewById(R.id.youtube_view_parent_parent);
        // youTubePlayerView = (YouTubePlayerView) rootView.findViewById(R.id.youtube_view1);
         transparentDrawable = new ColorDrawable(Color.BLACK);
-        db = new DatabaseHandler(getActivity());
+        db = new MoviesDBHandler(getActivity());
+        dbHandler = new TVShowsDBHandler(getActivity());
         fetchCastTask = new FetchCastTask();
         fetchVideosTask = new FetchVideosTask();
 
@@ -238,8 +239,7 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
         };
 
         mFavouriteButton.setOnClickListener(DetailsActivityFragment.this);
-        Log.d("Height of gridview", mCastView.getLayoutParams().height + "");
-        Log.d("Width of gridview", mCastView.getLayoutParams().width + "");
+        mShareButton.setOnClickListener(DetailsActivityFragment.this);
 
         mCastView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -254,13 +254,9 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
 
     private void setAlphaForActionBar() {
         final int scrollY = trackingScrollView.getScrollY();
-        Log.d("Scroll Y:", scrollY + "");
         final int boundY = 1077;
-        Log.d("Image Height: ", mImageHeight + "");
         final float ratio = (float) (scrollY / boundY);
-        Log.d("Ratio", ratio + "");
         transparentDrawable.setAlpha((int) (ratio * 255));
-        Log.d("alpha", (ratio * 255) + "");
     }
 
     private void setUpTransparentActionBar() {
@@ -280,74 +276,7 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
         toggleFavourite();
     }
 
-    private void toggleFavourite() {
-        mFavouriteButton.setBackgroundColor(Color.TRANSPARENT);
-        editor = favourites.edit();
-        setFavourites();
-        Log.d("isFavourite", isFavourite + "");
-        if (isFavourite) {
-            imageButtonLoaderPicasso(R.mipmap.added_favourite, 180, 180, mFavouriteButton);
 
-            if(content == null) {
-                editor.remove(movie.getMovieID());
-            } else {
-                editor.remove(tvShows.getId());
-            }
-            isFavourite = false;
-        } else {
-            imageButtonLoaderPicasso(R.mipmap.ic_heart, 180, 180, mFavouriteButton);
-            if(content == null) {
-                editor.putString(movie.getMovieID(), movie.getOriginal_title());
-
-            } else {
-                editor.putString(tvShows.getId(), tvShows.getOriginal_name());
-            }
-            isFavourite = true;
-        }
-        editor.commit();
-        showFavourites();
-    }
-
-
-    private void setFavourites() {
-        if (isPresentInFavouriteSharedPreference()) {
-            isFavourite = true;
-        }
-        isFavourite = false;
-
-    }
-
-    private Boolean isPresentInFavouriteSharedPreference() {
-        Map<String, ?> keys = favourites.getAll();
-        for (Map.Entry<String, ?> entry : keys.entrySet()) {
-            Log.d("Favourite values", entry.getKey() + ": " +
-                    entry.getValue().toString());
-            if(content == null) {
-                if (entry.getKey().equals(movie.getMovieID())) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                if (entry.getKey().equals(tvShows.getId())) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-
-        }
-        return false;
-    }
-
-    private void showFavourites() {
-        Map<String, ?> keys = favourites.getAll();
-
-        for (Map.Entry<String, ?> entry : keys.entrySet()) {
-            Log.d("map values", entry.getKey() + ": " +
-                    entry.getValue().toString());
-        }
-    }
 
     private void setUpGenreList(SharedPreferences genreStorage) {
         if(content == null ) {
@@ -460,7 +389,6 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
         Point size = new Point();
         display.getSize(size);
         int width = size.x;
-        Log.d("Screen px value:", width + "");
         return width;
     }
 
@@ -872,51 +800,97 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
     public void onClick(View v) {
 
         if(v == mFavouriteButton) {
-            toggleFavourite();
-            Toast.makeText(getActivity(),"CLicke",Toast.LENGTH_SHORT).show();
 
-            getActivity().deleteDatabase("moviesOffline");
+            if(isFavourite) {
+                if(content == null ) {
+                    db.deleteContact(movie);
+                    toggleFavourite();
+                    Toast.makeText(getActivity(),"Removed "+ movie.getOriginal_title() + " from favourites.",Toast.LENGTH_SHORT ).show();
+                } else {
+                    dbHandler.deleteContact(tvShows);
+                    toggleFavourite();
+                    Toast.makeText(getActivity(), "Removed " + tvShows.getOriginal_name() + " from favourites.", Toast.LENGTH_SHORT);
+                }
 
-
-
-
-
-            /**
-             * CRUD Operations
-             **/
-            // Inserting Contacts
-            if(content == null ) {
-                Log.d("Insert: ", "Inserting ..");
-                db.addContact(movie);
+            } else {
+                if(content == null ) {
+                    db.addContact(movie);
+                    toggleFavourite();
+                    Toast.makeText(getActivity(),"Added "+ movie.getOriginal_title() + " to favourites.",Toast.LENGTH_SHORT ).show();
+                } else {
+                    dbHandler.addContact(tvShows);
+                    toggleFavourite();
+                    Toast.makeText(getActivity(), "Added " + tvShows.getOriginal_name() + " to favourites.", Toast.LENGTH_SHORT);
+                }
 
             }
-
-            // Reading all contacts
-            Log.d("Reading: ", "Reading all contacts..");
-            List<Movie> contacts = db.getAllContacts();
-
-            for (Movie cn : contacts) {
-                String log = "Id: " + cn.getMovieID() + " ,Name: " + cn.getOriginal_title() + " ,Phone: " + cn.getOverView();
-                // Writing Contacts to log
-                Log.d("Name: ", log);
-            }
-
+        } else if (v == mAddtoListButton) {
+        } else if(v == mShareButton) {
+            Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+            sharingIntent.setType("text/html");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, Html.fromHtml("<p>This is the text that will be shared.</p>"));
+            startActivity(Intent.createChooser(sharingIntent,"Share using"));
         }
     }
 
-    private void showLists() {
-        for(Cast cast : mCastList) {
-            Log.d("", cast.getName());
-            Log.d("" ,cast.getId());
+    private void toggleFavourite() {
+        mFavouriteButton.setBackgroundColor(Color.TRANSPARENT);
+        setFavourites();
+        if (isFavourite) {
+            imageButtonLoaderPicasso(R.mipmap.added_favourite, 180, 180, mFavouriteButton);
 
-
-        }
-
-        for(YoutubeVideo cast : mVideoList) {
-            Log.d("" ,cast.getName());
-            Log.d("" ,cast.getKey());
+        } else {
+            imageButtonLoaderPicasso(R.mipmap.ic_heart, 180, 180, mFavouriteButton);
         }
     }
+
+    private void setFavourites() {
+
+        if (isPresentInDatabase()) {
+            isFavourite = true;
+        } else {
+            isFavourite = false;
+        }
+    }
+
+
+
+    private Boolean isPresentInDatabase() {
+        int flag = 0;
+
+        if(content == null) {
+            List<Movie> temp = db.getAllContacts();
+
+            for(Movie tempMovie : temp ) {
+                Log.d("Movie id in database",tempMovie.getMovieID() + " " + tempMovie.getOriginal_title());
+                if(movie.getMovieID().equals(tempMovie.getMovieID())) {
+                    flag = 1;
+                    break;
+                } else {
+
+                }
+            }
+        } else {
+            List<TvShows> temp = dbHandler.getAllContacts();
+
+            for(TvShows tempMovie : temp ) {
+                Log.d("Movie id in database",tempMovie.getId() + " " + tempMovie.getOriginal_name());
+                if(tvShows.getId().equals(tempMovie.getId())) {
+                    flag = 1;
+                    break;
+                } else {
+
+                }
+            }
+        }
+
+
+        if(flag == 1) {
+            return true;
+        }
+        return false;
+    }
+
 
     private void setUpOverView(int position) {
         FetchActorDetailsTask detailsTask = new FetchActorDetailsTask();

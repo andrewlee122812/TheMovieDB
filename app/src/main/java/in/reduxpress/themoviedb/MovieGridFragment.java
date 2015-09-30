@@ -1,5 +1,6 @@
 package in.reduxpress.themoviedb;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -40,7 +41,6 @@ import in.reduxpress.themoviedb.AsyncTasks.AsyncResponse;
 import in.reduxpress.themoviedb.AsyncTasks.FetchContentTask;
 import in.reduxpress.themoviedb.DataModels.Genre;
 import in.reduxpress.themoviedb.DataModels.Movie;
-import in.reduxpress.themoviedb.HelperClasses.DatabaseHandler;
 
 /**
  * Created by kumardivyarajat on 10/06/15.
@@ -57,6 +57,7 @@ public  class MovieGridFragment extends Fragment implements AsyncResponse{
     private ScrollView mMainScrollView;
 
     public static int scrollXHL1X = 0;
+    List<Movie> movieList;
 
     TwoWayView mHorizontalListView;
     TwoWayView mHorizontalListView1;
@@ -189,26 +190,6 @@ public  class MovieGridFragment extends Fragment implements AsyncResponse{
 
 
 
-/*
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if(view == mHorizontalListView) {
-           movie = popularmovieList.get(position);
-        } else if(parent.getId() == 2131492985) {
-            movie = topRatedMovieList.get(position);
-        } else if(view == mHorizontalListView2) {
-            movie = latestMovieList.get(position);
-
-        }
-        /*Toast.makeText(getActivity(),movie.getOriginal_title()+ "",Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getActivity().getApplicationContext(),DetailsActivity.class);
-        intent.putExtra("MovieDetails",movie);
-        startActivity(intent);
-
-        Log.d("Click is : ","View:" + view.getId() + "Parent:" + parent.getId() + "Position:" + position);
-
-    }*/
-
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -218,7 +199,7 @@ public  class MovieGridFragment extends Fragment implements AsyncResponse{
 
     @Override
     public void processFinish(List output) {
-        List<Movie> movieList = output;
+         = output;
         screenWidth = getScreenDimen();
         screenDPI = getScreenDPI();
         mImageAdapter = new ImageAdapter(getActivity(),movieList,screenWidth,screenDPI);
@@ -329,14 +310,22 @@ public  class MovieGridFragment extends Fragment implements AsyncResponse{
         }
     }
 
-    public int getScreenDimen() {
+    @Override
 
-        Display display = getActivity().getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int width = size.x;
-        Log.d("Screen px value:", width + "");
-        return width;
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+    }
+
+    public int getScreenDimen() {
+        if(getActivity() != null ) {
+            Display display = getActivity().getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            int width = size.x;
+            Log.d("Screen px value:", width + "");
+            return width;
+        }
+       return 400;
     }
 
     public int getScreenDPI() {

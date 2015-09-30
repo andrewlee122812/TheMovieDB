@@ -77,17 +77,28 @@ public class GridAdapter extends BaseAdapter {
         holder.mActorName.setText(castList.get(position).getName());
         holder.mCharacterName.setText("( " + castList.get(position).getCharacter() + " )");
 
+        if(!castList.get(position).getProfile_path().equals("null")) {
 
-        StringBuilder builder = new StringBuilder("http://image.tmdb.org/t/p/w185//");
-        builder.append(castList.get(position).getProfile_path());
+            StringBuilder builder = new StringBuilder("http://image.tmdb.org/t/p/w185//");
+            builder.append(castList.get(position).getProfile_path());
 
-        String url = builder.toString();
+            String url = builder.toString();
 
-        Picasso picasso = Picasso.with(activity);
-        picasso.load(url)
-                .resize((ScreenWidth / 3), (int) ((ScreenWidth * (500 / 667)) / 3))
-                .into(holder.imageView);
-        picasso.setIndicatorsEnabled(true);
+
+            Picasso picasso = Picasso.with(activity);
+            picasso.load(url)
+                    .resize((ScreenWidth / 3), (int) ((ScreenWidth * (500 / 667)) / 3))
+                    .into(holder.imageView);
+            picasso.setIndicatorsEnabled(true);
+
+        } else {
+            Picasso picasso = Picasso.with(activity);
+            picasso.load(R.drawable.no_image_placeholder)
+                    .resize((ScreenWidth / 3), (int) ((ScreenWidth * (500 / 667)) / 3))
+                    .into(holder.imageView);
+            picasso.setIndicatorsEnabled(true);
+        }
+
 
 
         view.setTag(holder);
