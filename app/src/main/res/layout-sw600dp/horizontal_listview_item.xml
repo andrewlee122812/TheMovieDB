@@ -9,8 +9,8 @@
         android:layout_height="wrap_content" >
 
         <ImageView
-            android:layout_width="154dp"
-            android:layout_height="231dp"
+            android:layout_width="225dp"
+            android:layout_height="338dp"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
             android:cropToPadding="true"

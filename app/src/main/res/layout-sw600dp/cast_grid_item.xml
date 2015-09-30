@@ -8,8 +8,8 @@
     android:orientation="vertical">
 
     <ImageView
-        android:layout_width="185dp"
-        android:layout_height="278dp"
+        android:layout_width="225dp"
+        android:layout_height="338dp"
         android:src="@color/white"
         android:layout_centerHorizontal="true"
         android:id="@+id/cast_grid_imagview"/>
@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:textSize="10sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:layout_alignStart="@+id/cast_grid_imagview"
         android:layout_alignLeft="@+id/cast_grid_imagview"
@@ -31,7 +31,7 @@
         android:layout_alignStart="@+id/cast_grid_imagview"
         android:layout_alignLeft="@+id/cast_grid_imagview"
         android:layout_centerHorizontal="true"
-        android:textSize="10sp"
+        android:textSize="20sp"
         android:layout_marginBottom="30dp"
         android:layout_below="@+id/actor_name"
         android:id="@+id/character_name"/>

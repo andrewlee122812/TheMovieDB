@@ -367,13 +367,14 @@
 
             <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="300dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/reviews_container"
                 android:layout_below="@+id/cast_gridview_parent">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Images"
+                    android:text="Reviews"
                     android:id="@+id/images_textview"
                     android:textSize="20sp"
                     android:textColor="@color/monsoon"
@@ -383,10 +384,11 @@
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
+                    android:layout_margin="15dp"
                     android:layout_below="@+id/images_textview">
 
-                    <org.lucasr.twowayview.TwoWayView
-                        android:id="@+id/list1"
+                    <ListView
+                        android:id="@+id/reviewList"
                         android:orientation="horizontal"
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent"

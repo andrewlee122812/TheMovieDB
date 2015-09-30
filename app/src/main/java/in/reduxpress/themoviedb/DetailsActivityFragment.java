@@ -48,9 +48,11 @@ import java.util.List;
 import java.util.Map;
 
 import in.reduxpress.themoviedb.Adapters.GridAdapter;
+import in.reduxpress.themoviedb.Adapters.SimpleListAdapter;
 import in.reduxpress.themoviedb.DataModels.Actor;
 import in.reduxpress.themoviedb.DataModels.Cast;
 import in.reduxpress.themoviedb.DataModels.Movie;
+import in.reduxpress.themoviedb.DataModels.Review;
 import in.reduxpress.themoviedb.DataModels.TvShows;
 import in.reduxpress.themoviedb.DataModels.YoutubeVideo;
 import in.reduxpress.themoviedb.HelperClasses.ExpandedScrollView;
@@ -77,6 +79,8 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
     private ColorDrawable transparentDrawable;
     private TrackingScrollView trackingScrollView;
     private ArrayAdapter<String> arrayAdapter;
+    private SimpleListAdapter reviewAdapter;
+
     private ArrayList genreIDList;
     private ArrayList<String> genreList;
     private ListView mList;
@@ -90,6 +94,7 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
     private List<Cast> mCastList;
     FetchVideosTask fetchVideosTask;
     FetchCastTask fetchCastTask;
+    FetchReviewTask fetchReviewTask;
     int count1 = 0;
     LinearLayout mYoutubeParentLayout;
     ExpandedScrollView mCastView;
@@ -101,6 +106,9 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
     TvShows tvShows;
     MoviesDBHandler db ;
     TVShowsDBHandler dbHandler;
+    private RelativeLayout mReviewParent;
+    private List<Review> reviews;
+    private ListView mReviewList;
 
 
     YouTubePlayerView youTubePlayerView;
@@ -136,10 +144,13 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
         youTubeParentParent = (RelativeLayout)rootView.findViewById(R.id.youtube_view_parent_parent);
        // youTubePlayerView = (YouTubePlayerView) rootView.findViewById(R.id.youtube_view1);
         transparentDrawable = new ColorDrawable(Color.BLACK);
+        mReviewParent = (RelativeLayout)rootView.findViewById(R.id.reviews_container);
+        mReviewList = (ListView)rootView.findViewById(R.id.reviewList);
         db = new MoviesDBHandler(getActivity());
         dbHandler = new TVShowsDBHandler(getActivity());
         fetchCastTask = new FetchCastTask();
         fetchVideosTask = new FetchVideosTask();
+        fetchReviewTask = new FetchReviewTask();
 
         transparentDrawable.setAlpha(0);
 
@@ -652,6 +663,9 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
             mCastView.setAdapter(gridAdapter);
             gridAdapter.notifyDataSetChanged();
 
+            fetchReviewTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+
         }
     }
 
@@ -795,6 +809,106 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
         }
     }
 
+    public class FetchReviewTask extends AsyncTask<Void, Void, String> {
+
+        @Override
+        protected String doInBackground(Void... params) {
+            HttpURLConnection connection = null;
+            BufferedReader reader = null;
+            String movieStr = null;
+            //http://api.themoviedb.org/3/movie/135397/reviews?api_key=c74eefc5fded173206b2b3abb1bc76a2
+            String movieId = movie.getMovieID();
+            Uri.Builder builder1 = new Uri.Builder();
+            builder1.scheme("http")
+                    .authority("api.themoviedb.org")
+                    .appendPath("3")
+                    .appendPath("movie")
+                    .appendPath(movieId)
+                    .appendPath("reviews")
+                    .appendQueryParameter("api_key", "c74eefc5fded173206b2b3abb1bc76a2");
+            String builtUrl = builder1.build().toString();
+            Log.d(builtUrl, "");
+
+
+            try {
+                URL url = new URL(builtUrl);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.connect();
+
+
+                InputStream inputStream = connection.getInputStream();
+                StringBuilder builder = new StringBuilder();
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    builder.append(line + "\n");
+                }
+
+                movieStr = builder.toString();
+            } catch (IOException e) {
+                Log.e("MovieGridFragment", "Error ", e);
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (final IOException e) {
+                        Log.e("MovieGridFragment", "Error closing stream", e);
+                    }
+                }
+            }
+
+            return movieStr;
+
+        }
+
+        @Override
+        public void onPostExecute(String result) {
+            reviews = new ArrayList<>();
+
+            JSONObject myJson;
+            Log.d("Reviews - result",result);
+
+            try {
+                if(result != null) {
+                    myJson = new JSONObject(result);
+                    JSONArray page1 = myJson.getJSONArray("results");
+                    for(int i = 0;  i < page1.length(); i++) {
+                        JSONObject jsonObject = page1.getJSONObject(i);
+                        Review review = new Review();
+                        review.setAuthor(jsonObject.getString("author"));
+                        review.setContent(jsonObject.getString("content"));
+                        reviews.add(review);
+                    }
+                    if(reviews.size() != 0) {
+                        reviewAdapter = new SimpleListAdapter(getActivity(),reviews);
+                        mReviewList.setAdapter(reviewAdapter);
+
+                        for(Review review: reviews) {
+                            Log.d(review.getAuthor(),review.getContent());
+                        }
+                    } else {
+                        mReviewParent.setVisibility(View.GONE);
+                    }
+
+                } else {
+
+                    mReviewParent.setVisibility(View.GONE);
+                }
+
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
     @Override
     public void onClick(View v) {
 
@@ -824,17 +938,26 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
 
             }
         } else if (v == mAddtoListButton) {
+
+            Toast.makeText(getActivity(),"This feature will be added soon.", Toast.LENGTH_LONG).show();
+
         } else if(v == mShareButton) {
+
+            String name = content == null ? movie.getOriginal_title() : tvShows.getOriginal_name();
+            name  = name.replaceAll(" ","-");
+            Log.d("Name : ", name);
 
             String share = "Hey! I like "
                     + (content == null ? movie.getOriginal_title() : tvShows.getOriginal_name())
-                    + " a lot. You guys should see it. Check out the details here. https://www.themoviedb.org/"
+                    + " a lot. You guys should totally watch it. Check out the details here. https://www.themoviedb.org/"
                     + (content == null ? "movie/"  : "tv/")
                     + (content == null ? movie.getMovieID()  : tvShows.getId())
-                    + ;
+                    + name;
+
+            Log.d("Share:", share);
             Intent sharingIntent = new Intent(Intent.ACTION_SEND);
             sharingIntent.setType("text/html");
-            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT,  );
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, share);
             startActivity(Intent.createChooser(sharingIntent,"Share using"));
         }
     }

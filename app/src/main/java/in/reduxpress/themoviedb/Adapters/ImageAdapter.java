@@ -99,15 +99,13 @@ public class ImageAdapter extends BaseAdapter {
         if(movieList == null) {
             Picasso picasso = Picasso.with(activity);
             picasso.load(tvShowsList.get(position).getPoster_path())
-                    .resize((154*3), (231*3))
-                    .noFade()
+                    .fit()
                     .into(holder.imageView);
             picasso.setIndicatorsEnabled(true);
         } else {
             Picasso picasso = Picasso.with(activity);
             picasso.load(movieList.get(position).getPoster_path())
-                    .resize((154*3), (231*3))
-                    .noFade()
+                    .fit()
                     .into(holder.imageView);
             picasso.setIndicatorsEnabled(true);
         }

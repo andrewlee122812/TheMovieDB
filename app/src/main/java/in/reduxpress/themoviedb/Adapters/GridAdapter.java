@@ -94,7 +94,7 @@ public class GridAdapter extends BaseAdapter {
         } else {
             Picasso picasso = Picasso.with(activity);
             picasso.load(R.drawable.no_image_placeholder)
-                    .fit().resize((ScreenWidth / 3), (int) ((ScreenWidth * (500 / 667)) / 3))
+                    .resize((ScreenWidth / 3), (int) ((ScreenWidth * (500 / 667)) / 3))
                     .into(holder.imageView);
             picasso.setIndicatorsEnabled(true);
         }
