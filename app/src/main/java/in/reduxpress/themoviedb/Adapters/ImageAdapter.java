@@ -106,6 +106,7 @@ public class ImageAdapter extends BaseAdapter {
             picasso.load(movieList.get(position).getPoster_path())
                     .fit()
                     .into(holder.imageView);
+
         }
 
 

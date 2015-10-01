@@ -20,6 +20,43 @@ public class TvShows extends Movie implements Parcelable {
     String poster_path;
     String voteAverage;
     String category;
+    String content;
+
+    byte[] movieBackdrop;
+    byte[] moviePoster;
+
+    @Override
+    public byte[] getMovieBackdrop() {
+        return movieBackdrop;
+    }
+
+    @Override
+    public void setMovieBackdrop(byte[] movieBackdrop) {
+        this.movieBackdrop = movieBackdrop;
+    }
+
+    @Override
+    public byte[] getMoviePoster() {
+        return moviePoster;
+    }
+
+    @Override
+    public void setMoviePoster(byte[] moviePoster) {
+        this.moviePoster = moviePoster;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public TvShows() {
+        content = "TV";
+
+    }
 
     public TvShows(String id, String original_name, String overview, String vote_average,String first_air_date, String origin_country, String poster_path, String backdrop_path) {
         this.id = id;
@@ -30,6 +67,7 @@ public class TvShows extends Movie implements Parcelable {
         this.origin_country = origin_country;
         this.poster_path = poster_path;
         this.backdrop_path = backdrop_path;
+        this.content = "TV";
     }
 
 
@@ -133,9 +171,6 @@ public class TvShows extends Movie implements Parcelable {
         this.poster_path = poster_path;
     }
 
-    public TvShows() {
-
-    }
 
     protected TvShows(Parcel in) {
         original_name = in.readString();

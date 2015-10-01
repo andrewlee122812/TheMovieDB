@@ -5,6 +5,8 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
@@ -109,6 +111,7 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
     private RelativeLayout mReviewParent;
     private List<Review> reviews;
     private ListView mReviewList;
+    Boolean FromDatabase;
 
 
     YouTubePlayerView youTubePlayerView;
@@ -148,6 +151,7 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
         mReviewList = (ListView)rootView.findViewById(R.id.reviewList);
         db = new MoviesDBHandler(getActivity());
         dbHandler = new TVShowsDBHandler(getActivity());
+        dbHandler.drop();
         fetchCastTask = new FetchCastTask();
         fetchVideosTask = new FetchVideosTask();
         fetchReviewTask = new FetchReviewTask();
@@ -155,58 +159,107 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
         transparentDrawable.setAlpha(0);
 
         screenWidth = getScreenDimen();
+       // db.deleteDatabase();
 
 
         setUpTransparentActionBar();
 
         Bundle b = getArguments();
         content = b.getString("Content");
+        FromDatabase = b.getBoolean("FromDatabase");
 
 
+        if(FromDatabase) {
+            if(content == null ) {
+                movie = b.getParcelable("MovieDetails");
+                Log.d("Movie receivved", "");
 
-        if(content == null ) {
-            movie = b.getParcelable("MovieDetails");
-            Log.d("Movie receivved", "");
-
-            setUpImageButtons();
-
-
-            mTitle.setText(movie.getOriginal_title());
-            mDescription.setText(movie.getOverView());
-            mRating.setText(movie.getVoteAverage());
-            mReleaseDate.setText(movie.getReleaseDate());
-
-            String url = movie.getPoster_path();
-            url = url.replace("w500", "w185");
+                setUpImageButtons();
 
 
-            imageViewLoaderPicasso(movie.getBackdrop_path(), screenWidth, (int) (screenWidth * 0.56111111111111), mBackDropImageView);
-            imageViewLoaderPicasso(url, 600, 900, mPoster);
+                mTitle.setText(movie.getOriginal_title());
+                mDescription.setText(movie.getOverView());
+                mRating.setText(movie.getVoteAverage());
+                mReleaseDate.setText(movie.getReleaseDate());
 
-            ViewGroup.LayoutParams layoutParams = mBackDropImageView.getLayoutParams();
-            layoutParams.width = screenWidth;
-            layoutParams.height = (int) (screenWidth * 0.56111111111111);
-            mBackDropImageView.setLayoutParams(layoutParams);
+
+                mBackDropImageView.setImageBitmap(decodeSampledBitmapFromBitmap(movie.getMoviePoster(),screenWidth,(int) (screenWidth * 0.56111111111111)));
+                mPoster.setImageBitmap(decodeSampledBitmapFromBitmap(movie.getMovieBackdrop(),600,900));
+
+                ViewGroup.LayoutParams layoutParams = mBackDropImageView.getLayoutParams();
+                layoutParams.width = screenWidth;
+                layoutParams.height = (int) (screenWidth * 0.56111111111111);
+                mBackDropImageView.setLayoutParams(layoutParams);
+            } else {
+
+                Log.d("Check ", content);
+                tvShows = b.getParcelable("MovieDetails");
+
+                setUpImageButtons();
+
+                mTitle.setText(tvShows.getOriginal_name());
+                mDescription.setText(tvShows.getOverview());
+                mRating.setText(tvShows.getVoteAverage());
+                mReleaseDate.setText(tvShows.getFirst_air_date());
+
+                String url = tvShows.getPoster_path();
+                url = url.replace("w500", "w185");
+
+
+                imageViewLoaderPicasso(tvShows.getBackdrop_path(), screenWidth, (int) (screenWidth * 0.56111111111111), mBackDropImageView);
+                imageViewLoaderPicasso(url, 300, 450, mPoster);
+
+            }
+
         } else {
+            if(content == null ) {
+                movie = b.getParcelable("MovieDetails");
+                Log.d("Movie receivved", "");
 
-            Log.d("Check ", content);
-            tvShows = b.getParcelable("MovieDetails");
-
-            setUpImageButtons();
-
-            mTitle.setText(tvShows.getOriginal_name());
-            mDescription.setText(tvShows.getOverview());
-            mRating.setText(tvShows.getVoteAverage());
-            mReleaseDate.setText(tvShows.getFirst_air_date());
-
-            String url = tvShows.getPoster_path();
-            url = url.replace("w500", "w185");
+                setUpImageButtons();
 
 
-            imageViewLoaderPicasso(tvShows.getBackdrop_path(), screenWidth, (int) (screenWidth * 0.56111111111111), mBackDropImageView);
-            imageViewLoaderPicasso(url, 300, 450, mPoster);
+                mTitle.setText(movie.getOriginal_title());
+                mDescription.setText(movie.getOverView());
+                mRating.setText(movie.getVoteAverage());
+                mReleaseDate.setText(movie.getReleaseDate());
+
+                String url = movie.getPoster_path();
+                url = url.replace("w500", "w185");
+
+
+                imageViewLoaderPicasso(movie.getBackdrop_path(), screenWidth, (int) (screenWidth * 0.56111111111111), mBackDropImageView);
+                imageViewLoaderPicasso(url, 600, 900, mPoster);
+
+                ViewGroup.LayoutParams layoutParams = mBackDropImageView.getLayoutParams();
+                layoutParams.width = screenWidth;
+                layoutParams.height = (int) (screenWidth * 0.56111111111111);
+                mBackDropImageView.setLayoutParams(layoutParams);
+            } else {
+
+                Log.d("Check ", content);
+                tvShows = b.getParcelable("MovieDetails");
+
+                setUpImageButtons();
+
+                mTitle.setText(tvShows.getOriginal_name());
+                mDescription.setText(tvShows.getOverview());
+                mRating.setText(tvShows.getVoteAverage());
+                mReleaseDate.setText(tvShows.getFirst_air_date());
+
+                String url = tvShows.getPoster_path();
+                url = url.replace("w500", "w185");
+
+
+                imageViewLoaderPicasso(tvShows.getBackdrop_path(), screenWidth, (int) (screenWidth * 0.56111111111111), mBackDropImageView);
+                imageViewLoaderPicasso(url, 300, 450, mPoster);
+
+            }
 
         }
+
+
+
 
 
         ViewGroup.LayoutParams layoutParams = mBackDropImageView.getLayoutParams();
@@ -658,7 +711,7 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
                 e.printStackTrace();
             }
 
-            gridAdapter = new GridAdapter(getActivity(), mCastList, screenWidth);
+            gridAdapter = new GridAdapter(getActivity(), mCastList, screenWidth, false);
             mCastView.setExpanded(true);
             mCastView.setAdapter(gridAdapter);
             gridAdapter.notifyDataSetChanged();
@@ -934,6 +987,7 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
                 if(content == null ) {
                     db.addContact(movie);
                     toggleFavourite();
+
                     Toast.makeText(getActivity(),"Added "+ movie.getOriginal_title() + " to favourites.",Toast.LENGTH_SHORT ).show();
                 } else {
                     dbHandler.addContact(tvShows);
@@ -1035,6 +1089,37 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
         public static final String DEVELOPER_KEY = "AIzaSyCaKtZ7jQaMQi06WnyOqF_K6pZl92qy9Rs";
     }
 
+
+    static Bitmap decodeSampledBitmapFromBitmap(byte[] res, int reqWidth, int reqHeight) {
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeByteArray(res, 0, res.length, options);
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeByteArray(res, 0, res.length, options);
+    }
+
+
+    //Given the bitmap size and View size calculate a subsampling size (powers of 2)
+    static int calculateInSampleSize( BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        int inSampleSize = 1;	//Default subsampling size
+        // See if image raw height and width is bigger than that of required view
+        if (options.outHeight > reqHeight || options.outWidth > reqWidth) {
+            //bigger
+            final int halfHeight = options.outHeight / 2;
+            final int halfWidth = options.outWidth / 2;
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) > reqHeight
+                    && (halfWidth / inSampleSize) > reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+        return inSampleSize;
+    }
 
 
 

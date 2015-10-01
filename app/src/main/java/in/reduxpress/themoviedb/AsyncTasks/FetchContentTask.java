@@ -1,5 +1,7 @@
 package in.reduxpress.themoviedb.AsyncTasks;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -156,6 +158,12 @@ public class FetchContentTask extends AsyncTask<String,Void,Void> {
                     movie.setVoteAverage(movieObject.getString("vote_average"));
                     movie.setPoster_path("http://image.tmdb.org/t/p/w500//" + movieObject.getString("poster_path"));
                     movie.setBackdrop_path("http://image.tmdb.org/t/p/w780//" + movieObject.getString("backdrop_path"));
+
+                   /* Bitmap moviePosterBitmap = getBitmapFromURL(movie.getPoster_path());
+                    movie.setMoviePoster(moviePosterBitmap);
+                    Bitmap movieBackDropBitmap = getBitmapFromURL(movie.getBackdrop_path());
+                    movie.setMovieBackdrop(movieBackDropBitmap);*/
+
                     JSONArray genre = movieObject.getJSONArray("genre_ids");
                     ArrayList tempList = new ArrayList();
                     for (int j = 0; j < genre.length(); j++) {
@@ -213,5 +221,20 @@ public class FetchContentTask extends AsyncTask<String,Void,Void> {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static Bitmap getBitmapFromURL(String src) {
+        try {
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            return myBitmap;
+        } catch (IOException e) {
+            // Log exception
+            return null;
+        }
     }
 }

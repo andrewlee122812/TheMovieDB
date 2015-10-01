@@ -102,8 +102,8 @@ public class MainActivity extends com.blunderer.materialdesignlibrary.activities
                 .addItem("TV Shows", new TVShowsFragment())
                 .addItem("People", new PeopleFragment())
                 .addSection("Favourites")
-                .addItem("Movies", new FavouritesFragment())
-                .addItem("TV", new FavouritesFragment());
+                .addItem("Movies", new FavoriteMoviesFragment())
+                .addItem("TV", new FavoriteMoviesFragment());
 
 
     }

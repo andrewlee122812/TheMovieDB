@@ -7,6 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +39,8 @@ public class TVShowsDBHandler extends SQLiteOpenHelper{
     private static final String KEY_ORIGIN_COUNTRY = "origin_country";
     private static final String KEY_POSTER_PATH = "poster_path";
     private static final String KEY_BACKDROP_PATH = "backdrop_path";
+    private static final String KEY_CONTENT = "content";
+    private Context context;
 
     /* String original_name;
     String original_language;
@@ -64,8 +70,8 @@ public class TVShowsDBHandler extends SQLiteOpenHelper{
                 + KEY_VOTE_AVG + " TEXT,"
                 + KEY_RELEASE_DATE + " TEXT,"
                 + KEY_ORIGIN_COUNTRY + " TEXT,"
-                + KEY_POSTER_PATH + " TEXT,"
-                + KEY_BACKDROP_PATH + " TEXT"
+                + KEY_POSTER_PATH + " BLOB,"
+                + KEY_BACKDROP_PATH + " BLOB,"
                 + " )";
         Log.d("Database - -- - -", CREATE_CONTACTS_TABLE);
 
@@ -85,18 +91,6 @@ public class TVShowsDBHandler extends SQLiteOpenHelper{
     public void addContact(TvShows movie) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String CREATE_CONTACTS_TABLE = "CREATE TABLE "
-                + TABLE_TVSHOWS
-                + "("
-                + KEY_ID + " INTEGER PRIMARY KEY,"
-                + KEY_NAME + " TEXT,"
-                + KEY_DESC + " TEXT,"
-                + KEY_VOTE_AVG + " TEXT,"
-                + KEY_RELEASE_DATE + " TEXT,"
-                + KEY_ORIGIN_COUNTRY + " TEXT,"
-                + KEY_POSTER_PATH + " TEXT,"
-                + KEY_BACKDROP_PATH + " TEXT"
-                + ")";
 
         ContentValues values = new ContentValues();
         values.put(KEY_ID, movie.getId());
@@ -107,12 +101,23 @@ public class TVShowsDBHandler extends SQLiteOpenHelper{
         values.put(KEY_DESC, movie.getOverview());        //2
         values.put(KEY_VOTE_AVG, movie.getVoteAverage()); //3
         values.put(KEY_RELEASE_DATE, movie.getFirst_air_date());//4
-        values.put(KEY_ORIGIN_COUNTRY, movie.getOrigin_country());            //5
-        values.put(KEY_POSTER_PATH, movie.getPoster_path());//6
-        values.put(KEY_BACKDROP_PATH, movie.getBackdrop_path());//7//1
+        values.put(KEY_ORIGIN_COUNTRY, movie.getOrigin_country());
+        byte[] posterBlob = new byte[8092];
+        try {
+            posterBlob = FetchImagestask(movie.getPoster_path());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        values.put(KEY_POSTER_PATH, posterBlob);//6
+        byte[] backDropBlob = new byte[0];
+        try {
+            backDropBlob = FetchImagestask(movie.getBackdrop_path());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }//5
+        values.put(KEY_BACKDROP_PATH, backDropBlob);//7//1
 
         System.out.println(values.toString());
-        Log.d("Database - -- - -", CREATE_CONTACTS_TABLE);
 
 
         //INSERT INTO movies(id,backdrop_path,description,avg_votes,name,release_date,adult,poster_path)
@@ -163,8 +168,8 @@ public class TVShowsDBHandler extends SQLiteOpenHelper{
                 contact.setVoteAverage(cursor.getString(3));
                 contact.setFirst_air_date(cursor.getString(4));
                 contact.setOrigin_country(cursor.getString(5));
-                contact.setPoster_path(cursor.getString(6));
-                contact.setBackdrop_path(cursor.getString(7));
+                contact.setMoviePoster(cursor.getBlob(6));
+                contact.setMovieBackdrop(cursor.getBlob(7));
 
                 // Adding contact to list
                 contactList.add(contact);
@@ -193,9 +198,42 @@ public class TVShowsDBHandler extends SQLiteOpenHelper{
         db.close();
     }
 
+    public byte[]  FetchImagestask (String url1) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        URL url = new URL(url1);
+        InputStream is = null;
+        try {
+            is = url.openStream ();
+            byte[] byteChunk = new byte[8092]; // Or whatever size you want to read in at a time.
+            int n;
+
+            while ( (n = is.read(byteChunk)) > 0 ) {
+                baos.write(byteChunk, 0, n);
+            }
+        }
+        catch (IOException e) {
+            System.err.printf ("Failed while reading bytes from %s: %s", url.toExternalForm(), e.getMessage());
+            e.printStackTrace ();
+            // Perform any other exception handling that's appropriate.
+        }
+        finally {
+            if (is != null) {
+                Log.d("Recieved image",is.toString());
+                is.close();
+            }
+        }
+
+        return baos.toByteArray();
+
+    }
+
+
+
 
     public void drop() {
-
+        if(context!= null ){
+            context.deleteDatabase(DATABASE_NAME);
+        }
     }
 
 

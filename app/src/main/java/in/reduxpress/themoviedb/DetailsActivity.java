@@ -21,17 +21,14 @@ public class DetailsActivity extends YouTubeBaseActivity {
 
         Intent intent = getIntent();
         String content = intent.getStringExtra("Content");
+        Boolean fromDatabase = intent.getBooleanExtra("FromDatabase",false);
 
         Bundle b = new Bundle();
-        if(content == null) {
-            Log.d("Details", "Received Arraylist");
-            Movie movie = intent.getParcelableExtra("MovieDetails");
-            b.putParcelable("MovieDetails", movie);
+        if(fromDatabase) {
+            checkContent(intent, content, b,fromDatabase);
+
         } else {
-            Log.d("Tv show recived", "");
-            TvShows tvShows = intent.getParcelableExtra("MovieDetails");
-            b.putParcelable("MovieDetails",tvShows);
-            b.putString("Content",content);
+            checkContent(intent, content, b);
         }
 
         if (savedInstanceState == null) {
@@ -45,6 +42,35 @@ public class DetailsActivity extends YouTubeBaseActivity {
         }
 
     }
+
+    private void checkContent(Intent intent, String content, Bundle b) {
+        if(content == null) {
+            Log.d("Details", "Received Arraylist");
+            Movie movie = intent.getParcelableExtra("MovieDetails");
+            b.putParcelable("MovieDetails", movie);
+        } else {
+            Log.d("Tv show recived", "");
+            TvShows tvShows = intent.getParcelableExtra("MovieDetails");
+            b.putParcelable("MovieDetails",tvShows);
+            b.putString("Content", content);
+        }
+    }
+
+    private void checkContent(Intent intent, String content, Bundle b, Boolean fromDatabase) {
+        if(content == null) {
+            Log.d("Details", "Received Arraylist");
+            Movie movie = intent.getParcelableExtra("MovieDetails");
+            b.putParcelable("MovieDetails", movie);
+            b.putBoolean("FromDatabase",fromDatabase);
+
+        } else {
+            Log.d("Tv show recived", "");
+            TvShows tvShows = intent.getParcelableExtra("MovieDetails");
+            b.putParcelable("MovieDetails",tvShows);
+            b.putString("Content",content);
+        }
+    }
+
 
 
     @Override

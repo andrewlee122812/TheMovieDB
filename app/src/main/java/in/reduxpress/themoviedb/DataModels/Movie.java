@@ -19,8 +19,8 @@ public class Movie implements Parcelable {
     String releaseDate;
     String voteAverage;
     String movieID;
-    Bitmap movieBackdrop;
-    Bitmap moviePoster;
+    byte[] movieBackdrop;
+    byte[] moviePoster;
     ArrayList genre;
     String category;
 
@@ -56,19 +56,19 @@ public class Movie implements Parcelable {
         this.genre = genre;
     }
 
-    public Bitmap getMovieBackdrop() {
+    public byte[] getMovieBackdrop() {
         return movieBackdrop;
     }
 
-    public void setMovieBackdrop(Bitmap movieBackdrop) {
+    public void setMovieBackdrop(byte[] movieBackdrop) {
         this.movieBackdrop = movieBackdrop;
     }
 
-    public Bitmap getMoviePoster() {
+    public byte[] getMoviePoster() {
         return moviePoster;
     }
 
-    public void setMoviePoster(Bitmap moviePoster) {
+    public void setMoviePoster(byte[] moviePoster) {
         this.moviePoster = moviePoster;
     }
 
@@ -149,8 +149,8 @@ public class Movie implements Parcelable {
         releaseDate = in.readString();
         voteAverage = in.readString();
         movieID = in.readString();
-        movieBackdrop = (Bitmap) in.readValue(Bitmap.class.getClassLoader());
-        moviePoster = (Bitmap) in.readValue(Bitmap.class.getClassLoader());
+        movieBackdrop = (byte[]) in.readValue(Bitmap.class.getClassLoader());
+        moviePoster = (byte[]) in.readValue(Bitmap.class.getClassLoader());
         if (in.readByte() == 0x01) {
             genre = new ArrayList<>();
             in.readList(genre, Genre.class.getClassLoader());

@@ -350,6 +350,9 @@ public  class MovieGridFragment extends Fragment implements AsyncResponse{
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
+        Toast.makeText(getActivity(),"Activity Attached",Toast.LENGTH_SHORT).show();
+
+
     }
 
     public int getScreenDimen() {
@@ -376,6 +379,8 @@ public  class MovieGridFragment extends Fragment implements AsyncResponse{
     public void onPause()
     {
         super.onPause();
+        Toast.makeText(getActivity(),"Paused View",Toast.LENGTH_SHORT).show();
+
         scrollX = mMainScrollView.getScrollX();
         scrollY = mMainScrollView.getScrollY();
     }
@@ -386,6 +391,7 @@ public  class MovieGridFragment extends Fragment implements AsyncResponse{
         Log.d("X:" + scrollX + " Y:" + scrollY, "");
         super.onResume();
 
+        Toast.makeText(getActivity(),"Resumed View",Toast.LENGTH_SHORT).show();
 
 
         mMainScrollView.post(new Runnable()
@@ -401,6 +407,8 @@ public  class MovieGridFragment extends Fragment implements AsyncResponse{
 
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        Toast.makeText(getActivity(),"Saved View",Toast.LENGTH_SHORT).show();
+
         outState.putIntArray("SCROLL_POSITION",
                 new int[]{mMainScrollView.getScrollX(), mMainScrollView.getScrollY()});
         outState.putInt("SCROLL_POSITION_HL1", mHorizontalListView.getLastVisiblePosition());
@@ -435,6 +443,8 @@ public  class MovieGridFragment extends Fragment implements AsyncResponse{
             popularmovieList = savedInstanceState.getParcelableArrayList(POPULAR_LIST);
             latestMovieList = savedInstanceState.getParcelableArrayList(LATEST);
             topRatedMovieList = savedInstanceState.getParcelableArrayList(TOP_RATED);
+
+            Toast.makeText(getActivity(),"Restored View",Toast.LENGTH_SHORT).show();
 
             for(Movie movie : popularmovieList) {
                 Log.d(movie.getMovieID(), movie.getOriginal_title());
