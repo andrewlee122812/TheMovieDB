@@ -61,7 +61,7 @@ public class DetailsActivity extends YouTubeBaseActivity {
             Log.d("Details", "Received Arraylist");
             Movie movie = intent.getParcelableExtra("MovieDetails");
             b.putParcelable("MovieDetails", movie);
-            b.putBoolean("FromDatabase",fromDatabase);
+            b.putBoolean("FromDatabase", fromDatabase);
 
         } else {
             Log.d("Tv show recived", "");
@@ -94,4 +94,6 @@ public class DetailsActivity extends YouTubeBaseActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

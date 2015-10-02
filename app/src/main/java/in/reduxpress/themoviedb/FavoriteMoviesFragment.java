@@ -77,7 +77,7 @@ public class FavoriteMoviesFragment extends Fragment implements AdapterView.OnIt
                 Intent intent = new Intent(getActivity().getApplicationContext(),DetailsActivity.class);
                 intent.putExtra("MovieDetails",movieList.get(position));
                 intent.putExtra("FromDatabase", true);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -86,6 +86,50 @@ public class FavoriteMoviesFragment extends Fragment implements AdapterView.OnIt
 
 
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
+        movieList = dbHandler.getAllContacts();
+
+        for(Movie movie : movieList) {
+
+            if(movie.getMovieBackdrop() !=  null) {
+                Log.d("Movie backdrop", movie.getMovieBackdrop().toString());
+            } else {
+                Log.d("Movie backdrop", "null");
+            }
+
+            if(movie.getMoviePoster() !=  null) {
+                Log.d("Movie poster", movie.getMoviePoster().toString());
+            } else {
+                Log.d("Movie backdrop", "null");
+            }
+        }
+
+
+        mAdapter = new GridAdapter(getActivity(),movieList,getScreenDimen());
+
+        mFavoritesGridView.setAdapter(mAdapter);
+        mFavoritesGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity(), movieList.get(position).getOriginal_title() + "", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity().getApplicationContext(), DetailsActivity.class);
+                intent.putExtra("MovieDetails", movieList.get(position));
+                intent.putExtra("FromDatabase", true);
+                startActivityForResult(intent, 1);
+            }
+        });
+
+
+
+
+
+
     }
 
     public int getScreenDimen() {

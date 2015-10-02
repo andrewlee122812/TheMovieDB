@@ -423,7 +423,7 @@ public  class MovieGridFragment extends Fragment implements AsyncResponse{
         if(savedInstanceState != null) {
             final int[] position = savedInstanceState.getIntArray("SCROLL_POSITION");
             final int hl1position = savedInstanceState.getInt("SCROLL_POSITION_HL1");
-            if (position != null )
+            if (position != null && mMainScrollView != null)
                 mMainScrollView.post(new Runnable() {
                     public void run() {
                         mMainScrollView.scrollTo(position[0], position[1]);

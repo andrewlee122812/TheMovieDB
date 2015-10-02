@@ -169,6 +169,7 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
         FromDatabase = b.getBoolean("FromDatabase");
 
 
+
         if(FromDatabase) {
             if(content == null ) {
                 movie = b.getParcelable("MovieDetails");
@@ -182,8 +183,7 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
                 mRating.setText(movie.getVoteAverage());
                 mReleaseDate.setText(movie.getReleaseDate());
 
-
-                mBackDropImageView.setImageBitmap(decodeSampledBitmapFromBitmap(movie.getMoviePoster(),screenWidth,(int) (screenWidth * 0.56111111111111)));
+                mBackDropImageView.setImageBitmap(decodeSampledBitmapFromBitmap(movie.getMoviePoster(), screenWidth, (int) (screenWidth * 0.56111111111111)));
                 mPoster.setImageBitmap(decodeSampledBitmapFromBitmap(movie.getMovieBackdrop(),600,900));
 
                 ViewGroup.LayoutParams layoutParams = mBackDropImageView.getLayoutParams();
@@ -1121,6 +1121,9 @@ public class DetailsActivityFragment extends Fragment implements View.OnClickLis
         return inSampleSize;
     }
 
+    public void onBackPressed() {
 
+        Toast.makeText(getActivity(),"Back pressed", Toast.LENGTH_SHORT).show();
+    }
 
 }
